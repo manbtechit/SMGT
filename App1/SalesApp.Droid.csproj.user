@@ -3,6 +3,6 @@
   <PropertyGroup>
     <SelectedDevice>Zebra Technologies TC51</SelectedDevice>
     <DefaultDevice>pixel_-_nougat_7_1</DefaultDevice>
-    <ProjectView>ShowAllFiles</ProjectView>
+    <ProjectView>ProjectFiles</ProjectView>
   </PropertyGroup>
 </Project>

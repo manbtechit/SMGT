@@ -58,6 +58,8 @@ namespace SalesApp.Pages
             ListProductItem.IsRefreshing = IsBusy;
             POItemList.Clear();
 
+            ChangeLayout(true);
+
             LoadList();
 
             LoadPicker();
@@ -68,6 +70,31 @@ namespace SalesApp.Pages
 
             var _List = SessionData._OfflineDB.GetData<PurchaseOrder>();
             var _List1 = SessionData._OfflineDB.GetData<PurchaseOrder_Product>();
+        }
+
+        void ChangeLayout(bool _Value)
+        {
+            ListContent.IsVisible = _Value;
+            FormContent.IsVisible = !_Value;
+
+            if (_Value)
+            {
+                ToolbarItems.Add(new ToolbarItem("Add", "Add.png", () =>
+                {
+                    _EditItem = null;
+                    ClearValues();
+                    ChangeLayout(false);
+                }));
+            }
+            else
+            {
+                ToolbarItems.Clear();
+            }
+        }
+
+        void ClearValues()
+        {
+
         }
 
         void LoadPicker()

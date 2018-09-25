@@ -11,7 +11,7 @@
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
-                                    <Frame OutlineColor="#000000" Padding="5" Margin="5">
+                                    <Frame OutlineColor="#00456E" Padding="5" Margin="5">
                                         <Grid>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="20">

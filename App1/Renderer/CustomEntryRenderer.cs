@@ -28,7 +28,7 @@ namespace SalesApp.Droid.Renderer
             {
                 var nativeEditText = (global::Android.Widget.EditText)Control;
                 var shape = new ShapeDrawable(new Android.Graphics.Drawables.Shapes.RectShape());
-                shape.Paint.Color = Xamarin.Forms.Color.Red.ToAndroid();
+                shape.Paint.Color = Xamarin.Forms.Color.FromHex("#c2c2c2").ToAndroid();
                 shape.Paint.SetStyle(Paint.Style.Stroke);
                 nativeEditText.Background = shape;
                 nativeEditText.SetHeight(75);
@@ -52,7 +52,7 @@ namespace SalesApp.Droid.Renderer
             {
                 var nativeEditText = (global::Android.Widget.EditText)Control;
                 var shape = new ShapeDrawable(new Android.Graphics.Drawables.Shapes.RectShape());
-                shape.Paint.Color = Xamarin.Forms.Color.Red.ToAndroid();
+                shape.Paint.Color = Xamarin.Forms.Color.FromHex("#c2c2c2").ToAndroid();
                 shape.Paint.SetStyle(Paint.Style.Stroke);
                 nativeEditText.Background = shape;
                 nativeEditText.SetHeight(150);

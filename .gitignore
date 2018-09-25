@@ -35,3 +35,5 @@
 # format (NuGet v4 and .NET Core).
 project.lock.json
 project.assets.json
+/.vs/App1
+/.vs/App1

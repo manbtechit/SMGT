@@ -22,18 +22,18 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <BoxView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" BackgroundColor="#00456E" HeightRequest="1" HorizontalOptions="FillAndExpand"></BoxView>
-                    <Image Grid.Row="1" Grid.Column="0" Source="icon_Stocks.png" HorizontalOptions="CenterAndExpand" HeightRequest="25" WidthRequest="25"></Image>
-                    <Label Grid.Row="2" Grid.Column="0" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" Text="Stock" FontSize="13" TextColor="#00456E"/>
+                    <Image x:Name="ImageStock" Grid.Row="1" Grid.Column="0" Source="icon_Stocks.png" HorizontalOptions="CenterAndExpand" HeightRequest="25" WidthRequest="25"></Image>
+                    <Label x:Name="LabelStock" Grid.Row="2" Grid.Column="0" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" Text="Stock" FontSize="13" TextColor="#00456E"/>
 
-                    <Image Grid.Row="1" Grid.Column="1" Source="icon_Purchase.png" HorizontalOptions="CenterAndExpand" HeightRequest="25" WidthRequest="25"></Image>
-                    <Label Grid.Row="2" Grid.Column="1" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" Text="Purchase" FontSize="13" TextColor="#00456E"/>
+                    <Image x:Name="ImagePurchase" Grid.Row="1" Grid.Column="1" Source="icon_Purchase.png" HorizontalOptions="CenterAndExpand" HeightRequest="25" WidthRequest="25"></Image>
+                    <Label x:Name="LabelPurhase" Grid.Row="2" Grid.Column="1" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" Text="Purchase" FontSize="13" TextColor="#00456E"/>
 
-                    <Image Grid.Row="1" Grid.Column="2" Source="icon_Receipt.png" HorizontalOptions="CenterAndExpand" HeightRequest="25" WidthRequest="25"></Image>
-                    <Label Grid.Row="2" Grid.Column="2" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" Text="Receipt" FontSize="13" TextColor="#00456E"/>
+                    <Image x:Name="ImageReceipt" Grid.Row="1" Grid.Column="2" Source="icon_Receipt.png" HorizontalOptions="CenterAndExpand" HeightRequest="25" WidthRequest="25"></Image>
+                    <Label x:Name="LabelReceipt" Grid.Row="2" Grid.Column="2" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" Text="Receipt" FontSize="13" TextColor="#00456E"/>
 
-                    <Image Grid.Row="1" Grid.Column="3" Source="icon_Sales.png" HorizontalOptions="CenterAndExpand" HeightRequest="25" WidthRequest="25"></Image>
-                    <Label Grid.Row="2" Grid.Column="3" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" Text="Sales" FontSize="13" TextColor="#00456E"/>
-                    
+                    <Image x:Name="ImageSale" Grid.Row="1" Grid.Column="3" Source="icon_Sales.png" HorizontalOptions="CenterAndExpand" HeightRequest="25" WidthRequest="25"></Image>
+                    <Label x:Name="LabelSale" Grid.Row="2" Grid.Column="3" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" Text="Sales" FontSize="13" TextColor="#00456E"/>
+
                 </Grid>
             </StackLayout>
         </StackLayout>

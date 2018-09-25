@@ -48,7 +48,7 @@ namespace SalesApp.Droid.Renderer
         public LayerDrawable AddPickerStyles(string imagePath)
         {
             ShapeDrawable border = new ShapeDrawable();
-            border.Paint.Color = Android.Graphics.Color.Red;
+            border.Paint.Color = Xamarin.Forms.Color.FromHex("#c2c2c2").ToAndroid();
             border.SetPadding(10, 10, 10, 10);
             border.Paint.SetStyle(Paint.Style.Stroke);
            

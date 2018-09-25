@@ -35,7 +35,7 @@
                         </ListView.ItemTemplate>
                         <ListView.HeaderTemplate>
                             <DataTemplate>
-                                <ContentView BackgroundColor="#666363">
+                                <ContentView BackgroundColor="#4AAECF">
                                     <Grid Padding="5">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto">
