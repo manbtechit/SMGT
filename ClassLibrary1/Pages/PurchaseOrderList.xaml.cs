@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using System.Linq;
 
 namespace SalesApp.Pages
 {
@@ -70,9 +71,43 @@ namespace SalesApp.Pages
 
             var _List = SessionData._OfflineDB.GetData<PurchaseOrder>();
             var _List1 = SessionData._OfflineDB.GetData<PurchaseOrder_Product>();
+
+            EntryDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
+
+            EntrySubtotal.IsEnabled = false;
+            EntryCGST.IsEnabled = false;
+            EntrySGST.IsEnabled = false;
+            EntryTotal.IsEnabled = false;
+
+            ListProduct.ItemSelected += (sender, args) =>
+            {
+                if (args.SelectedItem == null)
+                    return;
+
+                var _Item = (PurchaseOrder)args.SelectedItem;
+                ((ListView)sender).SelectedItem = null;
+
+                _EditItem = _Item;
+                AssignValues(_Item);
+                ChangeLayout(false);
+            };
         }
 
-        void ChangeLayout(bool _Value)
+        void AssignValues(PurchaseOrder _Item)
+        {
+            EntryOrderNumber.Text = _Item.OrderNumber;
+            EntryDate.Text = _Item.OrderDate;
+            PickerSupplier.SelectedItem = _Item.Supplier;
+            PickerProduct.SelectedIndex = 0;
+            EntryQuantity.Text = "";
+
+            EntrySubtotal.Text = _Item.SubTotal.ToString();
+            EntryCGST.Text = _Item.CGST.ToString();
+            EntrySGST.Text = _Item.SGST.ToString();
+            EntryTotal.Text = _Item.Total.ToString();
+        }
+
+            void ChangeLayout(bool _Value)
         {
             ListContent.IsVisible = _Value;
             FormContent.IsVisible = !_Value;
@@ -94,7 +129,15 @@ namespace SalesApp.Pages
 
         void ClearValues()
         {
-
+            EntryOrderNumber.Text = "";
+            EntryDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
+            PickerSupplier.SelectedIndex = 0;
+            PickerProduct.SelectedIndex = 0;
+            EntryQuantity.Text = "";
+            EntrySubtotal.Text = "";
+            EntryCGST.Text = "";
+            EntrySGST.Text = "";
+            EntryTotal.Text = "";
         }
 
         void LoadPicker()
@@ -112,6 +155,20 @@ namespace SalesApp.Pages
             PickerSupplier.ItemsSource = _SupplierItem;
             PickerSupplier.TextColor = Color.FromHex("#000000");
             PickerSupplier.SelectedIndex = 0;
+
+            List<string> _ProductItem = new List<string>();
+            var _ProdData = _stockLogic.GetAllStockItems();
+            _ProductItem.Add("Select Product");
+            foreach (var _cat in _ProdData)
+            {
+                _ProductItem.Add(_cat.ProductName);
+            }
+
+            PickerProduct.Items.Clear();
+            PickerProduct.Title = "Select Product";
+            PickerProduct.ItemsSource = _ProductItem;
+            PickerProduct.TextColor = Color.FromHex("#000000");
+            PickerProduct.SelectedIndex = 0;
         }
 
         void LoadList()
@@ -130,20 +187,45 @@ namespace SalesApp.Pages
 
         private void ButtonAdd_Clicked(object sender, EventArgs e)
         {
-            if(EntryProductName.Text.Trim()!="")
+            if(PickerProduct.SelectedIndex!=0)
             {
                 if(EntryQuantity.Text.Trim()!="")
                 {
-                    PurchaseOrder_Product _Product = new PurchaseOrder_Product()
+                    var _PItem = _POLogic.GetStockItems(PickerProduct.SelectedItem.ToString());
+                    if (_PItem != null)
                     {
-                        ProductID = EntryProductName.Text,
-                        Quantity = int.Parse(EntryQuantity.Text)
-                    };
+                        PurchaseOrder_Product _Product = new PurchaseOrder_Product()
+                        {
+                            ProductID = _PItem.FirstOrDefault().UniqueID,
+                            ProductName = PickerProduct.SelectedItem.ToString(),
+                            Quantity = int.Parse(EntryQuantity.Text),
+                            PurchasePrice = _PItem.FirstOrDefault().PurchasePrice
+                        };
 
-                    POItemList.Add(_Product);
+                        POItemList.Add(_Product);
 
-                    ListProductItem.ItemsSource = POItemList;
-                    
+                        ListProductItem.ItemsSource = POItemList;
+
+                        double subtotal = 0;
+                        foreach (var _prod in POItemList)
+                        {
+                            subtotal = subtotal + (_prod.Quantity * _prod.PurchasePrice);
+                        }
+                        
+                        EntrySubtotal.Text = subtotal.ToString();
+
+                        double CGST = (subtotal * SessionData.CGST) / 100;
+                        double SGST = (subtotal * SessionData.SGST) / 100;
+
+                        EntryCGST.Text = CGST.ToString();
+                        EntrySGST.Text = SGST.ToString();
+
+                        double Total = subtotal + CGST + SGST;
+                        EntryTotal.Text = Total.ToString();
+
+                        PickerProduct.SelectedIndex = 0;
+                        EntryQuantity.Text = "";
+                    }
                 }
             }
         }
@@ -164,7 +246,6 @@ namespace SalesApp.Pages
                         SubTotal = double.Parse(EntrySubtotal.Text),
                         SGST = double.Parse(EntrySGST.Text),
                         CGST = double.Parse(EntryCGST.Text),
-                        Discount = double.Parse(EntryDiscount.Text),
                         Total = double.Parse(EntryTotal.Text)
                     };
 
@@ -173,24 +254,26 @@ namespace SalesApp.Pages
                         _POLogic.InsertPurchaseOrderItems(POItemList);
                         _POLogic.InsertPurchaseOrder(_Item);
 
-                      //  ClearValues();
+                       ClearValues();
 
                         await DisplayAlert("Success", "Purchase Order added successfully", "Ok");
-                        //LoadList();
-                        //ChangeLayout(true);
+                        LoadList();
+                        ChangeLayout(true);
                     }
                     else
                     {
-                        //_StockItem.UniqueID = _EditItem.UniqueID;
+                        _Item.UniqueID = _EditItem.UniqueID;
 
-                        //_stockLogic.UpdateStockItem(_StockItem);
+                        _POLogic.UpdateStockItem(_Item);
+                        _POLogic.DeletePurchaseOrderItems(_Item.OrderNumber);
+                        _POLogic.InsertPurchaseOrderItems(POItemList);
 
-                        //ClearValues();
+                        ClearValues();
 
-                        //await DisplayAlert("Success", "Stock updated successfully", "Ok");
-                        //LoadList();
+                        await DisplayAlert("Success", "Stock updated successfully", "Ok");
+                        LoadList();
 
-                        //ChangeLayout(true);
+                        ChangeLayout(true);
                     }
                 }
                 else
@@ -204,7 +287,7 @@ namespace SalesApp.Pages
 
         private async void ButtonCancel_Clicked(object sender, EventArgs e)
         {
-           // ChangeLayout(true);
+           ChangeLayout(true);
         }
 
         string Validation()

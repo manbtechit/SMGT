@@ -12,6 +12,8 @@ namespace SalesApp.Pages
 		{
 			InitializeComponent ();
 
+            NavigationPage.SetHasNavigationBar(this, false);
+
             LoginStack.BackgroundColor = Utilities.ThemeColor;
             LoginButton.TextColor = Utilities.ThemeColor;
             LoginButton.Clicked += LoginButton_Clicked;

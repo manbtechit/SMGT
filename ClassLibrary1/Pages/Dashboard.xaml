@@ -5,7 +5,7 @@
     <ContentPage.Content>
         <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#FFFFFF">
             <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#FFFFFF">
-                <Image Source="s.jpg" HeightRequest="300" WidthRequest="150"></Image>
+                <Image x:Name="ImageTop" Source="s.jpg" HeightRequest="300" WidthRequest="150"></Image>
             </StackLayout>
             <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="End" HeightRequest="56">
                 <Grid>

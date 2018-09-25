@@ -34,6 +34,12 @@ namespace SalesApp.Pages
             ListView.ItemSelected += OnSelectedItem;
 
             LalbelTitle.Text = "Welcome : Manoj Kumar";
+
+            var LogouttapRecognizer = new TapGestureRecognizer();
+            LogouttapRecognizer.Tapped += (sender, eventergs) => {
+                Utilities.PushModalAsync(Navigation, new Login());
+            };
+            LalbelLogout.GestureRecognizers.Add(LogouttapRecognizer);
         }
 
         void OnSelectedItem(object sender, SelectedItemChangedEventArgs e)

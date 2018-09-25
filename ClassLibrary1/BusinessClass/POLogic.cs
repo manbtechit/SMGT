@@ -28,6 +28,24 @@ namespace SalesApp.BusinessClass
             return null;
         }
 
+        public List<Stocks> GetStockItems(string SearchText)
+        {
+            try
+            {
+                string _Query = "Select * from Stocks where ProductName = '" + SearchText + "'";
+
+                var _result = SessionData.SQLDataConnection.Query<Stocks>(_Query);
+
+                return _result;
+            }
+            catch (SQLiteException SQLex)
+            {
+            }
+            catch (Exception Ex)
+            {
+            }
+            return null;
+        }
         public void InsertPurchaseOrder(PurchaseOrder _Item)
         {
             try

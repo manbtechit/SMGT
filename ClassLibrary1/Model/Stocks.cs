@@ -54,7 +54,9 @@ namespace SalesApp.Model
         [PrimaryKey, AutoIncrement]
         public int UniqueID { get; set; }
         public string OrderNumber { get; set; }
-        public string ProductID { get; set; }
+        public int ProductID { get; set; }
+        public string ProductName { get; set; }
         public int Quantity { get; set; }
+        public double PurchasePrice { get; set; }
     }
 }

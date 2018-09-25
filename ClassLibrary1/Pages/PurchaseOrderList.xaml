@@ -6,12 +6,12 @@
             <StackLayout x:Name="ListContent" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="#FFFFFF" IsVisible="True">
                 <Entry x:Name="EntrySearch" BackgroundColor="#e2e2e2" Placeholder="Search" PlaceholderColor="#a0a0a0" TextColor="#a0a0a0" HeightRequest="40" MinimumHeightRequest="40">
                 </Entry>
-                <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" TranslationY="-20" BackgroundColor="White">
-                    <ListView x:Name="ListProduct" CachingStrategy="RecycleElement"  HasUnevenRows="true" Header="Test" VerticalOptions="FillAndExpand" SeparatorVisibility="None" IsGroupingEnabled="false">
+                <StackLayout VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="White">
+                    <ListView x:Name="ListProduct" CachingStrategy="RecycleElement"  HasUnevenRows="true" VerticalOptions="FillAndExpand" SeparatorVisibility="None" IsGroupingEnabled="false">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
-                                    <Frame OutlineColor="#00456E" Padding="5" Margin="5">
+                                    <Frame OutlineColor="#00456E" CornerRadius="10" Padding="5" Margin="5">
                                         <Grid>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="20">
@@ -78,12 +78,14 @@
                                            HeightRequest="40" Image="ic_arrow_drop_down"></controls:CustomPicker>
 
                         <Label x:Name="LblProductName" Text="ProductName" Grid.Row="2" Grid.Column="0" TextColor="#000000" />
-                        <controls:FormEntry x:Name="EntryProductName" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Placeholder="Quantity" PlaceholderColor="#bddef9" HorizontalOptions="FillAndExpand" FontSize="13" TextColor="#000000"/>
-
+                        <!--<controls:FormEntry x:Name="EntryProductName" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Placeholder="Quantity" PlaceholderColor="#bddef9" HorizontalOptions="FillAndExpand" FontSize="13" TextColor="#000000"/>-->
+                        <controls:CustomPicker x:Name="PickerProduct" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" HorizontalOptions="FillAndExpand"
+                                           HeightRequest="40" Image="ic_arrow_drop_down"></controls:CustomPicker>
+                        
                         <Label x:Name="LblQuantity" Text="Quantity" Grid.Row="3" Grid.Column="0"   TextColor="#000000" />
                         <controls:FormEntry x:Name="EntryQuantity" Grid.Row="3" Grid.Column="1" Placeholder="Quantity" PlaceholderColor="#bddef9" Keyboard="Numeric" HorizontalOptions="Start"  FontSize="13" TextColor="#000000" WidthRequest="75"/>
 
-                        <Button x:Name="ButtonAdd" Text="ADD" Grid.Row="3" Grid.Column="3" HeightRequest="40" WidthRequest="70" BackgroundColor="#666363" TextColor="#FFFFFF" HorizontalOptions="CenterAndExpand" />
+                        <controls:CustomButton x:Name="ButtonAdd" Text="ADD" Grid.Row="3" Grid.Column="3" HeightRequest="40" WidthRequest="70" BackgroundColor="#4AAECF" TextColor="#FFFFFF" HorizontalOptions="CenterAndExpand" />
                         <ListView x:Name="ListProductItem" CachingStrategy="RecycleElement"  HasUnevenRows="true" Header="Test" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" VerticalOptions="FillAndExpand" SeparatorVisibility="None" IsGroupingEnabled="false">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
@@ -101,7 +103,7 @@
                                                 <ColumnDefinition Width="50">
                                                 </ColumnDefinition>
                                             </Grid.ColumnDefinitions>
-                                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding ProductID}" VerticalOptions="StartAndExpand" FontSize="13" TextColor="#5e5d5d">
+                                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding ProductName}" VerticalOptions="StartAndExpand" FontSize="13" TextColor="#5e5d5d">
                                             </Label>
                                             <Label Grid.Row="0" Grid.Column="1" Text="{Binding Quantity}" VerticalOptions="StartAndExpand" FontSize="13" TextColor="#5e5d5d">
                                             </Label>
@@ -113,7 +115,7 @@
                             </ListView.ItemTemplate>
                             <ListView.HeaderTemplate>
                                 <DataTemplate>
-                                    <ContentView BackgroundColor="#666363">
+                                    <ContentView BackgroundColor="#4AAECF">
                                         <Grid Padding="5">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto">
@@ -134,20 +136,17 @@
                                 </DataTemplate>
                             </ListView.HeaderTemplate>
                         </ListView>
-                        <Label x:Name="LblSubtotal" Text="Sub Total" Grid.Row="5" Grid.Column="0"   TextColor="#000000" />
-                        <controls:FormEntry x:Name="EntrySubtotal" Grid.Row="5" Grid.Column="1" Placeholder="Price" PlaceholderColor="#bddef9" Keyboard="Numeric" HorizontalOptions="Start"  FontSize="13" TextColor="#000000" WidthRequest="75"/>
-
-                        <Label x:Name="LblDiscount" Text="Discount" Grid.Row="5" Grid.Column="2"   TextColor="#000000" />
-                        <controls:FormEntry x:Name="EntryDiscount" Grid.Row="5" Grid.Column="3" Placeholder="Quantity" PlaceholderColor="#bddef9" Keyboard="Numeric" HorizontalOptions="Start"  FontSize="13" TextColor="#000000" WidthRequest="75"/>
+                        <Label x:Name="LblSubtotal" Text="Sub Total" Grid.Row="5" Grid.Column="2"   TextColor="#000000" />
+                        <controls:FormEntry x:Name="EntrySubtotal" Grid.Row="5" Grid.Column="3" Placeholder="0" BackgroundColor="#999999" Keyboard="Numeric" HorizontalOptions="Start"  FontSize="13" WidthRequest="75" HorizontalTextAlignment="End"/>
 
                         <Label x:Name="LblCGST" Text="CGST" Grid.Row="6" Grid.Column="0"   TextColor="#000000" />
-                        <controls:FormEntry x:Name="EntryCGST" Grid.Row="6" Grid.Column="1" Placeholder="Price" PlaceholderColor="#bddef9" Keyboard="Numeric" HorizontalOptions="Start"  FontSize="13" TextColor="#000000" WidthRequest="75"/>
+                        <controls:FormEntry x:Name="EntryCGST" Grid.Row="6" Grid.Column="1" Placeholder="0" BackgroundColor="#999999" Keyboard="Numeric" HorizontalOptions="Start"  FontSize="13" WidthRequest="75" HorizontalTextAlignment="End"/>
 
                         <Label x:Name="LblSGST" Text="SGST" Grid.Row="6" Grid.Column="2"   TextColor="#000000" />
-                        <controls:FormEntry x:Name="EntrySGST" Grid.Row="6" Grid.Column="3" Placeholder="Price" PlaceholderColor="#bddef9" Keyboard="Numeric" HorizontalOptions="Start"  FontSize="13" TextColor="#000000" WidthRequest="75"/>
+                        <controls:FormEntry x:Name="EntrySGST" Grid.Row="6" Grid.Column="3" Placeholder="0" BackgroundColor="#999999" Keyboard="Numeric" HorizontalOptions="Start"  FontSize="13" WidthRequest="75" HorizontalTextAlignment="End"/>
 
                         <Label x:Name="LblTotal" Text="Total" Grid.Row="7" Grid.Column="2"   TextColor="#000000" />
-                        <controls:FormEntry x:Name="EntryTotal" Grid.Row="7" Grid.Column="3" Placeholder="Barcode" PlaceholderColor="#bddef9"  FontSize="13" TextColor="#000000"/>
+                        <controls:FormEntry x:Name="EntryTotal" Grid.Row="7" Grid.Column="3" Placeholder="0" BackgroundColor="#999999" FontSize="13" HorizontalTextAlignment="End" />
 
                     </Grid>
                 </StackLayout>

@@ -7,20 +7,21 @@
         <ListView x:Name="MenuItemsListView"
               SeparatorVisibility="None"
               HasUnevenRows="true"
-              ItemsSource="{Binding MenuItems}" WidthRequest="100">
+              ItemsSource="{Binding MenuItems}" WidthRequest="75">
             <ListView.Header>
                 <Grid x:Name="GridListView">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="10"/>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="30"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="20"/>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="30"/>
                     </Grid.RowDefinitions>
-                    <Label x:Name="LalbelTitle" Grid.Column="1" Grid.Row="1" />
+                    <Label x:Name="LalbelTitle" Grid.Column="1" Grid.Row="1" FontSize="15" FontAttributes="Bold" />
+                    <Label x:Name="LalbelLogout" HorizontalOptions="End" Text="Logout" Margin="5" Grid.Column="0"  Grid.Row="2" Grid.ColumnSpan="3" />
                 </Grid>
             </ListView.Header>
             <ListView.ItemTemplate>

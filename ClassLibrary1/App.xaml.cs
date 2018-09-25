@@ -17,7 +17,7 @@ namespace SalesApp
             SessionData._OfflineDB = new OfflineDB();
             SessionData.SQLDataConnection = DependencyService.Get<ISQLite>().GetOfflineConnection();
 
-            MainPage = new Pages.MenuMaster();
+            MainPage = new Pages.HomePage();
         }
 
 		protected override void OnStart ()

@@ -10,5 +10,8 @@ namespace SalesApp
     {
         public static OfflineDB _OfflineDB;
         public static SQLiteConnection SQLDataConnection;
+
+        public static double CGST = 2;
+        public static double SGST = 2;
     }
 }
