@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SalesApp.Pages.Login">
+    <ContentPage.Content>
+        <StackLayout x:Name="LoginStack" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Spacing="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="200" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackLayout x:Name="CenterBody" Grid.Row="0" Grid.Column="0" VerticalOptions="FillAndExpand" HorizontalOptions="CenterAndExpand">
+                    <Image Source="LogoWhiteBG.png" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" HeightRequest="100" WidthRequest="100">
+                    </Image>
+                </StackLayout>
+                <Label x:Name="UserNameLabel" Text="USERNAME" Margin="20, 0, 0, 0" FontSize="10" Grid.Row="1" Grid.Column="0" TextColor="#FFFFFF"  HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"></Label>
+                <Entry x:Name="UserNameEntry" Margin="20, 0, 0, 0" FontSize="11" Grid.Row="2" Grid.Column="0" HeightRequest="40" WidthRequest="325" TextColor="#FFFFFF" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"></Entry>
+                <Label x:Name="PasswordLabel" Margin="20, 0, 0, 0" FontSize="10" Text="PASSWORD" Grid.Row="3" Grid.Column="0" TextColor="#FFFFFF"  HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"></Label>
+                <Entry x:Name="PasswordEntry" Margin="20, 0, 0, 0" FontSize="11" Grid.Row="4" Grid.Column="0" HeightRequest="40" WidthRequest="325" TextColor="#FFFFFF" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"></Entry>
+                <Button x:Name="LoginButton" Text="Login" BackgroundColor="#FFFFFF" Grid.Row="5" Grid.Column="0" HeightRequest="50"  WidthRequest="300" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Button>
+                <Grid Grid.Row="6" Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="SiginLabel" Text="Sign In" FontSize="11" Grid.Row="0" Grid.Column="0" TextColor="#00456E"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Label>
+                    <Label x:Name="ForgotLabel" Text="Forgot Password?" FontSize="11" Grid.Row="0" Grid.Column="1" TextColor="#00456E"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Label>
+                </Grid>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
