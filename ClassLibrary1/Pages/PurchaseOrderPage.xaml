@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SalesApp.Pages.PurchaseOrderList" xmlns:controls="clr-namespace:SalesApp.Controls;assembly=SalesApp">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SalesApp.PurchaseOrderPage" xmlns:controls="clr-namespace:SalesApp;assembly=SalesApp">
     <ContentPage.Content>
         <StackLayout>
             <StackLayout x:Name="ListContent" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="#FFFFFF" IsVisible="True">
@@ -69,9 +70,9 @@
                             </ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Label x:Name="LblOrderNumber" Text="Order Number" Grid.Row="0" Grid.Column="0" TextColor="#000000" />
-                        <controls:FormEntry x:Name="EntryOrderNumber" Grid.Row="0" Grid.Column="1" Placeholder="Name" PlaceholderColor="#bddef9" FontSize="13" TextColor="#000000" Keyboard="Numeric" HorizontalOptions="Start" WidthRequest="75" />
+                        <controls:FormEntry x:Name="EntryOrderNumber" Grid.Row="0" Grid.Column="1" Placeholder="Order Number" PlaceholderColor="#bddef9" FontSize="13" TextColor="#000000" Keyboard="Numeric" HorizontalOptions="Start" WidthRequest="75" />
                         <Label x:Name="LblOrderDate" Text="Date" Grid.Row="0" Grid.Column="2" TextColor="#000000" />
-                        <controls:FormEntry x:Name="EntryDate" Grid.Row="0" Grid.Column="3" Placeholder="ID/Number" PlaceholderColor="#bddef9" FontSize="13" TextColor="#000000" HorizontalOptions="Start" WidthRequest="75"/>
+                        <controls:FormEntry x:Name="EntryDate" Grid.Row="0" Grid.Column="3" Placeholder="Date" PlaceholderColor="#bddef9" FontSize="13" TextColor="#000000" HorizontalOptions="Start" WidthRequest="75"/>
 
                         <Label x:Name="LblSupplier" Text="Supplier" Grid.Row="1" Grid.Column="0" TextColor="#000000" />
                         <controls:CustomPicker x:Name="PickerSupplier" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" HorizontalOptions="FillAndExpand"
@@ -81,9 +82,11 @@
                         <!--<controls:FormEntry x:Name="EntryProductName" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Placeholder="Quantity" PlaceholderColor="#bddef9" HorizontalOptions="FillAndExpand" FontSize="13" TextColor="#000000"/>-->
                         <controls:CustomPicker x:Name="PickerProduct" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" HorizontalOptions="FillAndExpand"
                                            HeightRequest="40" Image="ic_arrow_drop_down"></controls:CustomPicker>
-                        
+
                         <Label x:Name="LblQuantity" Text="Quantity" Grid.Row="3" Grid.Column="0"   TextColor="#000000" />
                         <controls:FormEntry x:Name="EntryQuantity" Grid.Row="3" Grid.Column="1" Placeholder="Quantity" PlaceholderColor="#bddef9" Keyboard="Numeric" HorizontalOptions="Start"  FontSize="13" TextColor="#000000" WidthRequest="75"/>
+
+                        <Image x:Name="ImageBarcode" Grid.Row="3" Grid.Column="2" Source="BarcodeIcon.png" HorizontalOptions="CenterAndExpand" HeightRequest="35" WidthRequest="30"></Image>
 
                         <controls:CustomButton x:Name="ButtonAdd" Text="ADD" Grid.Row="3" Grid.Column="3" HeightRequest="40" WidthRequest="70" BackgroundColor="#4AAECF" TextColor="#FFFFFF" HorizontalOptions="CenterAndExpand" />
                         <ListView x:Name="ListProductItem" CachingStrategy="RecycleElement"  HasUnevenRows="true" Header="Test" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" VerticalOptions="FillAndExpand" SeparatorVisibility="None" IsGroupingEnabled="false">
@@ -137,16 +140,16 @@
                             </ListView.HeaderTemplate>
                         </ListView>
                         <Label x:Name="LblSubtotal" Text="Sub Total" Grid.Row="5" Grid.Column="2"   TextColor="#000000" />
-                        <controls:FormEntry x:Name="EntrySubtotal" Grid.Row="5" Grid.Column="3" Placeholder="0" BackgroundColor="#999999" Keyboard="Numeric" HorizontalOptions="Start"  FontSize="13" WidthRequest="75" HorizontalTextAlignment="End"/>
+                        <controls:FormEntry x:Name="EntrySubtotal" Grid.Row="5" Grid.Column="3" Placeholder="0" BackgroundColor="#FFFFFF" TextColor="#000000" Keyboard="Numeric" HorizontalOptions="Start"  FontSize="13" WidthRequest="75" HorizontalTextAlignment="End"/>
 
                         <Label x:Name="LblCGST" Text="CGST" Grid.Row="6" Grid.Column="0"   TextColor="#000000" />
-                        <controls:FormEntry x:Name="EntryCGST" Grid.Row="6" Grid.Column="1" Placeholder="0" BackgroundColor="#999999" Keyboard="Numeric" HorizontalOptions="Start"  FontSize="13" WidthRequest="75" HorizontalTextAlignment="End"/>
+                        <controls:FormEntry x:Name="EntryCGST" Grid.Row="6" Grid.Column="1" Placeholder="0" BackgroundColor="#FFFFFF" TextColor="#000000" Keyboard="Numeric" HorizontalOptions="Start"  FontSize="13" WidthRequest="75" HorizontalTextAlignment="End"/>
 
                         <Label x:Name="LblSGST" Text="SGST" Grid.Row="6" Grid.Column="2"   TextColor="#000000" />
-                        <controls:FormEntry x:Name="EntrySGST" Grid.Row="6" Grid.Column="3" Placeholder="0" BackgroundColor="#999999" Keyboard="Numeric" HorizontalOptions="Start"  FontSize="13" WidthRequest="75" HorizontalTextAlignment="End"/>
+                        <controls:FormEntry x:Name="EntrySGST" Grid.Row="6" Grid.Column="3" Placeholder="0" BackgroundColor="#FFFFFF" TextColor="#000000" Keyboard="Numeric" HorizontalOptions="Start"  FontSize="13" WidthRequest="75" HorizontalTextAlignment="End"/>
 
                         <Label x:Name="LblTotal" Text="Total" Grid.Row="7" Grid.Column="2"   TextColor="#000000" />
-                        <controls:FormEntry x:Name="EntryTotal" Grid.Row="7" Grid.Column="3" Placeholder="0" BackgroundColor="#999999" FontSize="13" HorizontalTextAlignment="End" />
+                        <controls:FormEntry x:Name="EntryTotal" Grid.Row="7" Grid.Column="3" Placeholder="0" BackgroundColor="#FFFFFF" TextColor="#000000" FontSize="13" HorizontalTextAlignment="End" />
 
                     </Grid>
                 </StackLayout>

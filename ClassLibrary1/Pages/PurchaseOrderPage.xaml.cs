@@ -1,22 +1,23 @@
-﻿using SalesApp.BusinessClass;
-using SalesApp.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 using System.Linq;
 
-namespace SalesApp.Pages
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+using ZXing.Net.Mobile.Forms;
+
+namespace SalesApp
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class PurchaseOrderList : ContentPage
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+	public partial class PurchaseOrderPage : ContentPage
 	{
         StockLogic _stockLogic = new StockLogic();
         SupplierLogic _supplierLogic = new SupplierLogic();
-       List<PurchaseOrder_Product> _CurrentPOItems;
+        List<PurchaseOrder_Product> _CurrentPOItems;
         PurchaseOrder _EditItem;
         POLogic _POLogic = new POLogic();
+        ZXingScannerPage scanPage;
 
         private static ObservableCollection<PurchaseOrder> _POcollection = null;
         private static ObservableCollection<PurchaseOrder_Product> _POItemcollection = null;
@@ -47,9 +48,9 @@ namespace SalesApp.Pages
             set { _POItemcollection = value; }
         }
 
-        public PurchaseOrderList ()
-		{
-			InitializeComponent ();
+        public PurchaseOrderPage()
+        {
+            InitializeComponent();
 
             this.Title = "Purchase Order";
 
@@ -91,6 +92,8 @@ namespace SalesApp.Pages
                 AssignValues(_Item);
                 ChangeLayout(false);
             };
+
+            BarcodeInit();
         }
 
         void AssignValues(PurchaseOrder _Item)
@@ -107,7 +110,7 @@ namespace SalesApp.Pages
             EntryTotal.Text = _Item.Total.ToString();
         }
 
-            void ChangeLayout(bool _Value)
+        void ChangeLayout(bool _Value)
         {
             ListContent.IsVisible = _Value;
             FormContent.IsVisible = !_Value;
@@ -187,44 +190,14 @@ namespace SalesApp.Pages
 
         private void ButtonAdd_Clicked(object sender, EventArgs e)
         {
-            if(PickerProduct.SelectedIndex!=0)
+            if (PickerProduct.SelectedIndex != 0)
             {
-                if(EntryQuantity.Text.Trim()!="")
+                if (EntryQuantity.Text.Trim() != "")
                 {
                     var _PItem = _POLogic.GetStockItems(PickerProduct.SelectedItem.ToString());
                     if (_PItem != null)
                     {
-                        PurchaseOrder_Product _Product = new PurchaseOrder_Product()
-                        {
-                            ProductID = _PItem.FirstOrDefault().UniqueID,
-                            ProductName = PickerProduct.SelectedItem.ToString(),
-                            Quantity = int.Parse(EntryQuantity.Text),
-                            PurchasePrice = _PItem.FirstOrDefault().PurchasePrice
-                        };
-
-                        POItemList.Add(_Product);
-
-                        ListProductItem.ItemsSource = POItemList;
-
-                        double subtotal = 0;
-                        foreach (var _prod in POItemList)
-                        {
-                            subtotal = subtotal + (_prod.Quantity * _prod.PurchasePrice);
-                        }
-                        
-                        EntrySubtotal.Text = subtotal.ToString();
-
-                        double CGST = (subtotal * SessionData.CGST) / 100;
-                        double SGST = (subtotal * SessionData.SGST) / 100;
-
-                        EntryCGST.Text = CGST.ToString();
-                        EntrySGST.Text = SGST.ToString();
-
-                        double Total = subtotal + CGST + SGST;
-                        EntryTotal.Text = Total.ToString();
-
-                        PickerProduct.SelectedIndex = 0;
-                        EntryQuantity.Text = "";
+                        AddBarcodeProduct(_PItem.FirstOrDefault(), "");
                     }
                 }
             }
@@ -254,7 +227,7 @@ namespace SalesApp.Pages
                         _POLogic.InsertPurchaseOrderItems(POItemList);
                         _POLogic.InsertPurchaseOrder(_Item);
 
-                       ClearValues();
+                        ClearValues();
 
                         await DisplayAlert("Success", "Purchase Order added successfully", "Ok");
                         LoadList();
@@ -270,7 +243,7 @@ namespace SalesApp.Pages
 
                         ClearValues();
 
-                        await DisplayAlert("Success", "Stock updated successfully", "Ok");
+                        await DisplayAlert("Success", "Purchase Order updated successfully", "Ok");
                         LoadList();
 
                         ChangeLayout(true);
@@ -285,9 +258,9 @@ namespace SalesApp.Pages
                 await DisplayAlert("Error", "Add product to PO", "Ok");
         }
 
-        private async void ButtonCancel_Clicked(object sender, EventArgs e)
+        private void ButtonCancel_Clicked(object sender, EventArgs e)
         {
-           ChangeLayout(true);
+            ChangeLayout(true);
         }
 
         string Validation()
@@ -300,8 +273,115 @@ namespace SalesApp.Pages
                 ErrorMessage += "Order Date missing.\n";
             if (PickerSupplier.SelectedIndex == 0)
                 ErrorMessage += "Supplier missing.\n";
-            
+
             return ErrorMessage;
         }
+
+        void BarcodeInit()
+        {
+            var BarcodeImageTap = new TapGestureRecognizer();
+            BarcodeImageTap.Tapped += async delegate
+            {
+                // Create our custom overlay
+                var customOverlay = new StackLayout
+                {
+                    HorizontalOptions = LayoutOptions.FillAndExpand,
+                    VerticalOptions = LayoutOptions.FillAndExpand
+                };
+                var torch = new Button
+                {
+                    Text = "Toggle Torch"
+                };
+                torch.Clicked += delegate
+                {
+                    scanPage.ToggleTorch();
+                };
+                customOverlay.Children.Add(torch);
+
+                scanPage = new ZXingScannerPage(new ZXing.Mobile.MobileBarcodeScanningOptions { AutoRotate = true }, customOverlay: customOverlay);
+                scanPage.OnScanResult += (result) =>
+                {
+                    scanPage.IsScanning = false;
+
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        Navigation.PopModalAsync();
+                        AddBarcodeProduct(null, result.Text);
+                    });
+                };
+                await Navigation.PushModalAsync(scanPage);
+            };
+
+            ImageBarcode.GestureRecognizers.Add(BarcodeImageTap);
+        }
+
+        void AddBarcodeProduct(Stocks _StItem, string Barcode)
+        {
+            if (_StItem == null)
+            {
+                _StItem = _POLogic.GetStockItembyBarcode(Barcode);
+                EntryQuantity.Text = "1";
+            }
+
+            if (_StItem != null)
+            {
+                PurchaseOrder_Product _Product = new PurchaseOrder_Product()
+                {
+                    ProductID = _StItem.UniqueID,
+                    ProductName = _StItem.ProductName,
+                    Quantity = int.Parse(EntryQuantity.Text),
+                    PurchasePrice = _StItem.PurchasePrice,
+                    Barcode = _StItem.Barcode
+                };
+
+                if (POItemList != null && POItemList.Count != 0)
+                {
+                    var POItem = POItemList.Where(i => i.ProductID == _StItem.UniqueID);
+                    if (POItem.Count() != 0)
+                    {
+                        int _qty = POItem.FirstOrDefault().Quantity + int.Parse(EntryQuantity.Text);
+
+                        _Product.Quantity = _qty;
+                        POItemList.Remove(POItem.FirstOrDefault());
+                        POItemList.Add(_Product);
+                    }
+                    else
+                    {
+                        POItemList.Add(_Product);
+                    }
+                }
+                else
+                {
+                    POItemList.Add(_Product);
+                }
+
+                ListProductItem.ItemsSource = POItemList;
+
+                double subtotal = 0;
+                foreach (var _prod in POItemList)
+                {
+                    subtotal = subtotal + (_prod.Quantity * _prod.PurchasePrice);
+                }
+
+                EntrySubtotal.Text = subtotal.ToString();
+
+                double CGST = (subtotal * SessionData.CGST) / 100;
+                double SGST = (subtotal * SessionData.SGST) / 100;
+
+                EntryCGST.Text = CGST.ToString();
+                EntrySGST.Text = SGST.ToString();
+
+                double Total = subtotal + CGST + SGST;
+                EntryTotal.Text = Total.ToString();
+
+                PickerProduct.SelectedIndex = 0;
+                EntryQuantity.Text = "";
+            }
+            else
+            {
+                DisplayAlert("Error", "Product not found.", "OK");
+            }
+        }
+
     }
 }

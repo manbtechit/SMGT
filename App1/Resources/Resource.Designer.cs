@@ -26,8 +26,14 @@ namespace SalesApp.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::Microcharts.Droid.Resource.String.library_name = global::SalesApp.Droid.Resource.String.library_name;
 			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::SalesApp.Droid.Resource.Attribute.actionBarSize;
+			global::ZXing.Net.Mobile.Forms.Android.Resource.Layout.zxingscanneractivitylayout = global::SalesApp.Droid.Resource.Layout.zxingscanneractivitylayout;
+			global::ZXing.Net.Mobile.Forms.Android.Resource.Layout.zxingscannerfragmentlayout = global::SalesApp.Droid.Resource.Layout.zxingscannerfragmentlayout;
 			global::ZXing.Net.Mobile.Forms.Android.Resource.String.library_name = global::SalesApp.Droid.Resource.String.library_name;
+			global::ZXing.Mobile.Resource.Id.contentFrame = global::SalesApp.Droid.Resource.Id.contentFrame;
+			global::ZXing.Mobile.Resource.Layout.zxingscanneractivitylayout = global::SalesApp.Droid.Resource.Layout.zxingscanneractivitylayout;
+			global::ZXing.Mobile.Resource.Layout.zxingscannerfragmentlayout = global::SalesApp.Droid.Resource.Layout.zxingscannerfragmentlayout;
 		}
 		
 		public partial class Animation
@@ -3253,6 +3259,9 @@ namespace SalesApp.Droid
 			// aapt resource value: 0x7f09008d
 			public const int container = 2131296397;
 			
+			// aapt resource value: 0x7f0900ca
+			public const int contentFrame = 2131296458;
+			
 			// aapt resource value: 0x7f090066
 			public const int contentPanel = 2131296358;
 			
@@ -3376,8 +3385,8 @@ namespace SalesApp.Droid
 			// aapt resource value: 0x7f090061
 			public const int list_item = 2131296353;
 			
-			// aapt resource value: 0x7f0900cb
-			public const int masked = 2131296459;
+			// aapt resource value: 0x7f0900cc
+			public const int masked = 2131296460;
 			
 			// aapt resource value: 0x7f0900ba
 			public const int media_actions = 2131296442;
@@ -3715,8 +3724,8 @@ namespace SalesApp.Droid
 			// aapt resource value: 0x7f090016
 			public const int view_offset_helper = 2131296278;
 			
-			// aapt resource value: 0x7f0900ca
-			public const int visible = 2131296458;
+			// aapt resource value: 0x7f0900cb
+			public const int visible = 2131296459;
 			
 			// aapt resource value: 0x7f0900ac
 			public const int volume_item_container = 2131296428;
@@ -4017,6 +4026,12 @@ namespace SalesApp.Droid
 			
 			// aapt resource value: 0x7f030044
 			public const int tooltip = 2130903108;
+			
+			// aapt resource value: 0x7f030045
+			public const int zxingscanneractivitylayout = 2130903109;
+			
+			// aapt resource value: 0x7f030046
+			public const int zxingscannerfragmentlayout = 2130903110;
 			
 			static Layout()
 			{

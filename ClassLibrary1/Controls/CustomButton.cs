@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
 
-namespace SalesApp.Controls
+namespace SalesApp
 {
     public class CustomButton : Button
     {

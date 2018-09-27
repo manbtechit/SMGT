@@ -1,5 +1,4 @@
-﻿using SalesApp.CommonClass;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +16,7 @@ namespace SalesApp
             SessionData._OfflineDB = new OfflineDB();
             SessionData.SQLDataConnection = DependencyService.Get<ISQLite>().GetOfflineConnection();
 
-            MainPage = new Pages.HomePage();
+            MainPage = new Chart();
         }
 
 		protected override void OnStart ()

@@ -1,9 +1,8 @@
-﻿using SalesApp.CommonClass;
-using System;
+﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace SalesApp.Pages
+namespace SalesApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class Login : ContentPage

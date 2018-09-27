@@ -1,6 +1,4 @@
-﻿using SalesApp.CommonClass;
-using SalesApp.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +7,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace SalesApp.Pages
+namespace SalesApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MenuMaster : MasterDetailPage
@@ -19,7 +17,7 @@ namespace SalesApp.Pages
             InitializeComponent();
 
             this.Master = new MenuMasterMaster(this) { Icon = "mastermenu.png", Title = "Personnel Organiser" };
-            this.Detail = new NavigationPage(new Dashboard())
+            this.Detail = new NavigationPage(new PurchaseOrderPage())
             {
                 BarBackgroundColor = Utilities.ThemeColor,
                 BarTextColor = Utilities.ThemeTextColor,

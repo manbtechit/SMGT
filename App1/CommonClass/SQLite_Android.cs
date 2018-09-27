@@ -1,4 +1,4 @@
-﻿using SalesApp.CommonClass;
+﻿using SalesApp;
 using SalesApp.Droid;
 using SQLite;
 using System;

@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SalesApp.SalesPage" xmlns:controls="clr-namespace:SalesApp;assembly=SalesApp">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout x:Name="ListContent" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="#FFFFFF" IsVisible="True">
+                <Entry x:Name="EntrySearch" BackgroundColor="#e2e2e2" Placeholder="Search" PlaceholderColor="#a0a0a0" TextColor="#a0a0a0" HeightRequest="40" MinimumHeightRequest="40">
+                </Entry>
+                <StackLayout VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="White">
+                    <ListView x:Name="ListProduct" CachingStrategy="RecycleElement"  HasUnevenRows="true" VerticalOptions="FillAndExpand" SeparatorVisibility="None" IsGroupingEnabled="false">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Frame OutlineColor="#00456E" CornerRadius="10" Padding="5" Margin="5">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="20">
+                                                </RowDefinition>
+                                                <RowDefinition Height="20">
+                                                </RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*">
+                                                </ColumnDefinition>
+                                                <ColumnDefinition Width="100">
+                                                </ColumnDefinition>
+                                                <ColumnDefinition Width="15">
+                                                </ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding OrderNumber, StringFormat='Order: # {0:N}'}" VerticalOptions="StartAndExpand" FontSize="12" TextColor="#5e5d5d">
+                                            </Label>
+                                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding OrderDate, StringFormat='Date: {0:N}'}" VerticalOptions="StartAndExpand" FontSize="12" TextColor="#5e5d5d">
+                                            </Label>
+                                            <Label Grid.Row="1" Grid.Column="0" Text="{Binding Supplier, StringFormat='Supplier: {0:N}'}" VerticalOptions="StartAndExpand" FontSize="12" TextColor="#5e5d5d">
+                                            </Label>
+                                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding Total, StringFormat='Total: {0:N}'}" VerticalOptions="StartAndExpand" FontSize="12" TextColor="#5e5d5d">
+                                            </Label>
+                                            <Image Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" VerticalOptions="CenterAndExpand" Source="Nextarrow.png" HeightRequest="15" WidthRequest="15"></Image>
+                                        </Grid>
+                                    </Frame>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout x:Name="FormContent" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#FFFFFF" IsVisible="False">
+                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#FFFFFF">
+                    <Grid x:Name="gridProvideFeedbackProblem" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="10,0,10,0" Margin="10,10,10,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="190"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*">
+                            </ColumnDefinition>
+                            <ColumnDefinition Width="75">
+                            </ColumnDefinition>
+                            <ColumnDefinition Width="60">
+                            </ColumnDefinition>
+                            <ColumnDefinition Width="75">
+                            </ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label x:Name="LblOrderNumber" Text="Order Number" Grid.Row="0" Grid.Column="0" TextColor="#000000" />
+                        <controls:FormEntry x:Name="EntryOrderNumber" Grid.Row="0" Grid.Column="1" Placeholder="Order Number" PlaceholderColor="#bddef9" FontSize="13" TextColor="#000000" Keyboard="Numeric" HorizontalOptions="Start" WidthRequest="75" />
+                        <Label x:Name="LblOrderDate" Text="Date" Grid.Row="0" Grid.Column="2" TextColor="#000000" />
+                        <controls:FormEntry x:Name="EntryDate" Grid.Row="0" Grid.Column="3" Placeholder="Date" PlaceholderColor="#bddef9" FontSize="13" TextColor="#000000" HorizontalOptions="Start" WidthRequest="75"/>
+
+                        <Label x:Name="LblProductName" Text="ProductName" Grid.Row="1" Grid.Column="0" TextColor="#000000" />
+                        <controls:CustomPicker x:Name="PickerProduct" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" HorizontalOptions="FillAndExpand"
+                                           HeightRequest="40" Image="ic_arrow_drop_down"></controls:CustomPicker>
+
+                        <Label x:Name="LblQuantity" Text="Quantity" Grid.Row="2" Grid.Column="0"   TextColor="#000000" />
+                        <controls:FormEntry x:Name="EntryQuantity" Grid.Row="2" Grid.Column="1" Placeholder="Quantity" PlaceholderColor="#bddef9" Keyboard="Numeric" HorizontalOptions="Start"  FontSize="13" TextColor="#000000" WidthRequest="75"/>
+
+                        <Image x:Name="ImageBarcode" Grid.Row="2" Grid.Column="2" Source="BarcodeIcon.png" HorizontalOptions="CenterAndExpand" HeightRequest="35" WidthRequest="30"></Image>
+
+                        <controls:CustomButton x:Name="ButtonAdd" Text="ADD" Grid.Row="2" Grid.Column="3" HeightRequest="40" WidthRequest="70" BackgroundColor="#4AAECF" TextColor="#FFFFFF" HorizontalOptions="CenterAndExpand" />
+                        <ListView x:Name="ListProductItem" CachingStrategy="RecycleElement"  HasUnevenRows="true" Header="Test" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" VerticalOptions="FillAndExpand" SeparatorVisibility="None" IsGroupingEnabled="false">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <Grid Padding="5">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto">
+                                                </RowDefinition>
+                                                <RowDefinition Height="1">
+                                                </RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*">
+                                                </ColumnDefinition>
+                                                <ColumnDefinition Width="50">
+                                                </ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding ProductName}" VerticalOptions="StartAndExpand" FontSize="13" TextColor="#5e5d5d">
+                                            </Label>
+                                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding Quantity}" VerticalOptions="StartAndExpand" FontSize="13" TextColor="#5e5d5d">
+                                            </Label>
+                                            <BoxView BackgroundColor="#EFEFEF" HeightRequest="1" MinimumHeightRequest="1" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                                            </BoxView>
+                                        </Grid>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                            <ListView.HeaderTemplate>
+                                <DataTemplate>
+                                    <ContentView BackgroundColor="#4AAECF">
+                                        <Grid Padding="5">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto">
+                                                </RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*">
+                                                </ColumnDefinition>
+                                                <ColumnDefinition Width="50">
+                                                </ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Grid.Row="0" Grid.Column="0" Text="Product Name" VerticalOptions="StartAndExpand" FontSize="13"  TextColor="#FFFFFF">
+                                            </Label>
+                                            <Label Grid.Row="0" Grid.Column="1" Text="Quantity" VerticalOptions="StartAndExpand" FontSize="13"  TextColor="#FFFFFF">
+                                            </Label>
+                                        </Grid>
+                                    </ContentView>
+                                </DataTemplate>
+                            </ListView.HeaderTemplate>
+                        </ListView>
+                        <Label x:Name="LblSubtotal" Text="Sub Total" Grid.Row="4" Grid.Column="2"   TextColor="#000000" />
+                        <controls:FormEntry x:Name="EntrySubtotal" Grid.Row="4" Grid.Column="3" Placeholder="0" BackgroundColor="#FFFFFF" TextColor="#000000" Keyboard="Numeric" HorizontalOptions="Start"  FontSize="13" WidthRequest="75" HorizontalTextAlignment="End"/>
+
+                        <Label x:Name="LblCGST" Text="CGST" Grid.Row="5" Grid.Column="0"   TextColor="#000000" />
+                        <controls:FormEntry x:Name="EntryCGST" Grid.Row="5" Grid.Column="1" Placeholder="0" BackgroundColor="#FFFFFF" TextColor="#000000" Keyboard="Numeric" HorizontalOptions="Start"  FontSize="13" WidthRequest="75" HorizontalTextAlignment="End"/>
+
+                        <Label x:Name="LblSGST" Text="SGST" Grid.Row="5" Grid.Column="2"   TextColor="#000000" />
+                        <controls:FormEntry x:Name="EntrySGST" Grid.Row="5" Grid.Column="3" Placeholder="0" BackgroundColor="#FFFFFF" TextColor="#000000" Keyboard="Numeric" HorizontalOptions="Start"  FontSize="13" WidthRequest="75" HorizontalTextAlignment="End"/>
+
+                        <Label x:Name="LblTotal" Text="Total" Grid.Row="6" Grid.Column="2"   TextColor="#000000" />
+                        <controls:FormEntry x:Name="EntryTotal" Grid.Row="6" Grid.Column="3" Placeholder="0" BackgroundColor="#FFFFFF" TextColor="#000000" FontSize="13" HorizontalTextAlignment="End" />
+
+                    </Grid>
+                </StackLayout>
+                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="End"  BackgroundColor="#00456E" HeightRequest="50">
+                    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*">
+                            </ColumnDefinition>
+                            <ColumnDefinition Width="*">
+                            </ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="ButtonSave" Text="Save" Grid.Row="0" Grid.Column="0" HeightRequest="40" WidthRequest="100" BackgroundColor="#FFFFFF" TextColor="#00456E" HorizontalOptions="CenterAndExpand" />
+                        <Button x:Name="ButtonCancel" Text="Cancel" Grid.Row="0" Grid.Column="1" HeightRequest="40" WidthRequest="100" BackgroundColor="#FFFFFF" TextColor="#00456E" HorizontalOptions="CenterAndExpand" />
+                    </Grid>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

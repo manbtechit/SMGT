@@ -1,55 +1,54 @@
-﻿using SalesApp.BusinessClass;
-using SalesApp.Model;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace SalesApp.Pages
+namespace SalesApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CustomerManage : ContentPage
-    {
-        CustomerLogic _CustomerLogic = new CustomerLogic();
-        Customer _EditItem;
+	public partial class SupplierPage : ContentPage
+	{
+        SupplierLogic _supplierLogic = new SupplierLogic();
+        Supplier _EditItem;
 
-        private static ObservableCollection<Customer> _Customercollection = null;
+        private static ObservableCollection<Supplier> _suppliercollection = null;
 
-        public static ObservableCollection<Customer> CustomerAssestList
+        public static ObservableCollection<Supplier> SupplierAssestList
         {
             get
             {
-                if (_Customercollection == null)
+                if (_suppliercollection == null)
                 {
-                    _Customercollection = new ObservableCollection<Customer>();
+                    _suppliercollection = new ObservableCollection<Supplier>();
                 }
-                return _Customercollection;
+                return _suppliercollection;
             }
-            set { _Customercollection = value; }
+            set { _suppliercollection = value; }
         }
 
-        public CustomerManage()
+        public SupplierPage()
         {
             InitializeComponent();
 
-            this.Title = "Customer";
+            this.Title = "Supplier";
 
             ButtonSave.Clicked += ButtonSave_Clicked;
             ButtonCancel.Clicked += ButtonCancel_Clicked;
 
-            EntryCustomerName.Keyboard = Keyboard.Create(KeyboardFlags.CapitalizeSentence);
+            EntrySupplierName.Keyboard = Keyboard.Create(KeyboardFlags.CapitalizeSentence);
+            EntryCompanyNumber.Keyboard = Keyboard.Create(KeyboardFlags.CapitalizeSentence);
 
-            ListCustomer.IsPullToRefreshEnabled = false;
-            ListCustomer.IsRefreshing = IsBusy;
+            ListSupplier.IsPullToRefreshEnabled = false;
+            ListSupplier.IsRefreshing = IsBusy;
             ChangeLayout(true);
 
-            ListCustomer.ItemSelected += (sender, args) =>
+            ListSupplier.ItemSelected += (sender, args) =>
             {
                 if (args.SelectedItem == null)
                     return;
 
-                var _Item = (Customer)args.SelectedItem;
+                var _Item = (Supplier)args.SelectedItem;
                 ((ListView)sender).SelectedItem = null;
 
                 _EditItem = _Item;
@@ -63,15 +62,18 @@ namespace SalesApp.Pages
 
         }
 
-        void AssignValues(Customer _Item)
+        void AssignValues(Supplier _Item)
         {
-            EntryCustomerName.Text = _Item.CustomerName;
+            EntrySupplierName.Text = _Item.SupplierName;
+            EntryCompanyNumber.Text = _Item.CompanyName;
+            EntryPhone.Text = _Item.Phone;
             EntryMobile.Text = _Item.Mobile;
             EntryEmail.Text = _Item.Email;
             EntryBillingAddress.Text = _Item.BillingAddress;
             EntryBillingCity.Text = _Item.BillingCity;
             EntryBillingState.Text = _Item.BillingState;
             EntryBillingZipcode.Text = _Item.BillingZipCode;
+            EntryNotes.Text = _Item.Notes;
             SwitchActive.IsToggled = _Item.IsActive.ToLower() == "true" ? true : false;
         }
 
@@ -101,37 +103,40 @@ namespace SalesApp.Pages
 
             if (_Error == "")
             {
-                Customer _custItem = new Customer()
+                Supplier _SupplierItem = new Supplier()
                 {
-                    CustomerName = EntryCustomerName.Text,
+                    SupplierName = EntrySupplierName.Text,
+                    CompanyName = EntryCompanyNumber.Text,
+                    Phone = EntryPhone.Text,
                     Mobile = EntryMobile.Text,
                     Email = EntryEmail.Text,
                     BillingAddress = EntryBillingAddress.Text,
                     BillingCity = EntryBillingCity.Text,
                     BillingState = EntryBillingState.Text,
                     BillingZipCode = EntryBillingZipcode.Text,
+                    Notes = EntryNotes.Text,
                     IsActive = SwitchActive.IsToggled.ToString()
                 };
 
                 if (_EditItem == null)
                 {
-                    _CustomerLogic.InsertCustomerItem(_custItem);
+                    _supplierLogic.InsertSupplierItem(_SupplierItem);
 
                     ClearValues();
 
-                    await DisplayAlert("Success", "Customer added successfully", "Ok");
+                    await DisplayAlert("Success", "Supplier added successfully", "Ok");
                     LoadList();
                     ChangeLayout(true);
                 }
                 else
                 {
-                    _custItem.UniqueID = _EditItem.UniqueID;
+                    _SupplierItem.UniqueID = _EditItem.UniqueID;
 
-                    _CustomerLogic.UpdateCustomerItem(_custItem);
+                    _supplierLogic.UpdateSupplierItem(_SupplierItem);
 
                     ClearValues();
 
-                    await DisplayAlert("Success", "Customer updated successfully", "Ok");
+                    await DisplayAlert("Success", "Supplier updated successfully", "Ok");
                     LoadList();
 
                     ChangeLayout(true);
@@ -145,15 +150,15 @@ namespace SalesApp.Pages
 
         void LoadList()
         {
-            var _item = _CustomerLogic.GetAllCustomerItems();
-            if (_item != null && _item.Count != 0)
+            var _supplieritem = _supplierLogic.GetAllSupplierItems();
+            if (_supplieritem != null && _supplieritem.Count != 0)
             {
-                CustomerAssestList.Clear();
+                SupplierAssestList.Clear();
 
-                foreach (var _Items in _item)
-                    CustomerAssestList.Add(_Items);
+                foreach (var _Items in _supplieritem)
+                    SupplierAssestList.Add(_Items);
 
-                ListCustomer.ItemsSource = CustomerAssestList;
+                ListSupplier.ItemsSource = SupplierAssestList;
             }
         }
 
@@ -166,8 +171,10 @@ namespace SalesApp.Pages
         {
             string ErrorMessage = "";
 
-            if (EntryCustomerName.Text.Trim() == "")
-                ErrorMessage = "Customer Name missing.\n";
+            if (EntrySupplierName.Text.Trim() == "")
+                ErrorMessage = "Supplier Name missing.\n";
+            if (EntryCompanyNumber.Text.Trim() == "")
+                ErrorMessage += "Company Name missing.\n";
             if (EntryMobile.Text.Trim() == "")
                 ErrorMessage += "Mobile missing.\n";
             if (EntryBillingAddress.Text.Trim() == "")
@@ -184,31 +191,34 @@ namespace SalesApp.Pages
 
         void ClearValues()
         {
-            EntryCustomerName.Text = "";
+            EntrySupplierName.Text = "";
+            EntryCompanyNumber.Text = "";
+            EntryPhone.Text = "";
             EntryMobile.Text = "";
             EntryEmail.Text = "";
             EntryBillingAddress.Text = "";
             EntryBillingCity.Text = "";
             EntryBillingState.Text = "";
             EntryBillingZipcode.Text = "";
+            EntryNotes.Text = "";
             SwitchActive.IsToggled = true;
         }
 
         private void EntrySearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var _Filter = _CustomerLogic.SearchCustomerItems(EntrySearch.Text);
+            var _Filter = _supplierLogic.SearchSupplierItems(EntrySearch.Text);
             if (_Filter != null)
             {
-                CustomerAssestList.Clear();
+                SupplierAssestList.Clear();
 
                 foreach (var _Items in _Filter)
-                    CustomerAssestList.Add(_Items);
+                    SupplierAssestList.Add(_Items);
 
-                ListCustomer.ItemsSource = CustomerAssestList;
+                ListSupplier.ItemsSource = SupplierAssestList;
             }
             else
             {
-                ListCustomer.ItemsSource = null;
+                ListSupplier.ItemsSource = null;
             }
         }
 

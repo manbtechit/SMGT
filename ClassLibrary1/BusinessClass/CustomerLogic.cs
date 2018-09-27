@@ -1,10 +1,9 @@
-﻿using SalesApp.Model;
-using SQLite;
+﻿using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SalesApp.BusinessClass
+namespace SalesApp
 {
     public class CustomerLogic
     {

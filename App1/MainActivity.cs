@@ -3,7 +3,7 @@ using Android.Widget;
 using Android.OS;
 using Android.Views;
 using Android.Content.PM;
-using SalesApp.CommonClass;
+using SalesApp;
 
 namespace SalesApp.Droid
 {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SalesApp.CommonClass
+namespace SalesApp
 {
     public interface ISQLite
     {

@@ -1,5 +1,4 @@
-﻿using SalesApp.CommonClass;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +8,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using ZXing;
 
-namespace SalesApp.Pages
+namespace SalesApp
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class Dashboard : ContentPage
@@ -34,21 +33,21 @@ namespace SalesApp.Pages
 
             var PurchasetapRecognizer = new TapGestureRecognizer();
             PurchasetapRecognizer.Tapped += (sender, eventergs) => {
-                Utilities.PushModalAsync(Navigation, new PurchaseOrderList());
+                Utilities.PushModalAsync(Navigation, new PurchaseOrderPage());
             };
             ImagePurchase.GestureRecognizers.Add(PurchasetapRecognizer);
             LabelPurhase.GestureRecognizers.Add(PurchasetapRecognizer);
 
             var ReceipttapRecognizer = new TapGestureRecognizer();
             ReceipttapRecognizer.Tapped += (sender, eventergs) => {
-                //Utilities.PushModalAsync(Navigation, new rec());
+                Utilities.PushModalAsync(Navigation, new ReceiptPage());
             };
             ImageReceipt.GestureRecognizers.Add(ReceipttapRecognizer);
             LabelReceipt.GestureRecognizers.Add(ReceipttapRecognizer);
 
             var SaletapRecognizer = new TapGestureRecognizer();
             SaletapRecognizer.Tapped += (sender, eventergs) => {
-                // Utilities.PushModalAsync(Navigation, new SupplierManage());
+                 Utilities.PushModalAsync(Navigation, new SalesPage());
             };
             ImageSale.GestureRecognizers.Add(SaletapRecognizer);
             LabelSale.GestureRecognizers.Add(SaletapRecognizer);

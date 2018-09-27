@@ -1,12 +1,11 @@
-﻿using SalesApp.Model;
-using SQLite;
+﻿using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Xamarin.Forms;
 
-namespace SalesApp.CommonClass
+namespace SalesApp
 {
    public class OfflineDB
     {
@@ -26,6 +25,9 @@ namespace SalesApp.CommonClass
 
                 checkAndCreateTable<PurchaseOrder>();
                 checkAndCreateTable<PurchaseOrder_Product>();
+
+                checkAndCreateTable<SalesOrder>();
+                checkAndCreateTable<SalesOrder_Product>();
             }
             catch (Exception ex)
             {

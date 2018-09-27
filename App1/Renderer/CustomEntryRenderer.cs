@@ -3,7 +3,7 @@ using Android.Content.Res;
 using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Text;
-using SalesApp.Controls;
+using SalesApp;
 using SalesApp.Droid.Renderer;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
@@ -33,6 +33,7 @@ namespace SalesApp.Droid.Renderer
                 nativeEditText.Background = shape;
                 nativeEditText.SetHeight(75);
                 nativeEditText.SetPadding(15, 15, 15, 15);
+                nativeEditText.SetTextColor(Android.Graphics.Color.Black);
             }
         }
     }

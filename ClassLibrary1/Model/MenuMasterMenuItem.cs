@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SalesApp.Model
+namespace SalesApp
 {
 
     public class MenuMasterMenuItem

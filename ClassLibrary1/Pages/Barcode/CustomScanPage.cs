@@ -6,7 +6,7 @@ using System.Text;
 using Xamarin.Forms;
 using ZXing.Net.Mobile.Forms;
 
-namespace SalesApp.Pages
+namespace SalesApp
 {
     public class CustomScanPage : ContentPage
     {

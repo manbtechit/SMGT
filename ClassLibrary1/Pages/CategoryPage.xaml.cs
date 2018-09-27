@@ -1,17 +1,14 @@
-﻿using SalesApp.BusinessClass;
-using SalesApp.CommonClass;
-using SalesApp.Model;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace SalesApp.Pages
+namespace SalesApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CategoryManage : ContentPage
-    {
+	public partial class CategoryPage : ContentPage
+	{
         CategoryLogic _categoryLogic = new CategoryLogic();
         Category _EditItem;
 
@@ -30,7 +27,7 @@ namespace SalesApp.Pages
             set { _categorycollection = value; }
         }
 
-        public CategoryManage()
+        public CategoryPage()
         {
             InitializeComponent();
 
@@ -152,8 +149,8 @@ namespace SalesApp.Pages
         {
             ListContent.IsVisible = _Value;
             FormContent.IsVisible = !_Value;
-            
-            if(_Value)
+
+            if (_Value)
             {
                 ToolbarItems.Add(new ToolbarItem("Add", "Add.png", () =>
                 {

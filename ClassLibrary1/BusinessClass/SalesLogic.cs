@@ -7,15 +7,15 @@ using System.Text;
 
 namespace SalesApp
 {
-    public class POLogic
+   public class SalesLogic
     {
-        public List<PurchaseOrder> GetAllPurchaseOrder()
+        public List<SalesOrder> GetAllSalesOrder()
         {
             try
             {
-                string _Query = "Select * from PurchaseOrder";
+                string _Query = "Select * from SalesOrder";
 
-                var _result = SessionData.SQLDataConnection.Query<PurchaseOrder>(_Query);
+                var _result = SessionData.SQLDataConnection.Query<SalesOrder>(_Query);
 
                 return _result;
             }
@@ -66,15 +66,15 @@ namespace SalesApp
             return null;
         }
 
-        public void InsertPurchaseOrder(PurchaseOrder _Item)
+        public void InsertSalesOrder(SalesOrder _Item)
         {
             try
             {
                 if (_Item != null)
                 {
-                    string _Query = "INSERT INTO PurchaseOrder(OrderNumber,OrderDate,Supplier,SubTotal,CGST,SGST,Total," +
+                    string _Query = "INSERT INTO SalesOrder(OrderNumber,OrderDate,SubTotal,CGST,SGST,Total," +
                         "ProductCount,Status) VALUES('" +
-                        _Item.OrderNumber + "','" + _Item.OrderDate + "','" + _Item.Supplier + "','" + _Item.SubTotal + "','" +
+                        _Item.OrderNumber + "','" + _Item.OrderDate + "','" + _Item.SubTotal + "','" +
                         _Item.CGST + "','" + _Item.SGST + "','" + _Item.Total + "','" +
                         _Item.ProductCount + "','" + _Item.Status + "')";
 
@@ -89,7 +89,7 @@ namespace SalesApp
             }
         }
 
-        public void InsertPurchaseOrderItems(ObservableCollection<PurchaseOrder_Product> _ListItem)
+        public void InsertSalesOrderItems(ObservableCollection<SalesOrder_Product> _ListItem)
         {
             try
             {
@@ -97,8 +97,9 @@ namespace SalesApp
                 {
                     foreach (var _Item in _ListItem)
                     {
-                        string _Query = "INSERT INTO PurchaseOrder_Product(OrderNumber,ProductID,Quantity) VALUES('" +
-                            _Item.OrderNumber + "','" + _Item.ProductID + "','" + _Item.Quantity + "')";
+                        string _Query = "INSERT INTO SalesOrder_Product(OrderNumber,ProductID,Quantity,ProductName,SalesPrice, Barcode) VALUES('" +
+                            _Item.OrderNumber + "','" + _Item.ProductID + "','" + _Item.Quantity + "','" + _Item.ProductName + "','" + 
+                            _Item.SalesPrice + "','" + _Item.Barcode + "')";
 
                         SessionData.SQLDataConnection.Execute(_Query);
                     }
@@ -112,13 +113,13 @@ namespace SalesApp
             }
         }
 
-        public void DeletePurchaseOrderItems(string OrderNumber)
+        public void DeleteSalesOrderItems(string OrderNumber)
         {
             try
             {
                 if (OrderNumber != "")
                 {
-                    string _Query = "Delete from PurchaseOrder_Product Where OrderNumber='" + OrderNumber + "'";
+                    string _Query = "Delete from SalesOrder_Product Where OrderNumber='" + OrderNumber + "'";
 
                     SessionData.SQLDataConnection.Execute(_Query);
                 }
@@ -131,14 +132,14 @@ namespace SalesApp
             }
         }
 
-        public void UpdateStockItem(PurchaseOrder _Item)
+        public void UpdateSalesOrder(SalesOrder _Item)
         {
             try
             {
                 if (_Item != null)
                 {
-                    string _Query = "Update PurchaseOrder Set OrderNumber='" + _Item.OrderNumber + "',OrderDate='" + _Item.OrderDate + "'," +
-                        "Supplier='" + _Item.Supplier + "',SubTotal='" + _Item.SubTotal + "'," +
+                    string _Query = "Update SalesOrder Set OrderNumber='" + _Item.OrderNumber + "',OrderDate='" + _Item.OrderDate + "'," +
+                        "SubTotal='" + _Item.SubTotal + "'," +
                         "CGST='" + _Item.CGST + "',SGST='" + _Item.SGST + "',Total='" + _Item.Total + "'," +
                         "ProductCount='" + _Item.ProductCount + "',Status='" + _Item.Status + "' WHERE UniqueID='" + _Item.UniqueID + "'";
 
