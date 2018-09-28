@@ -11,7 +11,7 @@ namespace SalesApp
         {
             try
             {
-                string _Query = "Select * from Stocks where IsActive='true' COLLATE NOCASE";
+                string _Query = "Select * from Stocks where IsActive='true' COLLATE NOCASE ORDER BY ProductName ASC";
 
                 var _result = SessionData.SQLDataConnection.Query<Stocks>(_Query);
 
@@ -30,7 +30,7 @@ namespace SalesApp
         {
             try
             {
-                string _Query = "Select * from Stocks where ProductName like '"+SearchText+"%'";
+                string _Query = "Select * from Stocks where ProductName like '" + SearchText + "%' or Barcode='" + SearchText + "'";
 
                 var _result = SessionData.SQLDataConnection.Query<Stocks>(_Query);
 

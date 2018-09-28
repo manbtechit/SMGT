@@ -7,8 +7,8 @@ using Xamarin.Forms.Xaml;
 namespace SalesApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class CategoryPage : ContentPage
-	{
+    public partial class CategoryPage : ContentPage
+    {
         CategoryLogic _categoryLogic = new CategoryLogic();
         Category _EditItem;
 
@@ -115,10 +115,16 @@ namespace SalesApp
 
                     ClearValues();
 
-                    await DisplayAlert("Success", "Category added successfully", "Ok");
-
-                    LoadList();
-                    ChangeLayout(true);
+                    var _Alert = await DisplayAlert("Success", "Category added successfully.\nDo you want to add another Category?", "Yes", "No");
+                    if (_Alert)
+                    {
+                        ClearValues();
+                    }
+                    else
+                    {
+                        LoadList();
+                        ChangeLayout(true);
+                    }
                 }
                 else
                 {
@@ -128,10 +134,17 @@ namespace SalesApp
 
                     ClearValues();
 
-                    await DisplayAlert("Success", "Category updated successfully", "Ok");
-                    LoadList();
-
-                    ChangeLayout(true);
+                    var _Alert = await DisplayAlert("Success", "Category updated successfully.\nDo you want to add another Category?", "Yes", "No");
+                    if (_Alert)
+                    {
+                        _EditItem = null;
+                        ClearValues();
+                    }
+                    else
+                    {
+                        LoadList();
+                        ChangeLayout(true);
+                    }
                 }
             }
             else

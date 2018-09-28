@@ -2340,26 +2340,26 @@ namespace SalesApp.Droid
 			// aapt resource value: 0x7f020054
 			public const int avd_hide_password = 2130837588;
 			
-			// aapt resource value: 0x7f02014f
-			public const int avd_hide_password_1 = 2130837839;
-			
-			// aapt resource value: 0x7f020150
-			public const int avd_hide_password_2 = 2130837840;
-			
 			// aapt resource value: 0x7f020151
-			public const int avd_hide_password_3 = 2130837841;
+			public const int avd_hide_password_1 = 2130837841;
+			
+			// aapt resource value: 0x7f020152
+			public const int avd_hide_password_2 = 2130837842;
+			
+			// aapt resource value: 0x7f020153
+			public const int avd_hide_password_3 = 2130837843;
 			
 			// aapt resource value: 0x7f020055
 			public const int avd_show_password = 2130837589;
 			
-			// aapt resource value: 0x7f020152
-			public const int avd_show_password_1 = 2130837842;
-			
-			// aapt resource value: 0x7f020153
-			public const int avd_show_password_2 = 2130837843;
-			
 			// aapt resource value: 0x7f020154
-			public const int avd_show_password_3 = 2130837844;
+			public const int avd_show_password_1 = 2130837844;
+			
+			// aapt resource value: 0x7f020155
+			public const int avd_show_password_2 = 2130837845;
+			
+			// aapt resource value: 0x7f020156
+			public const int avd_show_password_3 = 2130837846;
 			
 			// aapt resource value: 0x7f020056
 			public const int BarcodeIcon = 2130837590;
@@ -3054,11 +3054,11 @@ namespace SalesApp.Droid
 			// aapt resource value: 0x7f02013c
 			public const int notification_icon_background = 2130837820;
 			
-			// aapt resource value: 0x7f02014d
-			public const int notification_template_icon_bg = 2130837837;
+			// aapt resource value: 0x7f02014f
+			public const int notification_template_icon_bg = 2130837839;
 			
-			// aapt resource value: 0x7f02014e
-			public const int notification_template_icon_low_bg = 2130837838;
+			// aapt resource value: 0x7f020150
+			public const int notification_template_icon_low_bg = 2130837840;
 			
 			// aapt resource value: 0x7f02013d
 			public const int notification_tile_bg = 2130837821;
@@ -3067,46 +3067,52 @@ namespace SalesApp.Droid
 			public const int notify_panel_notification_icon_bg = 2130837822;
 			
 			// aapt resource value: 0x7f02013f
-			public const int R1 = 2130837823;
+			public const int Product = 2130837823;
 			
 			// aapt resource value: 0x7f020140
-			public const int R2 = 2130837824;
+			public const int R1 = 2130837824;
 			
 			// aapt resource value: 0x7f020141
-			public const int R3 = 2130837825;
+			public const int R2 = 2130837825;
 			
 			// aapt resource value: 0x7f020142
-			public const int R4 = 2130837826;
+			public const int R3 = 2130837826;
 			
 			// aapt resource value: 0x7f020143
-			public const int R5 = 2130837827;
+			public const int R4 = 2130837827;
 			
 			// aapt resource value: 0x7f020144
-			public const int R6 = 2130837828;
+			public const int R5 = 2130837828;
 			
 			// aapt resource value: 0x7f020145
-			public const int R7 = 2130837829;
+			public const int R6 = 2130837829;
 			
 			// aapt resource value: 0x7f020146
-			public const int rounded_border_selected = 2130837830;
+			public const int R7 = 2130837830;
 			
 			// aapt resource value: 0x7f020147
-			public const int rounded_corner_box_Error = 2130837831;
+			public const int rounded_border_selected = 2130837831;
 			
 			// aapt resource value: 0x7f020148
-			public const int s = 2130837832;
+			public const int rounded_corner_box_Error = 2130837832;
 			
 			// aapt resource value: 0x7f020149
-			public const int studiobg = 2130837833;
+			public const int s = 2130837833;
 			
 			// aapt resource value: 0x7f02014a
-			public const int Supplier = 2130837834;
+			public const int Search = 2130837834;
 			
 			// aapt resource value: 0x7f02014b
-			public const int tooltip_frame_dark = 2130837835;
+			public const int studiobg = 2130837835;
 			
 			// aapt resource value: 0x7f02014c
-			public const int tooltip_frame_light = 2130837836;
+			public const int Supplier = 2130837836;
+			
+			// aapt resource value: 0x7f02014d
+			public const int tooltip_frame_dark = 2130837837;
+			
+			// aapt resource value: 0x7f02014e
+			public const int tooltip_frame_light = 2130837838;
 			
 			static Drawable()
 			{

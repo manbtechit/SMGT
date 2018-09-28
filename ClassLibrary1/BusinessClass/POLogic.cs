@@ -28,6 +28,25 @@ namespace SalesApp
             return null;
         }
 
+        public List<PurchaseOrder_Product> GetAllPurchaseProduct(string OrderNumber)
+        {
+            try
+            {
+                string _Query = "Select * from PurchaseOrder_Product WHERE OrderNumber='"+OrderNumber+"'";
+
+                var _result = SessionData.SQLDataConnection.Query<PurchaseOrder_Product>(_Query);
+
+                return _result;
+            }
+            catch (SQLiteException SQLex)
+            {
+            }
+            catch (Exception Ex)
+            {
+            }
+            return null;
+        }
+
         public List<Stocks> GetStockItems(string SearchText)
         {
             try
@@ -97,8 +116,9 @@ namespace SalesApp
                 {
                     foreach (var _Item in _ListItem)
                     {
-                        string _Query = "INSERT INTO PurchaseOrder_Product(OrderNumber,ProductID,Quantity) VALUES('" +
-                            _Item.OrderNumber + "','" + _Item.ProductID + "','" + _Item.Quantity + "')";
+                        string _Query = "INSERT INTO PurchaseOrder_Product(OrderNumber,ProductID,Quantity,ProductName,PurchasePrice,Barcode) VALUES('" +
+                            _Item.OrderNumber + "','" + _Item.ProductID + "','" + _Item.Quantity + "','" + 
+                            _Item.ProductName + "','" + _Item.PurchasePrice + "','" + _Item.Barcode + "')";
 
                         SessionData.SQLDataConnection.Execute(_Query);
                     }

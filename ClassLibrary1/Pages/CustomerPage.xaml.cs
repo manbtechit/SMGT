@@ -7,8 +7,8 @@ using Xamarin.Forms.Xaml;
 namespace SalesApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class CustomerPage : ContentPage
-	{
+    public partial class CustomerPage : ContentPage
+    {
         CustomerLogic _CustomerLogic = new CustomerLogic();
         Customer _EditItem;
 
@@ -59,6 +59,7 @@ namespace SalesApp
 
             LoadList();
 
+            EntryKeyEvents();
         }
 
         void AssignValues(Customer _Item)
@@ -117,9 +118,16 @@ namespace SalesApp
 
                     ClearValues();
 
-                    await DisplayAlert("Success", "Customer added successfully", "Ok");
-                    LoadList();
-                    ChangeLayout(true);
+                    var _Alert = await DisplayAlert("Success", "Customer added successfully.\nDo you want to add another Customer?", "Yes", "No");
+                    if (_Alert)
+                    {
+                        ClearValues();
+                    }
+                    else
+                    {
+                        LoadList();
+                        ChangeLayout(true);
+                    }
                 }
                 else
                 {
@@ -129,10 +137,17 @@ namespace SalesApp
 
                     ClearValues();
 
-                    await DisplayAlert("Success", "Customer updated successfully", "Ok");
-                    LoadList();
-
-                    ChangeLayout(true);
+                    var _Alert = await DisplayAlert("Success", "Customer updated successfully.\nDo you want to add another Customer?", "Yes", "No");
+                    if (_Alert)
+                    {
+                        _EditItem = null;
+                        ClearValues();
+                    }
+                    else
+                    {
+                        LoadList();
+                        ChangeLayout(true);
+                    }
                 }
             }
             else
@@ -208,6 +223,34 @@ namespace SalesApp
             {
                 ListCustomer.ItemsSource = null;
             }
+        }
+
+        void EntryKeyEvents()
+        {
+            EntryCustomerName.Completed += (sender, e) =>
+            {
+                EntryMobile.Focus();
+            };
+            EntryMobile.Completed += (sender, e) =>
+            {
+                EntryEmail.Focus();
+            };
+            EntryEmail.Completed += (sender, e) =>
+            {
+                EntryBillingAddress.Focus();
+            };
+            EntryBillingAddress.Completed += (sender, e) =>
+            {
+                EntryBillingCity.Focus();
+            };
+            EntryBillingCity.Completed += (sender, e) =>
+            {
+                EntryBillingState.Focus();
+            };
+            EntryBillingState.Completed += (sender, e) =>
+            {
+                EntryBillingZipcode.Focus();
+            };
         }
     }
 }

@@ -1,39 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using ZXing.Net.Mobile.Forms;
 
 namespace SalesApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class StockOverview : ContentPage
+    public partial class StockDetailsPage : ContentPage
     {
         StockLogic _stockLogic = new StockLogic();
         CategoryLogic _categoryLogic = new CategoryLogic();
         Stocks _EditItem;
         SupplierLogic _supplierLogic = new SupplierLogic();
+        ZXingScannerPage scanPage;
 
-        private static ObservableCollection<Stocks> _stockcollection = null;
-
-        public static ObservableCollection<Stocks> StockAssestList
-        {
-            get
-            {
-                if (_stockcollection == null)
-                {
-                    _stockcollection = new ObservableCollection<Stocks>();
-                }
-                return _stockcollection;
-            }
-            set { _stockcollection = value; }
-        }
-
-        public StockOverview()
+        public StockDetailsPage(Stocks EditData)
         {
             InitializeComponent();
 
-            this.Title = "Stock Overview";
+            this.Title = "Stock Details";
+            NavigationPage.SetHasBackButton(this, true);
 
             LoadPicker();
 
@@ -44,26 +36,17 @@ namespace SalesApp
             EntryProductNumber.Keyboard = Keyboard.Create(KeyboardFlags.CapitalizeSentence);
             EntryProductDescription.Keyboard = Keyboard.Create(KeyboardFlags.CapitalizeSentence);
 
-            ListStock.IsPullToRefreshEnabled = false;
-            ListStock.IsRefreshing = IsBusy;
-            ChangeLayout(true);
-
-            ListStock.ItemSelected += (sender, args) =>
+            if (EditData == null)
+                ClearValues();
+            else
             {
-                if (args.SelectedItem == null)
-                    return;
+                _EditItem = EditData;
+                AssignValues(_EditItem);
+            }
 
-                var _Item = (Stocks)args.SelectedItem;
-                ((ListView)sender).SelectedItem = null;
+            BarcodeInit();
 
-                _EditItem = _Item;
-                AssignValues(_Item);
-                ChangeLayout(false);
-            };
-
-            EntrySearch.TextChanged += EntrySearch_TextChanged;
-
-            LoadList();
+            EntryKeyEvents();
         }
 
         void LoadPicker()
@@ -89,7 +72,7 @@ namespace SalesApp
             {
                 _CategoryItems.Add(_cat.CategoryName);
             }
-            
+
             PickerCategory.Items.Clear();
             PickerCategory.Title = "Select Category";
             PickerCategory.ItemsSource = _CategoryItems;
@@ -127,26 +110,6 @@ namespace SalesApp
             SwitchActive.IsToggled = _Item.IsActive.ToLower() == "true" ? true : false;
         }
 
-        void ChangeLayout(bool _Value)
-        {
-            ListContent.IsVisible = _Value;
-            FormContent.IsVisible = !_Value;
-
-            if(_Value)
-            {
-                ToolbarItems.Add(new ToolbarItem("Add", "Add.png", () =>
-                {
-                    _EditItem = null;
-                    ClearValues();
-                    ChangeLayout(false);
-                }));
-            }
-            else
-            {
-                ToolbarItems.Clear();
-            }
-        }
-
         private async void ButtonSave_Clicked(object sender, EventArgs e)
         {
             string _Error = Validation();
@@ -174,10 +137,10 @@ namespace SalesApp
                     _stockLogic.InsertStockItem(_StockItem);
 
                     ClearValues();
-
-                    await DisplayAlert("Success", "Stock added successfully", "Ok");
                     LoadList();
-                    ChangeLayout(true);
+                    await DisplayAlert("Success", "Stock added successfully", "Ok");
+
+                    await Navigation.PopModalAsync();
                 }
                 else
                 {
@@ -186,11 +149,10 @@ namespace SalesApp
                     _stockLogic.UpdateStockItem(_StockItem);
 
                     ClearValues();
-
-                    await DisplayAlert("Success", "Stock updated successfully", "Ok");
                     LoadList();
+                    await DisplayAlert("Success", "Stock updated successfully", "Ok");
 
-                    ChangeLayout(true);
+                    await Navigation.PopModalAsync();
                 }
             }
             else
@@ -198,24 +160,10 @@ namespace SalesApp
                 await DisplayAlert("Error", _Error, "Ok");
             }
         }
-
-        void LoadList()
-        {
-            var _stockItems = _stockLogic.GetAllStockItems();
-            if (_stockItems != null && _stockItems.Count != 0)
-            {
-                StockAssestList.Clear();
-
-                foreach (var _Items in _stockItems)
-                    StockAssestList.Add(_Items);
-
-                ListStock.ItemsSource = StockAssestList;
-            }
-        }
-
+        
         private async void ButtonCancel_Clicked(object sender, EventArgs e)
         {
-            ChangeLayout(true);
+            await Navigation.PopModalAsync();
         }
 
         string Validation()
@@ -256,22 +204,91 @@ namespace SalesApp
             SwitchActive.IsToggled = true;
         }
 
-        private void EntrySearch_TextChanged(object sender, TextChangedEventArgs e)
+        void LoadList()
         {
-            var _Filter = _stockLogic.SearchStockItems(EntrySearch.Text);
-            if (_Filter != null)
+            var _stockItems = _stockLogic.GetAllStockItems();
+            if (_stockItems != null && _stockItems.Count != 0)
             {
-                StockAssestList.Clear();
+              StockListPage.StockAssestList.Clear();
 
-                foreach (var _Items in _Filter)
-                    StockAssestList.Add(_Items);
+                foreach (var _Items in _stockItems)
+                    StockListPage.StockAssestList.Add(_Items);
 
-                ListStock.ItemsSource = StockAssestList;
             }
-            else
+        }
+
+        void BarcodeInit()
+        {
+            var BarcodeImageTap = new TapGestureRecognizer();
+            BarcodeImageTap.Tapped += async delegate
             {
-                ListStock.ItemsSource = null;
-            }
+                // Create our custom overlay
+                var customOverlay = new StackLayout
+                {
+                    HorizontalOptions = LayoutOptions.FillAndExpand,
+                    VerticalOptions = LayoutOptions.FillAndExpand
+                };
+                var torch = new Button
+                {
+                    Text = "Toggle Torch"
+                };
+                torch.Clicked += delegate
+                {
+                    scanPage.ToggleTorch();
+                };
+                customOverlay.Children.Add(torch);
+
+                scanPage = new ZXingScannerPage(new ZXing.Mobile.MobileBarcodeScanningOptions { AutoRotate = true }, customOverlay: customOverlay);
+                scanPage.OnScanResult += (result) =>
+                {
+                    scanPage.IsScanning = false;
+
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        Navigation.PopModalAsync();
+
+                        EntryBarcode.Text = result.Text;
+                    });
+                };
+                await Navigation.PushModalAsync(scanPage);
+            };
+
+            ImageBarcode.GestureRecognizers.Add(BarcodeImageTap);
+        }
+
+        void EntryKeyEvents()
+        {
+            EntryProductName.Completed += (sender, e) => {
+                EntryProductNumber.Focus();
+            };
+
+            EntryProductNumber.Completed += (sender, e) => {
+                PickerCategory.Focus();
+            };
+            PickerCategory.SelectedIndexChanged += (sender, e) => {
+                EntryQuantity.Focus();
+            };
+            EntryQuantity.Completed += (sender, e) => {
+                EntryPurchaseprice.Focus();
+            };
+            EntryPurchaseprice.Completed += (sender, e) => {
+                EntrySalesPrice.Focus();
+            };
+            EntrySalesPrice.Completed += (sender, e) => {
+                PickerUnit.Focus();
+            };
+            PickerUnit.SelectedIndexChanged += (sender, e) => {
+                PickerSupplier.Focus();
+            };
+            PickerSupplier.SelectedIndexChanged += (sender, e) => {
+                EntryAlertQuantity.Focus();
+            };
+            EntryAlertQuantity.Completed += (sender, e) => {
+                EntryBarcode.Focus();
+            };
+            EntryBarcode.Completed += (sender, e) => {
+                EntryProductDescription.Focus();
+            };
         }
 
     }

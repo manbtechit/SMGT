@@ -7,8 +7,8 @@ using Xamarin.Forms.Xaml;
 namespace SalesApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class SupplierPage : ContentPage
-	{
+    public partial class SupplierPage : ContentPage
+    {
         SupplierLogic _supplierLogic = new SupplierLogic();
         Supplier _EditItem;
 
@@ -60,6 +60,7 @@ namespace SalesApp
 
             LoadList();
 
+            EntryKeyEvents();
         }
 
         void AssignValues(Supplier _Item)
@@ -124,9 +125,16 @@ namespace SalesApp
 
                     ClearValues();
 
-                    await DisplayAlert("Success", "Supplier added successfully", "Ok");
-                    LoadList();
-                    ChangeLayout(true);
+                    var _Alert = await DisplayAlert("Success", "Supplier added successfully.\nDo you want to add another Supplier?", "Yes", "No");
+                    if (_Alert)
+                    {
+                        ClearValues();
+                    }
+                    else
+                    {
+                        LoadList();
+                        ChangeLayout(true);
+                    }
                 }
                 else
                 {
@@ -136,10 +144,17 @@ namespace SalesApp
 
                     ClearValues();
 
-                    await DisplayAlert("Success", "Supplier updated successfully", "Ok");
-                    LoadList();
-
-                    ChangeLayout(true);
+                    var _Alert = await DisplayAlert("Success", "Supplier updated successfully.\nDo you want to add another Supplier?", "Yes", "No");
+                    if (_Alert)
+                    {
+                        _EditItem = null;
+                        ClearValues();
+                    }
+                    else
+                    {
+                        LoadList();
+                        ChangeLayout(true);
+                    }
                 }
             }
             else
@@ -162,7 +177,7 @@ namespace SalesApp
             }
         }
 
-        private async void ButtonCancel_Clicked(object sender, EventArgs e)
+        private void ButtonCancel_Clicked(object sender, EventArgs e)
         {
             ChangeLayout(true);
         }
@@ -222,5 +237,44 @@ namespace SalesApp
             }
         }
 
+        void EntryKeyEvents()
+        {
+            EntrySupplierName.Completed += (sender, e) =>
+            {
+                EntryCompanyNumber.Focus();
+            };
+            EntryCompanyNumber.Completed += (sender, e) =>
+            {
+                EntryPhone.Focus();
+            };
+            EntryPhone.Completed += (sender, e) =>
+            {
+                EntryMobile.Focus();
+            };
+            EntryMobile.Completed += (sender, e) =>
+            {
+                EntryEmail.Focus();
+            };
+            EntryEmail.Completed += (sender, e) =>
+            {
+                EntryBillingAddress.Focus();
+            };
+            EntryBillingAddress.Completed += (sender, e) =>
+            {
+                EntryBillingCity.Focus();
+            };
+            EntryBillingCity.Completed += (sender, e) =>
+            {
+                EntryBillingState.Focus();
+            };
+            EntryBillingState.Completed += (sender, e) =>
+            {
+                EntryBillingZipcode.Focus();
+            };
+            EntryBillingZipcode.Completed += (sender, e) =>
+            {
+                EntryNotes.Focus();
+            };
+        }
     }
 }

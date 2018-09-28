@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SalesApp.StockListPage" xmlns:controls="clr-namespace:SalesApp;assembly=SalesApp">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout x:Name="ListContent" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="#FFFFFF">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40">
+                        </RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="25">
+                        </ColumnDefinition>
+                        <ColumnDefinition Width="*">
+                        </ColumnDefinition>
+                        <ColumnDefinition Width="35">
+                        </ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Row="0" Grid.Column="0" Source="Search.png" HeightRequest="25" Margin="5,0,0,0" WidthRequest="25"></Image>
+                    <Entry Grid.Row="0" Grid.Column="1" Margin="0,5,0,0" x:Name="EntrySearch" BackgroundColor="#FFFFFF" Placeholder="Search" PlaceholderColor="#535353" TextColor="#535353" HeightRequest="30" MinimumHeightRequest="30" FontSize="14">
+                    </Entry>
+                    <Image Grid.Row="0" Grid.Column="2" x:Name="SearchBarcode" Source="BarcodeIcon.png" HeightRequest="35" Margin="5,0,5,0" WidthRequest="35"></Image>
+                </Grid>
+                <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="White">
+                    <ListView x:Name="ListStock" CachingStrategy="RecycleElement" TranslationY="-5" HasUnevenRows="true" Header="Test" VerticalOptions="FillAndExpand" SeparatorVisibility="None" IsGroupingEnabled="false">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid Padding="5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto">
+                                            </RowDefinition>
+                                            <RowDefinition Height="20">
+                                            </RowDefinition>
+                                            <RowDefinition Height="1">
+                                            </RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*">
+                                            </ColumnDefinition>
+                                            <ColumnDefinition Width="30">
+                                            </ColumnDefinition>
+                                            <ColumnDefinition Width="20">
+                                            </ColumnDefinition>
+                                            <ColumnDefinition Width="15">
+                                            </ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Row="0" Grid.Column="0" Text="{Binding ProductName}" VerticalOptions="StartAndExpand" FontSize="13" TextColor="#535353">
+                                        </Label>
+                                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding Quantity}" HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand" FontSize="13" TextColor="#535353">
+                                        </Label>
+                                        <Label Grid.Row="0" Grid.Column="2" Text="{Binding Unit}" HorizontalOptions="Start" VerticalOptions="StartAndExpand" FontSize="13" TextColor="#535353">
+                                        </Label>
+
+                                        <Image Grid.Row="1" Grid.Column="0" Source="BarcodeIcon.png" HorizontalOptions="Start" VerticalOptions="CenterAndExpand" HeightRequest="20" WidthRequest="20"></Image>
+                                        <Label Grid.Row="1" Grid.Column="0" Text="{Binding Barcode}" Margin="22,0,0,0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand" FontSize="13" TextColor="#535353">
+                                        </Label>
+                                        
+                                        <Image Grid.Row="0" Grid.Column="3" Grid.RowSpan="2" Source="Nextarrow.png" HeightRequest="15" WidthRequest="15" VerticalOptions="Center"></Image>
+                                        <BoxView BackgroundColor="#EFEFEF" HeightRequest="1" MinimumHeightRequest="1" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4">
+                                        </BoxView>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.HeaderTemplate>
+                            <DataTemplate>
+                                <ContentView BackgroundColor="#4AAECF">
+                                    <Grid Padding="5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto">
+                                            </RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*">
+                                            </ColumnDefinition>
+                                            <ColumnDefinition Width="70">
+                                            </ColumnDefinition>
+                                            <ColumnDefinition Width="40">
+                                            </ColumnDefinition>
+                                            <ColumnDefinition Width="15">
+                                            </ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Row="0" Grid.Column="0" Text="Product Name" VerticalOptions="StartAndExpand" FontSize="13"  TextColor="#FFFFFF">
+                                        </Label>
+                                        <Label Grid.Row="0" Grid.Column="1" Text="Quantity" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" FontSize="13" TextColor="#FFFFFF">
+                                        </Label>
+                                    </Grid>
+                                </ContentView>
+                            </DataTemplate>
+                        </ListView.HeaderTemplate>
+                    </ListView>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout x:Name="FormContent" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#FFFFFF" IsVisible="False">
+                <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#FFFFFF">
+                    <Grid x:Name="gridProvideFeedbackProblem" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="10,0,10,10" Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="100"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="75"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150">
+                            </ColumnDefinition>
+                            <ColumnDefinition Width="*">
+                            </ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label x:Name="LblProductName" FontSize="18" FontAttributes="Bold" Grid.ColumnSpan="2" Text="Product Name" Grid.Row="0" Grid.Column="0" TextColor="#000000" />
+                        <Label x:Name="LblBarcode" Text="Barcode" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" TextColor="#000000" />
+
+                        <Label Text="Product Details" FontSize="18" FontAttributes="Bold" Grid.Row="2" Grid.Column="0" TextColor="#000000" />
+
+                        <Label x:Name="LblCategory" Text="Category" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" TextColor="#000000" />
+                        <Label x:Name="LblQuantity" Text="Quantity" Grid.Row="4" Grid.Column="0" TextColor="#000000" />
+                        <Label x:Name="LblAlertQuantity" Grid.Row="4" Grid.Column="1"   TextColor="#000000" />
+
+                        <Label x:Name="LblPurchasePrice" Text="Purchase Price" Grid.Row="5" Grid.Column="0"   TextColor="#000000" />
+                        <Label x:Name="LblSalesPrice" Text="Sales Price" Grid.Row="5" Grid.Column="1"   TextColor="#000000" />
+                        
+                        <Label x:Name="LblSupplier" Text="Supplier" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"   TextColor="#000000" />
+
+                        <Image Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Source="Product.png" HeightRequest="100" WidthRequest="100"></Image>
+                        
+                        <Label Text="Product Description" FontSize="18" FontAttributes="Bold" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2"   TextColor="#000000" />
+                        <Label x:Name="LblProductDescription" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2"   TextColor="#000000" />
+
+                    </Grid>
+                </ScrollView>
+                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="End" BackgroundColor="#00456E" HeightRequest="50">
+                    <controls:CustomButton x:Name="ButtonEdit" Text="Edit" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" HeightRequest="40" WidthRequest="100" BackgroundColor="#FFFFFF" TextColor="#00456E" />
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

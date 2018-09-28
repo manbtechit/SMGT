@@ -5,8 +5,27 @@
     <ContentPage.Content>
         <StackLayout>
             <StackLayout x:Name="ListContent" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="#FFFFFF" IsVisible="True">
-                <Entry x:Name="EntrySearch" BackgroundColor="#e2e2e2" Placeholder="Search" PlaceholderColor="#a0a0a0" TextColor="#a0a0a0" HeightRequest="40" MinimumHeightRequest="40">
-                </Entry>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40">
+                        </RowDefinition>
+                        <RowDefinition Height="10">
+                        </RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="25">
+                        </ColumnDefinition>
+                        <ColumnDefinition Width="*">
+                        </ColumnDefinition>
+                        <ColumnDefinition Width="35">
+                        </ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Row="0" Grid.Column="0" Source="Search.png" HeightRequest="25" Margin="5,0,0,0" WidthRequest="25"></Image>
+                    <Entry Grid.Row="0" Grid.Column="1" Margin="0,5,0,0" x:Name="EntrySearch" BackgroundColor="#FFFFFF" Placeholder="Search/Scan" PlaceholderColor="#535353" TextColor="#535353" HeightRequest="30" MinimumHeightRequest="30" FontSize="14">
+                    </Entry>
+                    <Image Grid.Row="0" Grid.Column="2" x:Name="SearchBarcode" Source="BarcodeIcon.png" HeightRequest="35" Margin="5,0,5,0" WidthRequest="35"></Image>
+                    <BoxView BackgroundColor="#4AAECF" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" HeightRequest="10"></BoxView>
+                </Grid>
                 <StackLayout VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="White">
                     <ListView x:Name="ListProduct" CachingStrategy="RecycleElement"  HasUnevenRows="true" VerticalOptions="FillAndExpand" SeparatorVisibility="None" IsGroupingEnabled="false">
                         <ListView.ItemTemplate>
@@ -29,13 +48,13 @@
                                                 </ColumnDefinition>
                                             </Grid.ColumnDefinitions>
 
-                                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding OrderNumber, StringFormat='Order: # {0:N}'}" VerticalOptions="StartAndExpand" FontSize="12" TextColor="#5e5d5d">
+                                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding OrderNumber, StringFormat='Order: # {0:N}'}" VerticalOptions="StartAndExpand" FontSize="12" TextColor="#535353">
                                             </Label>
-                                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding OrderDate, StringFormat='Date: {0:N}'}" VerticalOptions="StartAndExpand" FontSize="12" TextColor="#5e5d5d">
+                                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding OrderDate, StringFormat='Date: {0:N}'}" VerticalOptions="StartAndExpand" FontSize="12" TextColor="#535353">
                                             </Label>
-                                            <Label Grid.Row="1" Grid.Column="0" Text="{Binding Supplier, StringFormat='Supplier: {0:N}'}" VerticalOptions="StartAndExpand" FontSize="12" TextColor="#5e5d5d">
+                                            <Label Grid.Row="1" Grid.Column="0" Text="{Binding Supplier, StringFormat='Supplier: {0:N}'}" VerticalOptions="StartAndExpand" FontSize="12" TextColor="#535353">
                                             </Label>
-                                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding Total, StringFormat='Total: {0:N}'}" VerticalOptions="StartAndExpand" FontSize="12" TextColor="#5e5d5d">
+                                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding Total, StringFormat='Total: {0:N}'}" VerticalOptions="StartAndExpand" FontSize="12" TextColor="#535353">
                                             </Label>
                                             <Image Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" VerticalOptions="CenterAndExpand" Source="Nextarrow.png" HeightRequest="15" WidthRequest="15"></Image>
                                         </Grid>
@@ -164,8 +183,8 @@
                             <ColumnDefinition Width="*">
                             </ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="ButtonSave" Text="Save" Grid.Row="0" Grid.Column="0" HeightRequest="40" WidthRequest="100" BackgroundColor="#FFFFFF" TextColor="#00456E" HorizontalOptions="CenterAndExpand" />
-                        <Button x:Name="ButtonCancel" Text="Cancel" Grid.Row="0" Grid.Column="1" HeightRequest="40" WidthRequest="100" BackgroundColor="#FFFFFF" TextColor="#00456E" HorizontalOptions="CenterAndExpand" />
+                        <controls:CustomButton x:Name="ButtonSave" FontAttributes="Bold" Text="Save" Grid.Row="0" Grid.Column="0" HeightRequest="40" WidthRequest="100" BackgroundColor="#FFFFFF" TextColor="#00456E" HorizontalOptions="CenterAndExpand" />
+                        <controls:CustomButton x:Name="ButtonCancel" FontAttributes="Bold" Text="Cancel" Grid.Row="0" Grid.Column="1" HeightRequest="40" WidthRequest="100" BackgroundColor="#FFFFFF" TextColor="#00456E" HorizontalOptions="CenterAndExpand" />
                     </Grid>
                 </StackLayout>
             </StackLayout>

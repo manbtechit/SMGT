@@ -18,6 +18,7 @@ namespace SalesApp
         PurchaseOrder _EditItem;
         POLogic _POLogic = new POLogic();
         ZXingScannerPage scanPage;
+        PurchaseOrder_Product _EditItemProduct;
 
         private static ObservableCollection<PurchaseOrder> _POcollection = null;
         private static ObservableCollection<PurchaseOrder_Product> _POItemcollection = null;
@@ -93,6 +94,22 @@ namespace SalesApp
                 ChangeLayout(false);
             };
 
+            ListProductItem.ItemSelected += (sender, args) =>
+            {
+                if (args.SelectedItem == null)
+                    return;
+
+                var _Item = (PurchaseOrder_Product)args.SelectedItem;
+                ((ListView)sender).SelectedItem = null;
+
+                PickerProduct.SelectedItem = _Item.ProductName;
+                EntryQuantity.Text = _Item.Quantity.ToString();
+
+                _EditItemProduct = _Item;
+            };
+
+            _EditItemProduct = null;
+
             BarcodeInit();
         }
 
@@ -108,6 +125,18 @@ namespace SalesApp
             EntryCGST.Text = _Item.CGST.ToString();
             EntrySGST.Text = _Item.SGST.ToString();
             EntryTotal.Text = _Item.Total.ToString();
+
+            var _Prod = _POLogic.GetAllPurchaseProduct(_Item.OrderNumber);
+            if(_Prod!=null && _Prod.Count!=0)
+            {
+                POItemList.Clear();
+
+                foreach (var _itm in _Prod)
+                {
+                    POItemList.Add(_itm);
+                }
+                ListProductItem.ItemsSource = POItemList;
+            }
         }
 
         void ChangeLayout(bool _Value)
@@ -190,15 +219,53 @@ namespace SalesApp
 
         private void ButtonAdd_Clicked(object sender, EventArgs e)
         {
-            if (PickerProduct.SelectedIndex != 0)
+            if (_EditItemProduct == null)
             {
-                if (EntryQuantity.Text.Trim() != "")
+                if (PickerProduct.SelectedIndex != 0)
                 {
-                    var _PItem = _POLogic.GetStockItems(PickerProduct.SelectedItem.ToString());
-                    if (_PItem != null)
+                    if (EntryQuantity.Text.Trim() != "")
                     {
-                        AddBarcodeProduct(_PItem.FirstOrDefault(), "");
+                        var _PItem = _POLogic.GetStockItems(PickerProduct.SelectedItem.ToString());
+                        if (_PItem != null)
+                        {
+                            AddBarcodeProduct(_PItem.FirstOrDefault(), "");
+                        }
                     }
+                }
+            }
+            else
+            {
+                var POItem = POItemList.Where(i => i.UniqueID == _EditItemProduct.UniqueID);
+                if (POItem.Count() != 0)
+                {
+                    _EditItemProduct.Quantity =int.Parse(EntryQuantity.Text);
+
+                    POItemList.Remove(POItem.FirstOrDefault());
+                    POItemList.Add(_EditItemProduct);
+
+                    _EditItemProduct = null;
+                    ListProductItem.ItemsSource = null;
+                    ListProductItem.ItemsSource = POItemList;
+
+                    double subtotal = 0;
+                    foreach (var _prod in POItemList)
+                    {
+                        subtotal = subtotal + (_prod.Quantity * _prod.PurchasePrice);
+                    }
+
+                    EntrySubtotal.Text = subtotal.ToString();
+
+                    double CGST = (subtotal * SessionData.CGST) / 100;
+                    double SGST = (subtotal * SessionData.SGST) / 100;
+
+                    EntryCGST.Text = CGST.ToString();
+                    EntrySGST.Text = SGST.ToString();
+
+                    double Total = subtotal + CGST + SGST;
+                    EntryTotal.Text = Total.ToString();
+
+                    PickerProduct.SelectedIndex = 0;
+                    EntryQuantity.Text = "";
                 }
             }
         }
@@ -331,7 +398,8 @@ namespace SalesApp
                     ProductName = _StItem.ProductName,
                     Quantity = int.Parse(EntryQuantity.Text),
                     PurchasePrice = _StItem.PurchasePrice,
-                    Barcode = _StItem.Barcode
+                    Barcode = _StItem.Barcode,
+                    OrderNumber = EntryOrderNumber.Text
                 };
 
                 if (POItemList != null && POItemList.Count != 0)

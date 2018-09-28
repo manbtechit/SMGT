@@ -11,7 +11,7 @@ namespace SalesApp
         {
             try
             {
-                string _Query = "Select * from Supplier where IsActive='true' collate nocase";
+                string _Query = "Select * from Supplier where IsActive='true' collate nocase order by SupplierName asc";
 
                 var _result = SessionData.SQLDataConnection.Query<Supplier>(_Query);
 

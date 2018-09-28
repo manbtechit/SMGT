@@ -62,11 +62,11 @@ namespace SalesApp
                 MenuItems = new ObservableCollection<MenuMasterMenuItem>(new[]
                 {
                     new MenuMasterMenuItem { Id = 0, Title = "Dashboard", ImageUrl="icon_Dashborad.png", TargetType=typeof(Dashboard) },
-                    new MenuMasterMenuItem { Id = 1, Title = "Stock Overview", ImageUrl="icon_Stocks.png", TargetType=typeof(StockOverview) },
+                    new MenuMasterMenuItem { Id = 1, Title = "Stock Overview", ImageUrl="icon_Stocks.png", TargetType=typeof(StockListPage) },
                     new MenuMasterMenuItem { Id = 2, Title = "Purchase Order",ImageUrl="icon_Purchase.png", TargetType=typeof(PurchaseOrderPage) },
                     new MenuMasterMenuItem { Id = 3, Title = "Receipt", ImageUrl="icon_Receipt.png",TargetType=typeof(ReceiptPage) },
                     new MenuMasterMenuItem { Id = 4, Title = "Sales Order", ImageUrl="icon_Sales.png" ,TargetType=typeof(SalesPage) },
-                    new MenuMasterMenuItem { Id = 5, Title = "Reports", ImageUrl="icon_Reports.png",TargetType=typeof(Reports) },
+                    new MenuMasterMenuItem { Id = 5, Title = "Reports", ImageUrl="icon_Reports.png",TargetType=typeof(ReportListPage) },
                     new MenuMasterMenuItem { Id = 6, Title = "Manage", ImageUrl="icon_Manage.png",TargetType=typeof(AdminPage) },
                     new MenuMasterMenuItem { Id = 7, Title = "Sync", ImageUrl="icon_sync.png" }
                 });

@@ -26,7 +26,7 @@ namespace SalesApp
         {
             var StocktapRecognizer = new TapGestureRecognizer();
             StocktapRecognizer.Tapped += (sender, eventergs) => {
-                Utilities.PushModalAsync(Navigation, new StockOverview());
+                Utilities.PushModalAsync(Navigation, new StockListPage());
             };
             ImageStock.GestureRecognizers.Add(StocktapRecognizer);
             LabelStock.GestureRecognizers.Add(StocktapRecognizer);

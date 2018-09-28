@@ -23,8 +23,8 @@ namespace SalesApp
         public string ProductNumber { get; set; }
         public string Category { get; set; }
         public int Quantity { get; set; }
-        public int PurchasePrice { get; set; }
-        public int SalesPrice { get; set; }
+        public double PurchasePrice { get; set; }
+        public double SalesPrice { get; set; }
         public string Unit { get; set; }
         public string Supplier { get; set; }
         public int AlertQuantity { get; set; }

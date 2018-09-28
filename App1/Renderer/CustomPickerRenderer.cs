@@ -36,11 +36,15 @@ namespace SalesApp.Droid.Renderer
 
             element = (CustomPicker)this.Element;
 
+            Typeface font = Typeface.CreateFromAsset(Context.Assets, "ITCItalic.otf");
+
             if (Control != null && this.Element != null && !string.IsNullOrEmpty(element.Image))
             {
                 Control.Background = AddPickerStyles(element.Image);
 
                 Control.TextSize = 13;
+
+                Control.Typeface = font;
             }
 
         }
