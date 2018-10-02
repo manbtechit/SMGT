@@ -26,6 +26,9 @@ namespace SalesApp
                 checkAndCreateTable<PurchaseOrder>();
                 checkAndCreateTable<PurchaseOrder_Product>();
 
+                checkAndCreateTable<ReceiptOrder>();
+                checkAndCreateTable<ReceiptOrder_Product>();
+
                 checkAndCreateTable<SalesOrder>();
                 checkAndCreateTable<SalesOrder_Product>();
             }

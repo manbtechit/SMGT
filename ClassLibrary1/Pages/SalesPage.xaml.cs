@@ -19,6 +19,7 @@ namespace SalesApp
         SalesOrder _EditItem;
         SalesLogic _SalesLogic = new SalesLogic();
         ZXingScannerPage scanPage;
+        SalesOrder_Product _EditItemProduct;
 
         private static ObservableCollection<SalesOrder> _Salecollection = null;
         private static ObservableCollection<SalesOrder_Product> _SaleItemcollection = null;
@@ -63,6 +64,11 @@ namespace SalesApp
 
             ChangeLayout(true);
 
+            SaleList.Clear();
+            SaleItemList.Clear();
+            ListProductItem.ItemsSource = null;
+            ListProduct.ItemsSource = null;
+
             LoadList();
 
             LoadPicker();
@@ -91,6 +97,22 @@ namespace SalesApp
                 ChangeLayout(false);
             };
 
+            ListProductItem.ItemSelected += (sender, args) =>
+            {
+                if (args.SelectedItem == null)
+                    return;
+
+                var _Item = (SalesOrder_Product)args.SelectedItem;
+                ((ListView)sender).SelectedItem = null;
+
+                PickerProduct.SelectedItem = _Item.ProductName;
+                EntryQuantity.Text = _Item.Quantity.ToString();
+
+                _EditItemProduct = _Item;
+            };
+
+            _EditItemProduct = null;
+
             BarcodeInit();
         }
 
@@ -105,6 +127,18 @@ namespace SalesApp
             EntryCGST.Text = _Item.CGST.ToString();
             EntrySGST.Text = _Item.SGST.ToString();
             EntryTotal.Text = _Item.Total.ToString();
+
+            var _Prod = _SalesLogic.GetAllSalesProduct(_Item.OrderNumber);
+            if (_Prod != null && _Prod.Count != 0)
+            {
+                SaleItemList.Clear();
+
+                foreach (var _itm in _Prod)
+                {
+                    SaleItemList.Add(_itm);
+                }
+                ListProductItem.ItemsSource = SaleItemList;
+            }
         }
 
         void ChangeLayout(bool _Value)
@@ -137,6 +171,9 @@ namespace SalesApp
             EntryCGST.Text = "";
             EntrySGST.Text = "";
             EntryTotal.Text = "";
+
+            SaleItemList.Clear();
+            ListProductItem.ItemsSource = null;
         }
 
         void LoadPicker()
@@ -168,19 +205,62 @@ namespace SalesApp
 
                 ListProduct.ItemsSource = SaleList;
             }
+            else
+            {
+                SaleList.Clear();
+                ListProduct.ItemsSource = null;
+            }
         }
 
         private void ButtonAdd_Clicked(object sender, EventArgs e)
         {
-            if (PickerProduct.SelectedIndex != 0)
+            if (_EditItemProduct == null)
             {
-                if (EntryQuantity.Text.Trim() != "")
+                if (PickerProduct.SelectedIndex != 0)
                 {
-                    var _PItem = _SalesLogic.GetStockItems(PickerProduct.SelectedItem.ToString());
-                    if (_PItem != null)
+                    if (EntryQuantity.Text.Trim() != "")
                     {
-                        AddBarcodeProduct(_PItem.FirstOrDefault(), "");
+                        var _PItem = _SalesLogic.GetStockItems(PickerProduct.SelectedItem.ToString());
+                        if (_PItem != null)
+                        {
+                            AddBarcodeProduct(_PItem.FirstOrDefault(), "");
+                        }
                     }
+                }
+            }
+            else
+            {
+                var POItem = SaleItemList.Where(i => i.UniqueID == _EditItemProduct.UniqueID);
+                if (POItem.Count() != 0)
+                {
+                    _EditItemProduct.Quantity = int.Parse(EntryQuantity.Text);
+
+                    SaleItemList.Remove(POItem.FirstOrDefault());
+                    SaleItemList.Add(_EditItemProduct);
+
+                    _EditItemProduct = null;
+                    ListProductItem.ItemsSource = null;
+                    ListProductItem.ItemsSource = SaleItemList;
+
+                    double subtotal = 0;
+                    foreach (var _prod in SaleItemList)
+                    {
+                        subtotal = subtotal + (_prod.Quantity * _prod.SalesPrice);
+                    }
+
+                    EntrySubtotal.Text = subtotal.ToString();
+
+                    double CGST = (subtotal * SessionData.CGST) / 100;
+                    double SGST = (subtotal * SessionData.SGST) / 100;
+
+                    EntryCGST.Text = CGST.ToString();
+                    EntrySGST.Text = SGST.ToString();
+
+                    double Total = subtotal + CGST + SGST;
+                    EntryTotal.Text = Total.ToString();
+
+                    PickerProduct.SelectedIndex = 0;
+                    EntryQuantity.Text = "";
                 }
             }
         }
@@ -205,6 +285,11 @@ namespace SalesApp
 
                     if (_EditItem == null)
                     {
+                        foreach (var _itm in SaleItemList)
+                        {
+                            _SalesLogic.UpdateStocks(_itm.ProductID, _itm.Quantity);
+                        }
+
                         _SalesLogic.InsertSalesOrderItems(SaleItemList);
                         _SalesLogic.InsertSalesOrder(_Item);
 
@@ -217,6 +302,11 @@ namespace SalesApp
                     else
                     {
                         _Item.UniqueID = _EditItem.UniqueID;
+
+                        foreach (var _itm in SaleItemList)
+                        {
+                            _SalesLogic.UpdateStocks(_itm.ProductID, _itm.Quantity);
+                        }
 
                         _SalesLogic.UpdateSalesOrder(_Item);
                         _SalesLogic.DeleteSalesOrderItems(_Item.OrderNumber);
@@ -310,7 +400,8 @@ namespace SalesApp
                     ProductName = _StItem.ProductName,
                     Quantity = int.Parse(EntryQuantity.Text),
                     SalesPrice = _StItem.SalesPrice,
-                    Barcode = _StItem.Barcode
+                    Barcode = _StItem.Barcode,
+                    OrderNumber = EntryOrderNumber.Text
                 };
 
                 if (SaleItemList != null && SaleItemList.Count != 0)
@@ -360,6 +451,14 @@ namespace SalesApp
             {
                 DisplayAlert("Error", "Product not found.", "OK");
             }
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            base.OnBackButtonPressed();
+
+            Application.Current.MainPage = new MenuMaster();
+            return true;
         }
     }
 }

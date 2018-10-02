@@ -7,15 +7,15 @@ using System.Text;
 
 namespace SalesApp
 {
-   public class SalesLogic
+    public class ReceiptLogic
     {
-        public List<SalesOrder> GetAllSalesOrder()
+        public List<PurchaseOrder> GetAllPurchaseOrder()
         {
             try
             {
-                string _Query = "Select * from SalesOrder";
+                string _Query = "Select * from PurchaseOrder where status='" + PurchaseOrderStatus.Open.ToString() + "'";
 
-                var _result = SessionData.SQLDataConnection.Query<SalesOrder>(_Query);
+                var _result = SessionData.SQLDataConnection.Query<PurchaseOrder>(_Query);
 
                 return _result;
             }
@@ -27,13 +27,14 @@ namespace SalesApp
             }
             return null;
         }
-        public List<SalesOrder_Product> GetAllSalesProduct(string OrderNumber)
+
+        public List<PurchaseOrder_Product> GetAllPurchaseProduct(string OrderNumber)
         {
             try
             {
-                string _Query = "Select * from SalesOrder_Product WHERE OrderNumber='" + OrderNumber + "'";
+                string _Query = "Select * from PurchaseOrder_Product WHERE OrderNumber='" + OrderNumber + "'";
 
-                var _result = SessionData.SQLDataConnection.Query<SalesOrder_Product>(_Query);
+                var _result = SessionData.SQLDataConnection.Query<PurchaseOrder_Product>(_Query);
 
                 return _result;
             }
@@ -84,15 +85,16 @@ namespace SalesApp
             return null;
         }
 
-        public void InsertSalesOrder(SalesOrder _Item)
+        public void InsertReceiptOrder(ReceiptOrder _Item)
         {
             try
             {
                 if (_Item != null)
                 {
-                    string _Query = "INSERT INTO SalesOrder(OrderNumber,OrderDate,SubTotal,CGST,SGST,Total," +
+                    string _Query = "INSERT INTO ReceiptOrder(OrderNumber,OrderDate,ReceiptDate,Supplier,SubTotal,CGST,SGST,Total," +
                         "ProductCount,Status) VALUES('" +
-                        _Item.OrderNumber + "','" + _Item.OrderDate + "','" + _Item.SubTotal + "','" +
+                        _Item.OrderNumber + "','" + _Item.OrderDate + "','"+_Item.ReceiptDate+"','" + 
+                        _Item.Supplier + "','" + _Item.SubTotal + "','" +
                         _Item.CGST + "','" + _Item.SGST + "','" + _Item.Total + "','" +
                         _Item.ProductCount + "','" + _Item.Status + "')";
 
@@ -107,7 +109,7 @@ namespace SalesApp
             }
         }
 
-        public void InsertSalesOrderItems(ObservableCollection<SalesOrder_Product> _ListItem)
+        public void InsertReceiptOrderItems(ObservableCollection<PurchaseOrder_Product> _ListItem)
         {
             try
             {
@@ -115,9 +117,9 @@ namespace SalesApp
                 {
                     foreach (var _Item in _ListItem)
                     {
-                        string _Query = "INSERT INTO SalesOrder_Product(OrderNumber,ProductID,Quantity,ProductName,SalesPrice, Barcode) VALUES('" +
-                            _Item.OrderNumber + "','" + _Item.ProductID + "','" + _Item.Quantity + "','" + _Item.ProductName + "','" + 
-                            _Item.SalesPrice + "','" + _Item.Barcode + "')";
+                        string _Query = "INSERT INTO ReceiptOrder_Product(OrderNumber,ProductID,Quantity,ProductName,PurchasePrice,Barcode) VALUES('" +
+                            _Item.OrderNumber + "','" + _Item.ProductID + "','" + _Item.Quantity + "','" +
+                            _Item.ProductName + "','" + _Item.PurchasePrice + "','" + _Item.Barcode + "')";
 
                         SessionData.SQLDataConnection.Execute(_Query);
                     }
@@ -131,13 +133,13 @@ namespace SalesApp
             }
         }
 
-        public void DeleteSalesOrderItems(string OrderNumber)
+        public void UpdatePurchaseOrder(string OrderNumber)
         {
             try
             {
                 if (OrderNumber != "")
                 {
-                    string _Query = "Delete from SalesOrder_Product Where OrderNumber='" + OrderNumber + "'";
+                    string _Query = "Update PurchaseOrder Set Status='"+PurchaseOrderStatus.Closed+"' Where OrderNumber='" + OrderNumber + "'";
 
                     SessionData.SQLDataConnection.Execute(_Query);
                 }
@@ -150,39 +152,17 @@ namespace SalesApp
             }
         }
 
-        public void UpdateSalesOrder(SalesOrder _Item)
-        {
-            try
-            {
-                if (_Item != null)
-                {
-                    string _Query = "Update SalesOrder Set OrderNumber='" + _Item.OrderNumber + "',OrderDate='" + _Item.OrderDate + "'," +
-                        "SubTotal='" + _Item.SubTotal + "'," +
-                        "CGST='" + _Item.CGST + "',SGST='" + _Item.SGST + "',Total='" + _Item.Total + "'," +
-                        "ProductCount='" + _Item.ProductCount + "',Status='" + _Item.Status + "' WHERE UniqueID='" + _Item.UniqueID + "'";
-
-                    SessionData.SQLDataConnection.Execute(_Query);
-                }
-            }
-            catch (SQLiteException SQLex)
-            {
-            }
-            catch (Exception Ex)
-            {
-            }
-        }
-
-        public void UpdateStocks(int ProductID, int Quantity)
+        public void UpdateStocks(int ProductID,int Quantity)
         {
             try
             {
                 if (ProductID != 0)
                 {
-                    string _Query = "Select * from Stocks where UniqueID='" + ProductID + "'";
+                    string _Query = "Select * from Stocks where UniqueID='" + ProductID+"'";
                     var _result = SessionData.SQLDataConnection.Query<Stocks>(_Query).FirstOrDefault();
                     if (_result != null)
                     {
-                        Quantity = _result.Quantity - Quantity;
+                        Quantity = _result.Quantity + Quantity;
 
                         _Query = "Update Stocks Set Quantity='" + Quantity + "' Where UniqueID='" + ProductID + "'";
                         SessionData.SQLDataConnection.Execute(_Query);

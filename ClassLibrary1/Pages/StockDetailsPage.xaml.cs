@@ -136,23 +136,35 @@ namespace SalesApp
                 {
                     _stockLogic.InsertStockItem(_StockItem);
 
-                    ClearValues();
-                    LoadList();
-                    await DisplayAlert("Success", "Stock added successfully", "Ok");
-
-                    await Navigation.PopModalAsync();
+                    var _Alert = await DisplayAlert("Success", "Stock added successfully.\nDo you want to add another Stock?", "Yes", "No");
+                    if (_Alert)
+                    {
+                        ClearValues();
+                        EntryProductName.Focus();
+                    }
+                    else
+                    {
+                        LoadList();
+                        await Navigation.PopModalAsync();
+                    }
                 }
                 else
                 {
                     _StockItem.UniqueID = _EditItem.UniqueID;
-
                     _stockLogic.UpdateStockItem(_StockItem);
 
-                    ClearValues();
-                    LoadList();
-                    await DisplayAlert("Success", "Stock updated successfully", "Ok");
-
-                    await Navigation.PopModalAsync();
+                    var _Alert = await DisplayAlert("Success", "Stock updated successfully.\nDo you want to add another Stock?", "Yes", "No");
+                    if (_Alert)
+                    {
+                        _EditItem = null;
+                        ClearValues();
+                        EntryProductName.Focus();
+                    }
+                    else
+                    {
+                        LoadList();
+                        await Navigation.PopModalAsync();
+                    }
                 }
             }
             else
@@ -213,7 +225,6 @@ namespace SalesApp
 
                 foreach (var _Items in _stockItems)
                     StockListPage.StockAssestList.Add(_Items);
-
             }
         }
 

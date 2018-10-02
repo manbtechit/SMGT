@@ -91,7 +91,7 @@
                         <Label x:Name="LblOrderNumber" Text="Order Number" Grid.Row="0" Grid.Column="0" TextColor="#000000" />
                         <controls:FormEntry x:Name="EntryOrderNumber" Grid.Row="0" Grid.Column="1" Placeholder="Order Number" PlaceholderColor="#bddef9" FontSize="13" TextColor="#000000" Keyboard="Numeric" HorizontalOptions="Start" WidthRequest="75" />
                         <Label x:Name="LblOrderDate" Text="Date" Grid.Row="0" Grid.Column="2" TextColor="#000000" />
-                        <controls:FormEntry x:Name="EntryDate" Grid.Row="0" Grid.Column="3" Placeholder="Date" PlaceholderColor="#bddef9" FontSize="13" TextColor="#000000" HorizontalOptions="Start" WidthRequest="75"/>
+                        <controls:FormEntry x:Name="EntryDate" Grid.Row="0" Grid.Column="3" Placeholder="Date" Margin="-10,0,0,0" PlaceholderColor="#bddef9" FontSize="12" TextColor="#000000" HorizontalOptions="Start" WidthRequest="85"/>
 
                         <Label x:Name="LblSupplier" Text="Supplier" Grid.Row="1" Grid.Column="0" TextColor="#000000" />
                         <controls:CustomPicker x:Name="PickerSupplier" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" HorizontalOptions="FillAndExpand"

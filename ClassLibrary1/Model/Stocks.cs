@@ -5,16 +5,6 @@ using System.Text;
 
 namespace SalesApp
 {
-    public class RootObject
-    {
-        public string QueryResults { get; set; }
-        public string InsertPrefix { get; set; }
-        public string Inserts { get; set; }
-        public bool QuerySuccessful { get; set; }
-        public int ElapsedTime { get; set; }
-        public int Rows { get; set; }
-    }
-
     public class Stocks
     {
         [PrimaryKey, AutoIncrement]
@@ -68,6 +58,38 @@ namespace SalesApp
         public string Barcode { get; set; }
     }
 
+    public class ReceiptOrder
+    {
+        [PrimaryKey, AutoIncrement]
+        public int UniqueID { get; set; }
+        public string OrderNumber { get; set; }
+        public string OrderDate { get; set; }
+        public string ReceiptDate { get; set; }
+        public string Supplier { get; set; }
+        public double SubTotal { get; set; }
+        public double CGST { get; set; }
+        public double SGST { get; set; }
+        public double Total { get; set; }
+        public double ProductCount { get; set; }
+        public string Status { get; set; }
+        public string CreatedBy { get; set; }
+        public string ModifiedBy { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime ModifiedDate { get; set; }
+    }
+
+    public class ReceiptOrder_Product
+    {
+        [PrimaryKey, AutoIncrement]
+        public int UniqueID { get; set; }
+        public string OrderNumber { get; set; }
+        public int ProductID { get; set; }
+        public string ProductName { get; set; }
+        public int Quantity { get; set; }
+        public double PurchasePrice { get; set; }
+        public string Barcode { get; set; }
+    }
+
     public class SalesOrder
     {
         [PrimaryKey, AutoIncrement]
@@ -98,5 +120,27 @@ namespace SalesApp
         public int Quantity { get; set; }
         public double SalesPrice { get; set; }
         public string Barcode { get; set; }
+    }
+
+    public class StockReport
+    {
+        [PrimaryKey, AutoIncrement]
+        public int UniqueID { get; set; }
+        public string ProductName { get; set; }
+        public string ProductNumber { get; set; }
+        public string Category { get; set; }
+        public string Quantity { get; set; }
+        public string PurchasePrice { get; set; }
+        public string SalesPrice { get; set; }
+        public string Unit { get; set; }
+        public string Supplier { get; set; }
+        public int AlertQuantity { get; set; }
+        public string Barcode { get; set; }
+        public string ProductDescription { get; set; }
+        public string IsActive { get; set; }
+        public string CreatedBy { get; set; }
+        public string ModifiedBy { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime ModifiedDate { get; set; }
     }
 }

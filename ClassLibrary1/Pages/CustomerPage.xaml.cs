@@ -122,6 +122,7 @@ namespace SalesApp
                     if (_Alert)
                     {
                         ClearValues();
+                        EntryCustomerName.Focus();
                     }
                     else
                     {
@@ -142,6 +143,7 @@ namespace SalesApp
                     {
                         _EditItem = null;
                         ClearValues();
+                        EntryCustomerName.Focus();
                     }
                     else
                     {

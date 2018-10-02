@@ -12,5 +12,7 @@ namespace SalesApp
 
         public static double CGST = 2;
         public static double SGST = 2;
+
+        public static string Currency = "₹";
     }
 }

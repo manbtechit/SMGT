@@ -63,6 +63,11 @@ namespace SalesApp
 
             ChangeLayout(true);
 
+            POList.Clear();
+            POItemList.Clear();
+            ListProductItem.ItemsSource = null;
+            ListProduct.ItemsSource = null;
+
             LoadList();
 
             LoadPicker();
@@ -170,6 +175,9 @@ namespace SalesApp
             EntryCGST.Text = "";
             EntrySGST.Text = "";
             EntryTotal.Text = "";
+            
+            POItemList.Clear();
+            ListProductItem.ItemsSource = null;
         }
 
         void LoadPicker()
@@ -214,6 +222,11 @@ namespace SalesApp
                     POList.Add(_Items);
 
                 ListProduct.ItemsSource = POList;
+            }
+            else
+            {
+                POList.Clear();
+                ListProduct.ItemsSource = null;
             }
         }
 
@@ -286,7 +299,8 @@ namespace SalesApp
                         SubTotal = double.Parse(EntrySubtotal.Text),
                         SGST = double.Parse(EntrySGST.Text),
                         CGST = double.Parse(EntryCGST.Text),
-                        Total = double.Parse(EntryTotal.Text)
+                        Total = double.Parse(EntryTotal.Text),
+                        Status = PurchaseOrderStatus.Open.ToString()
                     };
 
                     if (_EditItem == null)
@@ -449,6 +463,14 @@ namespace SalesApp
             {
                 DisplayAlert("Error", "Product not found.", "OK");
             }
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            base.OnBackButtonPressed();
+
+            Application.Current.MainPage = new MenuMaster();
+            return true;
         }
 
     }

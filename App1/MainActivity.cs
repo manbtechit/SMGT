@@ -20,6 +20,7 @@ namespace SalesApp.Droid
 
             ZXing.Net.Mobile.Forms.Android.Platform.Init();
 
+           // SQLite_Android.CopyDatabaseAsync(this);
 
             LoadApplication(new App());
         }

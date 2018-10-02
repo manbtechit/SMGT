@@ -16,8 +16,8 @@ namespace SalesApp
         {
             InitializeComponent();
 
-            this.Master = new MenuMasterMaster(this) { Icon = "mastermenu.png", Title = "Personnel Organiser" };
-            this.Detail = new NavigationPage(new ReportListPage())
+            this.Master = new MenuMasterMaster(this) { Icon = "mastermenu.png", Title = "Sales App" };
+            this.Detail = new NavigationPage(new Dashboard())
             {
                 BarBackgroundColor = Utilities.ThemeColor,
                 BarTextColor = Utilities.ThemeTextColor,

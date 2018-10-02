@@ -13,7 +13,7 @@ namespace SalesApp
         {
             try
             {
-                string _Query = "Select * from PurchaseOrder";
+                string _Query = "Select * from PurchaseOrder where status='"+ PurchaseOrderStatus.Open.ToString()+"'";
 
                 var _result = SessionData.SQLDataConnection.Query<PurchaseOrder>(_Query);
 
