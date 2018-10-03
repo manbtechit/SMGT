@@ -4,7 +4,7 @@
              x:Class="SalesApp.Dashboard" xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms">
     <ContentPage.Content>
         <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#FFFFFF" >
-            <Grid HorizontalOptions="FillAndExpand" Margin="0,10,0,0">
+            <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,10,0,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="25"/>
                     <RowDefinition Height="25"/>
@@ -12,7 +12,7 @@
                     <RowDefinition Height="25"/>
                     <RowDefinition Height="25"/>
                     <RowDefinition Height="25"/>
-                    <RowDefinition Height="150"/>
+                    <RowDefinition Height="200"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -27,10 +27,10 @@
                 <Label x:Name="LabelSalesOrder" Grid.Row="4" Grid.Column="0" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" Text="Stock" FontSize="13" TextColor="#00456E"/>
 
                 <Label Text="Last 7 days Sales Report" Grid.Row="5" Grid.Column="0" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" FontSize="13" TextColor="#00456E"/>
-                <microcharts:ChartView x:Name="chart1" Grid.Row="6" Grid.Column="0" HeightRequest="250" Margin="20" BackgroundColor="White" />
+                <microcharts:ChartView x:Name="chart1" Grid.Row="6" Grid.Column="0" HeightRequest="200" Margin="20" BackgroundColor="White" />
             </Grid>
 
-            <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="End" HeightRequest="50">
+            <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" HeightRequest="125">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1"/>

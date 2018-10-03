@@ -16,6 +16,11 @@ namespace SalesApp
             SessionData._OfflineDB = new OfflineDB();
             SessionData.SQLDataConnection = DependencyService.Get<ISQLite>().GetOfflineConnection();
 
+            SessionData.LoginUserName = "Manoj Kumar";
+
+            //Below line used to insert Master data to the app
+          //  Utilities.InsertData();
+
             MainPage = new MenuMaster();
         }
 

@@ -22,9 +22,9 @@ namespace SalesApp
         public string ProductDescription { get; set; }
         public string IsActive { get; set; }
         public string CreatedBy { get; set; }
+        public string CreatedDate { get; set; }
         public string ModifiedBy { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime ModifiedDate { get; set; }
+        public string ModifiedDate { get; set; }
     }
 
     public class PurchaseOrder
@@ -41,9 +41,9 @@ namespace SalesApp
         public double ProductCount { get; set; }
         public string Status { get; set; }
         public string CreatedBy { get; set; }
+        public string CreatedDate { get; set; }
         public string ModifiedBy { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime ModifiedDate { get; set; }
+        public string ModifiedDate { get; set; }
     }
 
     public class PurchaseOrder_Product
@@ -73,9 +73,9 @@ namespace SalesApp
         public double ProductCount { get; set; }
         public string Status { get; set; }
         public string CreatedBy { get; set; }
+        public string CreatedDate { get; set; }
         public string ModifiedBy { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime ModifiedDate { get; set; }
+        public string ModifiedDate { get; set; }
     }
 
     public class ReceiptOrder_Product
@@ -105,9 +105,9 @@ namespace SalesApp
         public double ProductCount { get; set; }
         public string Status { get; set; }
         public string CreatedBy { get; set; }
+        public string CreatedDate { get; set; }
         public string ModifiedBy { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime ModifiedDate { get; set; }
+        public string ModifiedDate { get; set; }
     }
 
     public class SalesOrder_Product
@@ -138,9 +138,6 @@ namespace SalesApp
         public string Barcode { get; set; }
         public string ProductDescription { get; set; }
         public string IsActive { get; set; }
-        public string CreatedBy { get; set; }
-        public string ModifiedBy { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime ModifiedDate { get; set; }
+      
     }
 }

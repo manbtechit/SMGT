@@ -27,6 +27,27 @@ namespace SalesApp
             }
             return null;
         }
+
+        public List<SalesOrder> GetTodaySalesOrder()
+        {
+            try
+            {
+                string _Query = "select * from SalesOrder where " +
+                    "substr(OrderDate, 7) || substr(OrderDate, 4, 2) || substr(OrderDate, 1, 2) = '" + DateTime.Now.ToString("yyyyMMdd") + "'";
+
+                var _result = SessionData.SQLDataConnection.Query<SalesOrder>(_Query);
+
+                return _result;
+            }
+            catch (SQLiteException SQLex)
+            {
+            }
+            catch (Exception Ex)
+            {
+            }
+            return null;
+        }
+
         public List<SalesOrder_Product> GetAllSalesProduct(string OrderNumber)
         {
             try

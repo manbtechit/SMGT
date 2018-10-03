@@ -11,6 +11,10 @@ namespace SalesApp
         public int UniqueID { get; set; }
         public string CategoryName { get; set; }
         public string IsActive { get; set; }
+        public string CreatedBy { get; set; }
+        public string CreatedDate { get; set; }
+        public string ModifiedBy { get; set; }
+        public string ModifiedDate { get; set; }
     }
 
     public class Supplier
@@ -28,6 +32,10 @@ namespace SalesApp
         public string BillingZipCode { get; set; }
         public string Notes { get; set; }
         public string IsActive { get; set; }
+        public string CreatedBy { get; set; }
+        public string CreatedDate { get; set; }
+        public string ModifiedBy { get; set; }
+        public string ModifiedDate { get; set; }
     }
 
     public class Customer
@@ -47,5 +55,9 @@ namespace SalesApp
         public string ShippingState { get; set; }
         public string ShippingZipCode { get; set; }
         public string IsActive { get; set; }
+        public string CreatedBy { get; set; }
+        public string CreatedDate { get; set; }
+        public string ModifiedBy { get; set; }
+        public string ModifiedDate { get; set; }
     }
 }

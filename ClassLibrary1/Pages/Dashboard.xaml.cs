@@ -13,22 +13,35 @@ using Entry = Microcharts.Entry;
 
 namespace SalesApp
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class Dashboard : ContentPage
-	{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class Dashboard : ContentPage
+    {
         ReportLogic _reportLogic = new ReportLogic();
+        StockLogic _stockLogic = new StockLogic();
+        POLogic _poLogic = new POLogic();
+        SalesLogic _saleLogic = new SalesLogic();
 
-        public Dashboard ()
-		{
-			InitializeComponent ();
+        public Dashboard()
+        {
+            InitializeComponent();
 
             this.Title = "Dashboard";
-
-            LabelTotalStock.Text = "Total Stock in hand : ";
-            LabelTotalStockPrice.Text = "Total Stock Price : ";
-            LabelOpenPurchase.Text = "Open Purchase Order : ";
-            LabelSalesOrder.Text = "Total Sales Order today : ";
             
+            var _Count = _stockLogic.GetAllStockPrice("Count");
+            if (_Count != null)
+                LabelTotalStock.Text = "Total Stock in hand : " + _Count.FirstOrDefault().Quantity + " of " + _Count.FirstOrDefault().AlertQuantity + " item";
+
+            var _Price = _stockLogic.GetAllStockPrice("Price");
+            if (_Price != null)
+                LabelTotalStockPrice.Text = "Total Stock Price : " + SessionData.Currency + "" + _Price.FirstOrDefault().PurchasePrice + " / " + SessionData.Currency + "" + _Price.FirstOrDefault().SalesPrice;
+
+            var _Purchase = _poLogic.GetAllPurchaseOrder();
+            if(_Purchase!=null)
+                LabelOpenPurchase.Text = "Open Purchase Order : "+_Purchase.Count;
+
+            var _Sales = _saleLogic.GetTodaySalesOrder();
+            LabelSalesOrder.Text = "Total Sales Order today : "+_Sales.Count;
+
             LoadClicks();
 
             LoadSalesReport();
@@ -37,30 +50,34 @@ namespace SalesApp
         void LoadClicks()
         {
             var StocktapRecognizer = new TapGestureRecognizer();
-            StocktapRecognizer.Tapped += (sender, eventergs) => {
-                Utilities.PushModalAsync(Navigation, new StockListPage());
+            StocktapRecognizer.Tapped += (sender, eventergs) =>
+            {
+                Utilities.PushModalAsync(Navigation, new StockDetailsPage(null));
             };
             ImageStock.GestureRecognizers.Add(StocktapRecognizer);
 
             LabelStock.GestureRecognizers.Add(StocktapRecognizer);
 
             var PurchasetapRecognizer = new TapGestureRecognizer();
-            PurchasetapRecognizer.Tapped += (sender, eventergs) => {
-                Utilities.PushModalAsync(Navigation, new PurchaseOrderPage());
+            PurchasetapRecognizer.Tapped += (sender, eventergs) =>
+            {
+                Utilities.PushModalAsync(Navigation, new PurchaseOrderPage("Add"));
             };
             ImagePurchase.GestureRecognizers.Add(PurchasetapRecognizer);
             LabelPurhase.GestureRecognizers.Add(PurchasetapRecognizer);
 
             var ReceipttapRecognizer = new TapGestureRecognizer();
-            ReceipttapRecognizer.Tapped += (sender, eventergs) => {
-                Utilities.PushModalAsync(Navigation, new ReceiptPage());
+            ReceipttapRecognizer.Tapped += (sender, eventergs) =>
+            {
+                Utilities.PushModalAsync(Navigation, new ReceiptPage("Add"));
             };
             ImageReceipt.GestureRecognizers.Add(ReceipttapRecognizer);
             LabelReceipt.GestureRecognizers.Add(ReceipttapRecognizer);
 
             var SaletapRecognizer = new TapGestureRecognizer();
-            SaletapRecognizer.Tapped += (sender, eventergs) => {
-                 Utilities.PushModalAsync(Navigation, new SalesPage());
+            SaletapRecognizer.Tapped += (sender, eventergs) =>
+            {
+                Utilities.PushModalAsync(Navigation, new SalesPage("Add"));
             };
             ImageSale.GestureRecognizers.Add(SaletapRecognizer);
             LabelSale.GestureRecognizers.Add(SaletapRecognizer);
@@ -116,7 +133,7 @@ namespace SalesApp
                 return ChartData;
             }
 
-            var chart = new DonutChart() { Entries = GetChartData() };
+            var chart = new BarChart() { Entries = GetChartData() };
             this.chart1.Chart = chart;
         }
 
@@ -128,5 +145,6 @@ namespace SalesApp
 
             return true;
         }
+
     }
 }

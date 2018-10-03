@@ -114,6 +114,9 @@ namespace SalesApp
 
                 if (_EditItem == null)
                 {
+                    _custItem.CreatedBy = SessionData.LoginUserName;
+                    _custItem.CreatedDate = DateTime.Now.ToString("dd/MM/yyyy");
+
                     _CustomerLogic.InsertCustomerItem(_custItem);
 
                     ClearValues();
@@ -133,6 +136,8 @@ namespace SalesApp
                 else
                 {
                     _custItem.UniqueID = _EditItem.UniqueID;
+                    _custItem.ModifiedBy = SessionData.LoginUserName;
+                    _custItem.ModifiedDate = DateTime.Now.ToString("dd/MM/yyyy");
 
                     _CustomerLogic.UpdateCustomerItem(_custItem);
 

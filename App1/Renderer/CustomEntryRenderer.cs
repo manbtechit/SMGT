@@ -59,6 +59,7 @@ namespace SalesApp.Droid.Renderer
                 nativeEditText.SetTextColor(Android.Graphics.Color.Black);
 
                 nativeEditText.Typeface = font;
+                nativeEditText.SetSelectAllOnFocus(true);
             }
         }
     }

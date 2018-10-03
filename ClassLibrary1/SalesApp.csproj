@@ -8,6 +8,7 @@
     <PackageReference Include="Microcharts" Version="0.7.1" />
     <PackageReference Include="Microcharts.Forms" Version="0.7.1" />
     <PackageReference Include="sqlite-net-pcl" Version="1.4.118" />
+    <PackageReference Include="Xamarin.CustomControls.RepeaterView" Version="1.2.2" />
     <PackageReference Include="Xamarin.Forms" Version="2.5.0.122203" />
     <PackageReference Include="ZXing.Net.Mobile.Forms" Version="2.4.1" />
   </ItemGroup>
@@ -73,13 +74,52 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Pages\AdminPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
     <None Update="Pages\CategoryPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Pages\Chart.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Pages\CustomerPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Update="Pages\Dashboard.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Update="Pages\Login.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Pages\Menu\MenuMaster.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Pages\Menu\MenuMasterMaster.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Pages\PurchaseOrderPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Pages\ReceiptPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Pages\ReportDataPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Pages\ReportListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Pages\SalesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Pages\StockDetailsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Pages\StockListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Update="Pages\SupplierPage.xaml">

@@ -4,14 +4,18 @@ using Android.OS;
 using Android.Views;
 using Android.Content.PM;
 using SalesApp;
+using Xamarin.Forms.Platform.Android;
 
 namespace SalesApp.Droid
 {
-    [Activity(Label = "A Sales App", Icon = "@drawable/InvLogo", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsApplicationActivity
+    [Activity(Label = "A Sales App", Icon = "@drawable/InvLogo", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle bundle)
         {
+            FormsAppCompatActivity.ToolbarResource = Resource.Layout.Toolbar;
+            FormsAppCompatActivity.TabLayoutResource = Resource.Layout.Tabbar;
+
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
@@ -27,7 +31,7 @@ namespace SalesApp.Droid
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
-            global::ZXing.Net.Mobile.Forms.Android.PermissionsHandler.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            global::ZXing.Net.Mobile.Android.PermissionsHandler.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
         public void StatusColor()

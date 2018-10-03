@@ -61,7 +61,7 @@ namespace SalesApp
 
             PickerUnit.Items.Clear();
             PickerUnit.Title = "Select Unit";
-            PickerUnit.ItemsSource = _UnitItems;
+            PickerUnit.ItemsSource = Utilities.Units;
             PickerUnit.TextColor = Color.FromHex("#000000");
             PickerUnit.SelectedIndex = 0;
 
@@ -134,6 +134,9 @@ namespace SalesApp
 
                 if (_EditItem == null)
                 {
+                    _StockItem.CreatedBy = SessionData.LoginUserName;
+                    _StockItem.CreatedDate = DateTime.Now.ToString("dd/MM/yyyy");
+
                     _stockLogic.InsertStockItem(_StockItem);
 
                     var _Alert = await DisplayAlert("Success", "Stock added successfully.\nDo you want to add another Stock?", "Yes", "No");
@@ -151,6 +154,9 @@ namespace SalesApp
                 else
                 {
                     _StockItem.UniqueID = _EditItem.UniqueID;
+                    _StockItem.ModifiedBy = SessionData.LoginUserName;
+                    _StockItem.ModifiedDate = DateTime.Now.ToString("dd/MM/yyyy");
+
                     _stockLogic.UpdateStockItem(_StockItem);
 
                     var _Alert = await DisplayAlert("Success", "Stock updated successfully.\nDo you want to add another Stock?", "Yes", "No");
@@ -172,7 +178,7 @@ namespace SalesApp
                 await DisplayAlert("Error", _Error, "Ok");
             }
         }
-        
+
         private async void ButtonCancel_Clicked(object sender, EventArgs e)
         {
             await Navigation.PopModalAsync();
@@ -221,7 +227,7 @@ namespace SalesApp
             var _stockItems = _stockLogic.GetAllStockItems();
             if (_stockItems != null && _stockItems.Count != 0)
             {
-              StockListPage.StockAssestList.Clear();
+                StockListPage.StockAssestList.Clear();
 
                 foreach (var _Items in _stockItems)
                     StockListPage.StockAssestList.Add(_Items);
@@ -269,35 +275,45 @@ namespace SalesApp
 
         void EntryKeyEvents()
         {
-            EntryProductName.Completed += (sender, e) => {
+            EntryProductName.Completed += (sender, e) =>
+            {
                 EntryProductNumber.Focus();
             };
 
-            EntryProductNumber.Completed += (sender, e) => {
+            EntryProductNumber.Completed += (sender, e) =>
+            {
                 PickerCategory.Focus();
             };
-            PickerCategory.SelectedIndexChanged += (sender, e) => {
+            PickerCategory.SelectedIndexChanged += (sender, e) =>
+            {
                 EntryQuantity.Focus();
             };
-            EntryQuantity.Completed += (sender, e) => {
+            EntryQuantity.Completed += (sender, e) =>
+            {
                 EntryPurchaseprice.Focus();
             };
-            EntryPurchaseprice.Completed += (sender, e) => {
+            EntryPurchaseprice.Completed += (sender, e) =>
+            {
                 EntrySalesPrice.Focus();
             };
-            EntrySalesPrice.Completed += (sender, e) => {
+            EntrySalesPrice.Completed += (sender, e) =>
+            {
                 PickerUnit.Focus();
             };
-            PickerUnit.SelectedIndexChanged += (sender, e) => {
+            PickerUnit.SelectedIndexChanged += (sender, e) =>
+            {
                 PickerSupplier.Focus();
             };
-            PickerSupplier.SelectedIndexChanged += (sender, e) => {
+            PickerSupplier.SelectedIndexChanged += (sender, e) =>
+            {
                 EntryAlertQuantity.Focus();
             };
-            EntryAlertQuantity.Completed += (sender, e) => {
+            EntryAlertQuantity.Completed += (sender, e) =>
+            {
                 EntryBarcode.Focus();
             };
-            EntryBarcode.Completed += (sender, e) => {
+            EntryBarcode.Completed += (sender, e) =>
+            {
                 EntryProductDescription.Focus();
             };
         }

@@ -26,6 +26,31 @@ namespace SalesApp
             return null;
         }
 
+        public List<Stocks> GetAllStockPrice(string _Value)
+        {
+            try
+            {
+                string _Query = "";
+
+                if (_Value=="Count")
+                    _Query = "Select Sum(Quantity) Quantity, count(*) AlertQuantity from Stocks where IsActive='true' COLLATE NOCASE";
+                if (_Value == "Price")
+                    _Query = "Select sum((Quantity * Purchaseprice)) 'PurchasePrice', sum((Quantity * SalesPrice)) 'SalesPrice' from Stocks " +
+                        "where IsActive='true' COLLATE NOCASE";
+
+                var _result = SessionData.SQLDataConnection.Query<Stocks>(_Query);
+
+                return _result;
+            }
+            catch (SQLiteException SQLex)
+            {
+            }
+            catch (Exception Ex)
+            {
+            }
+            return null;
+        }
+
         public List<Stocks> SearchStockItems(string SearchText)
         {
             try

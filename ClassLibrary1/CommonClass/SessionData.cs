@@ -14,5 +14,8 @@ namespace SalesApp
         public static double SGST = 2;
 
         public static string Currency = "₹";
+
+        public static string LoginUserName = "Manoj";
+
     }
 }

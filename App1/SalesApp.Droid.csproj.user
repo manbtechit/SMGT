@@ -4,5 +4,6 @@
     <SelectedDevice>Zebra Technologies TC51</SelectedDevice>
     <DefaultDevice>pixel_-_nougat_7_1</DefaultDevice>
     <ProjectView>ProjectFiles</ProjectView>
+    <AndroidDesignerPreferredDevice>Nexus 4</AndroidDesignerPreferredDevice>
   </PropertyGroup>
 </Project>

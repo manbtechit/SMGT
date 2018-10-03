@@ -50,7 +50,7 @@ namespace SalesApp
             set { _SaleItemcollection = value; }
         }
 
-        public SalesPage()
+        public SalesPage(string _view)
         {
             InitializeComponent();
 
@@ -62,7 +62,10 @@ namespace SalesApp
             ListProductItem.IsRefreshing = IsBusy;
             SaleList.Clear();
 
-            ChangeLayout(true);
+            if (_view == "Add")
+                ChangeLayout(false);
+            else
+                ChangeLayout(true);
 
             SaleList.Clear();
             SaleItemList.Clear();
@@ -233,34 +236,47 @@ namespace SalesApp
                 var POItem = SaleItemList.Where(i => i.UniqueID == _EditItemProduct.UniqueID);
                 if (POItem.Count() != 0)
                 {
-                    _EditItemProduct.Quantity = int.Parse(EntryQuantity.Text);
-
-                    SaleItemList.Remove(POItem.FirstOrDefault());
-                    SaleItemList.Add(_EditItemProduct);
-
-                    _EditItemProduct = null;
-                    ListProductItem.ItemsSource = null;
-                    ListProductItem.ItemsSource = SaleItemList;
-
-                    double subtotal = 0;
-                    foreach (var _prod in SaleItemList)
+                    var _PItem = _SalesLogic.GetStockItems(POItem.FirstOrDefault().ProductName).FirstOrDefault();
+                    if (_PItem != null)
                     {
-                        subtotal = subtotal + (_prod.Quantity * _prod.SalesPrice);
+                        if (_PItem.Quantity >= int.Parse(EntryQuantity.Text))
+                        {
+                            ListProductItem.ItemsSource = null;
+
+                            _EditItemProduct.Quantity = int.Parse(EntryQuantity.Text);
+
+                            SaleItemList.Remove(POItem.FirstOrDefault());
+                            SaleItemList.Add(_EditItemProduct);
+
+                            _EditItemProduct = null;
+                           
+                            ListProductItem.ItemsSource = SaleItemList;
+
+                            double subtotal = 0;
+                            foreach (var _prod in SaleItemList)
+                            {
+                                subtotal = subtotal + (_prod.Quantity * _prod.SalesPrice);
+                            }
+
+                            EntrySubtotal.Text = subtotal.ToString();
+
+                            double CGST = (subtotal * SessionData.CGST) / 100;
+                            double SGST = (subtotal * SessionData.SGST) / 100;
+
+                            EntryCGST.Text = CGST.ToString();
+                            EntrySGST.Text = SGST.ToString();
+
+                            double Total = subtotal + CGST + SGST;
+                            EntryTotal.Text = Total.ToString();
+
+                            PickerProduct.SelectedIndex = 0;
+                            EntryQuantity.Text = "";
+                        }
+                        else
+                        {
+                            DisplayAlert("Error", "Quantity available : " + _PItem.Quantity + " only", "OK");
+                        }
                     }
-
-                    EntrySubtotal.Text = subtotal.ToString();
-
-                    double CGST = (subtotal * SessionData.CGST) / 100;
-                    double SGST = (subtotal * SessionData.SGST) / 100;
-
-                    EntryCGST.Text = CGST.ToString();
-                    EntrySGST.Text = SGST.ToString();
-
-                    double Total = subtotal + CGST + SGST;
-                    EntryTotal.Text = Total.ToString();
-
-                    PickerProduct.SelectedIndex = 0;
-                    EntryQuantity.Text = "";
                 }
             }
         }
@@ -285,6 +301,9 @@ namespace SalesApp
 
                     if (_EditItem == null)
                     {
+                        _Item.CreatedBy = SessionData.LoginUserName;
+                        _Item.CreatedDate = DateTime.Now.ToString("dd/MM/yyyy");
+
                         foreach (var _itm in SaleItemList)
                         {
                             _SalesLogic.UpdateStocks(_itm.ProductID, _itm.Quantity);
@@ -302,6 +321,8 @@ namespace SalesApp
                     else
                     {
                         _Item.UniqueID = _EditItem.UniqueID;
+                        _Item.ModifiedBy = SessionData.LoginUserName;
+                        _Item.ModifiedDate = DateTime.Now.ToString("dd/MM/yyyy");
 
                         foreach (var _itm in SaleItemList)
                         {
@@ -394,63 +415,70 @@ namespace SalesApp
 
             if (_StItem != null)
             {
-                SalesOrder_Product _Product = new SalesOrder_Product()
+                if (_StItem.Quantity >= int.Parse(EntryQuantity.Text))
                 {
-                    ProductID = _StItem.UniqueID,
-                    ProductName = _StItem.ProductName,
-                    Quantity = int.Parse(EntryQuantity.Text),
-                    SalesPrice = _StItem.SalesPrice,
-                    Barcode = _StItem.Barcode,
-                    OrderNumber = EntryOrderNumber.Text
-                };
-
-                if (SaleItemList != null && SaleItemList.Count != 0)
-                {
-                    var POItem = SaleItemList.Where(i => i.ProductID == _StItem.UniqueID);
-                    if (POItem.Count() != 0)
+                    SalesOrder_Product _Product = new SalesOrder_Product()
                     {
-                        int _qty = POItem.FirstOrDefault().Quantity + int.Parse(EntryQuantity.Text);
+                        ProductID = _StItem.UniqueID,
+                        ProductName = _StItem.ProductName,
+                        Quantity = int.Parse(EntryQuantity.Text),
+                        SalesPrice = _StItem.SalesPrice,
+                        Barcode = _StItem.Barcode,
+                        OrderNumber = EntryOrderNumber.Text
+                    };
 
-                        _Product.Quantity = _qty;
-                        SaleItemList.Remove(POItem.FirstOrDefault());
-                        SaleItemList.Add(_Product);
+                    ListProductItem.ItemsSource = null;
+
+                    if (SaleItemList != null && SaleItemList.Count != 0)
+                    {
+                        var POItem = SaleItemList.Where(i => i.ProductID == _StItem.UniqueID);
+                        if (POItem.Count() != 0)
+                        {
+                            int _qty = POItem.FirstOrDefault().Quantity + int.Parse(EntryQuantity.Text);
+
+                            _Product.Quantity = _qty;
+                            SaleItemList.Remove(POItem.FirstOrDefault());
+                            SaleItemList.Add(_Product);
+                        }
+                        else
+                        {
+                            SaleItemList.Add(_Product);
+                        }
                     }
                     else
                     {
                         SaleItemList.Add(_Product);
                     }
+
+                    ListProductItem.ItemsSource = SaleItemList;
+
+                    double subtotal = 0;
+                    foreach (var _prod in SaleItemList)
+                    {
+                        subtotal = subtotal + (_prod.Quantity * _prod.SalesPrice);
+                    }
+
+                    EntrySubtotal.Text = subtotal.ToString();
+
+                    double CGST = (subtotal * SessionData.CGST) / 100;
+                    double SGST = (subtotal * SessionData.SGST) / 100;
+
+                    EntryCGST.Text = CGST.ToString();
+                    EntrySGST.Text = SGST.ToString();
+
+                    double Total = subtotal + CGST + SGST;
+                    EntryTotal.Text = Total.ToString();
+
+                    PickerProduct.SelectedIndex = 0;
+                    EntryQuantity.Text = "";
                 }
                 else
                 {
-                    SaleItemList.Add(_Product);
+                    DisplayAlert("Error", "Quantity available : " + _StItem.Quantity + " only", "OK");
                 }
-
-                ListProductItem.ItemsSource = SaleItemList;
-
-                double subtotal = 0;
-                foreach (var _prod in SaleItemList)
-                {
-                    subtotal = subtotal + (_prod.Quantity * _prod.SalesPrice);
-                }
-
-                EntrySubtotal.Text = subtotal.ToString();
-
-                double CGST = (subtotal * SessionData.CGST) / 100;
-                double SGST = (subtotal * SessionData.SGST) / 100;
-
-                EntryCGST.Text = CGST.ToString();
-                EntrySGST.Text = SGST.ToString();
-
-                double Total = subtotal + CGST + SGST;
-                EntryTotal.Text = Total.ToString();
-
-                PickerProduct.SelectedIndex = 0;
-                EntryQuantity.Text = "";
             }
             else
-            {
                 DisplayAlert("Error", "Product not found.", "OK");
-            }
         }
 
         protected override bool OnBackButtonPressed()

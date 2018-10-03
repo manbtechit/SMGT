@@ -30,7 +30,7 @@ namespace SalesApp
             if (item == null)
                 return;
 
-            var page = (Page)Activator.CreateInstance(item.TargetType);
+            var page = item.TargetType;
             page.Title = item.Title;
 
             Detail = new NavigationPage(page)

@@ -51,7 +51,7 @@ namespace SalesApp
             set { _POItemcollection = value; }
         }
 
-        public ReceiptPage()
+        public ReceiptPage(string _view)
         {
             InitializeComponent();
 
@@ -63,7 +63,10 @@ namespace SalesApp
             ListProductItem.IsRefreshing = IsBusy;
             POItemList.Clear();
 
-            ChangeLayout(true);
+            if (_view == "Add")
+                ChangeLayout(false);
+            else
+                ChangeLayout(true);
 
             LoadList();
 
@@ -304,6 +307,9 @@ namespace SalesApp
                             _ReceiptLogic.UpdateStocks(_itm.ProductID, _itm.Quantity);
                         }
 
+                        _Item.CreatedBy = SessionData.LoginUserName;
+                        _Item.CreatedDate = DateTime.Now.ToString("dd/MM/yyyy");
+
                         _ReceiptLogic.InsertReceiptOrderItems(POItemList);
                         _ReceiptLogic.InsertReceiptOrder(_Item);
 
@@ -316,8 +322,10 @@ namespace SalesApp
                     else
                     {
                         _Item.UniqueID = _EditItem.UniqueID;
+                        _Item.ModifiedBy = SessionData.LoginUserName;
+                        _Item.ModifiedDate = DateTime.Now.ToString("dd/MM/yyyy");
 
-                        foreach(var _itm in POItemList)
+                        foreach (var _itm in POItemList)
                         {
                             _ReceiptLogic.UpdateStocks(_itm.ProductID, _itm.Quantity);
                         }

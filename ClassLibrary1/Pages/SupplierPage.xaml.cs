@@ -121,6 +121,9 @@ namespace SalesApp
 
                 if (_EditItem == null)
                 {
+                    _SupplierItem.CreatedBy = SessionData.LoginUserName;
+                    _SupplierItem.CreatedDate = DateTime.Now.ToString("dd/MM/yyyy");
+
                     _supplierLogic.InsertSupplierItem(_SupplierItem);
 
                     ClearValues();
@@ -140,6 +143,8 @@ namespace SalesApp
                 else
                 {
                     _SupplierItem.UniqueID = _EditItem.UniqueID;
+                    _SupplierItem.ModifiedBy = SessionData.LoginUserName;
+                    _SupplierItem.ModifiedDate = DateTime.Now.ToString("dd/MM/yyyy");
 
                     _supplierLogic.UpdateSupplierItem(_SupplierItem);
 

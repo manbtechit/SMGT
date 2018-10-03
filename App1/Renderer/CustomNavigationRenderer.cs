@@ -7,7 +7,7 @@ using SalesApp.Droid.Renderer;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
-[assembly: ExportRenderer(typeof(NavigationPage), typeof(CustomNavigationRenderer))]
+//[assembly: ExportRenderer(typeof(NavigationPage), typeof(CustomNavigationRenderer))]
 
 namespace SalesApp.Droid.Renderer
 {

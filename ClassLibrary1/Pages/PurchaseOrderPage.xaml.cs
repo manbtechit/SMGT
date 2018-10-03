@@ -49,7 +49,7 @@ namespace SalesApp
             set { _POItemcollection = value; }
         }
 
-        public PurchaseOrderPage()
+        public PurchaseOrderPage(string _view)
         {
             InitializeComponent();
 
@@ -61,7 +61,10 @@ namespace SalesApp
             ListProductItem.IsRefreshing = IsBusy;
             POItemList.Clear();
 
-            ChangeLayout(true);
+            if(_view=="Add")
+                ChangeLayout(false);
+            else
+                ChangeLayout(true);
 
             POList.Clear();
             POItemList.Clear();
@@ -305,6 +308,9 @@ namespace SalesApp
 
                     if (_EditItem == null)
                     {
+                        _Item.CreatedBy = SessionData.LoginUserName;
+                        _Item.CreatedDate = DateTime.Now.ToString("dd/MM/yyyy");
+
                         _POLogic.InsertPurchaseOrderItems(POItemList);
                         _POLogic.InsertPurchaseOrder(_Item);
 
@@ -317,6 +323,8 @@ namespace SalesApp
                     else
                     {
                         _Item.UniqueID = _EditItem.UniqueID;
+                        _Item.ModifiedBy = SessionData.LoginUserName;
+                        _Item.ModifiedDate = DateTime.Now.ToString("dd/MM/yyyy");
 
                         _POLogic.UpdateStockItem(_Item);
                         _POLogic.DeletePurchaseOrderItems(_Item.OrderNumber);

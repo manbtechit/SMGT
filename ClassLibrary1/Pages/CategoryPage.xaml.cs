@@ -111,6 +111,9 @@ namespace SalesApp
 
                 if (_EditItem == null)
                 {
+                    _CategoryItem.CreatedBy = SessionData.LoginUserName;
+                    _CategoryItem.CreatedDate = DateTime.Now.ToString("dd/MM/yyyy");
+
                     _categoryLogic.InsertCategoryItem(_CategoryItem);
 
                     ClearValues();
@@ -130,6 +133,8 @@ namespace SalesApp
                 else
                 {
                     _CategoryItem.UniqueID = _EditItem.UniqueID;
+                    _CategoryItem.ModifiedBy = SessionData.LoginUserName;
+                    _CategoryItem.ModifiedDate = DateTime.Now.ToString("dd/MM/yyyy");
 
                     _categoryLogic.UpdateCategoryItem(_CategoryItem);
 
