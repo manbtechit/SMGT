@@ -32,7 +32,7 @@
                         <controls:FormEntry x:Name="EntryProductName" Grid.Row="0" Grid.Column="1" Placeholder="Name" PlaceholderColor="#bddef9" FontSize="13" TextColor="#000000" />
 
                         <Label x:Name="LblProductNumber" Text="Product ID/Number" Grid.Row="1" Grid.Column="0" TextColor="#000000" />
-                        <controls:FormEntry x:Name="EntryProductNumber" Grid.Row="1" Grid.Column="1" Placeholder="ID/Number" PlaceholderColor="#bddef9" FontSize="13" TextColor="#000000"/>
+                        <controls:FormEntry x:Name="EntryProductNumber" Grid.Row="1" Grid.Column="1" MaxLength="15" Placeholder="ID/Number" PlaceholderColor="#bddef9" FontSize="13" TextColor="#000000"/>
 
                         <Label x:Name="LblCategory" Text="Category" Grid.Row="2" Grid.Column="0" TextColor="#000000" />
                         <controls:CustomPicker x:Name="PickerCategory" Grid.Row="2" Grid.Column="1" HorizontalOptions="FillAndExpand"

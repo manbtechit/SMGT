@@ -51,9 +51,30 @@ namespace SalesApp
         {
             try
             {
-                string _Query = "Select * from Stocks where ProductName = '" + SearchText + "'";
+                string _Query = "Select * from PurchaseOrder where ProductName = '" + SearchText + "'";
 
                 var _result = SessionData.SQLDataConnection.Query<Stocks>(_Query);
+
+                return _result;
+            }
+            catch (SQLiteException SQLex)
+            {
+            }
+            catch (Exception Ex)
+            {
+            }
+            return null;
+        }
+
+        public List<PurchaseOrder> GetSearchItems(string SearchText)
+        {
+            try
+            {
+                string _Query = "Select * from PurchaseOrder PO Inner Join PurchaseOrder_Product POP on PO.OrderNumber =POP.OrderNumber " +
+                    "where status='" + PurchaseOrderStatus.Open.ToString() + "' and " +
+                    "OrderNumber = '" + SearchText + "' or Supplier like '" + SearchText + "%' or POP.ProductName like '" + SearchText + "%'";
+
+                var _result = SessionData.SQLDataConnection.Query<PurchaseOrder>(_Query);
 
                 return _result;
             }

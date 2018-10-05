@@ -88,6 +88,8 @@ namespace SalesApp
 
             LblSupplier.Text = "Supplier : " + _Item.Supplier;
 
+            LblActive.Text = "Active status : " + _Item.IsActive;
+
             if (_Item.ProductDescription.Trim() != "")
                 LblProductDescription.Text = _Item.ProductDescription;
             else

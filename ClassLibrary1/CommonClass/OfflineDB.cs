@@ -18,6 +18,8 @@ namespace SalesApp
             {
                 offlineDataBase = DependencyService.Get<ISQLite>().GetOfflineConnection();
 
+                checkAndCreateTable<RegisterUser>();
+
                 checkAndCreateTable<Stocks>();
                 checkAndCreateTable<Category>();
                 checkAndCreateTable<Supplier>();

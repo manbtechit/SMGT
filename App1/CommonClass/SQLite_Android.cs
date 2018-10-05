@@ -1,8 +1,10 @@
 ﻿using Android.App;
+using Firebase.Xamarin.Database;
 using SalesApp;
 using SalesApp.Droid;
 using SQLite;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -12,6 +14,8 @@ namespace SalesApp.Droid
 {
     public class SQLite_Android : ISQLite
     {
+        private const string FirebaseURL = "https://mobileapp-6556.firebaseio.com/";
+
         public SQLiteConnection GetOfflineConnection()
         {
             try
@@ -51,6 +55,39 @@ namespace SalesApp.Droid
                 {
                 }
             }
+        }
+
+        public async void CreateUser(RegisterUser Users)
+        {
+            var firebase = new FirebaseClient(FirebaseURL);
+         
+            var item = await firebase.Child("Users").PostAsync<RegisterUser>(Users);
+         
+        }
+
+        public async Task<List<RegisterUser>> LoadData()
+        {
+            var firebase = new FirebaseClient(FirebaseURL);
+            var items = await firebase
+                .Child("Users")
+                .OnceAsync<RegisterUser>();
+
+            List<RegisterUser> _user = new List<RegisterUser>();
+
+            foreach (var item in items)
+            {
+                RegisterUser _reg = new RegisterUser();
+                _reg.Name = item.Object.Name;
+                _reg.Email = item.Object.Email;
+                _reg.Mobile = item.Object.Mobile;
+                _reg.Username = item.Object.Username;
+                _reg.Password = item.Object.Password;
+                _reg.DeviceID = item.Object.DeviceID;
+
+                _user.Add(_reg);
+            }
+
+            return _user;
         }
     }
 }

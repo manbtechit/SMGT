@@ -86,6 +86,27 @@ namespace SalesApp
             return null;
         }
 
+        public List<SalesOrder> GetSearchItems(string SearchText)
+        {
+            try
+            {
+                string _Query = "Select * from SalesOrder PO Inner Join SalesOrder_Product POP on PO.OrderNumber =POP.OrderNumber " +
+                    "where status='" + PurchaseOrderStatus.Open.ToString() + "' and " +
+                    "OrderNumber = '" + SearchText + "' or Supplier like '" + SearchText + "%' or POP.ProductName like '" + SearchText + "%'";
+
+                var _result = SessionData.SQLDataConnection.Query<SalesOrder>(_Query);
+
+                return _result;
+            }
+            catch (SQLiteException SQLex)
+            {
+            }
+            catch (Exception Ex)
+            {
+            }
+            return null;
+        }
+
         public Stocks GetStockItembyBarcode(string BarcodeText)
         {
             try

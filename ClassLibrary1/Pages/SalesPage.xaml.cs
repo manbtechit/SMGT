@@ -87,6 +87,8 @@ namespace SalesApp
             EntrySGST.IsEnabled = false;
             EntryTotal.IsEnabled = false;
 
+            EntrySearch.TextChanged += EntrySearch_TextChanged;
+
             ListProduct.ItemSelected += (sender, args) =>
             {
                 if (args.SelectedItem == null)
@@ -182,7 +184,7 @@ namespace SalesApp
         void LoadPicker()
         {
             List<string> _ProductItem = new List<string>();
-            var _ProdData = _stockLogic.GetAllStockItems();
+            var _ProdData = _stockLogic.GetActiveStockItems();
             _ProductItem.Add("Select Product");
             foreach (var _cat in _ProdData)
             {
@@ -487,6 +489,24 @@ namespace SalesApp
 
             Application.Current.MainPage = new MenuMaster();
             return true;
+        }
+
+        private void EntrySearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var _Filter = _SalesLogic.GetSearchItems(EntrySearch.Text);
+            if (_Filter != null)
+            {
+                SaleList.Clear();
+
+                foreach (var _Items in _Filter)
+                    SaleList.Add(_Items);
+
+                ListProduct.ItemsSource = SaleList;
+            }
+            else
+            {
+                ListProduct.ItemsSource = null;
+            }
         }
     }
 }

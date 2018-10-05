@@ -60,4 +60,20 @@ namespace SalesApp
         public string ModifiedBy { get; set; }
         public string ModifiedDate { get; set; }
     }
+
+    public class RegisterUser
+    {
+        [PrimaryKey, AutoIncrement]
+        public int UniqueID { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string Mobile { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string DeviceID { get; set; }
+        public string CreatedBy { get; set; }
+        public string CreatedDate { get; set; }
+        public string ModifiedBy { get; set; }
+        public string ModifiedDate { get; set; }
+    }
 }

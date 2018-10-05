@@ -24,7 +24,7 @@
                 <Label x:Name="UserNameLabel" Text="USERNAME" Margin="20, 0, 0, 0" FontSize="10" Grid.Row="1" Grid.Column="0" TextColor="#FFFFFF"  HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"></Label>
                 <Entry x:Name="UserNameEntry" Margin="20, 0, 0, 0" FontSize="11" Grid.Row="2" Grid.Column="0" HeightRequest="40" WidthRequest="325" TextColor="#FFFFFF" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"></Entry>
                 <Label x:Name="PasswordLabel" Margin="20, 0, 0, 0" FontSize="10" Text="PASSWORD" Grid.Row="3" Grid.Column="0" TextColor="#FFFFFF"  HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"></Label>
-                <Entry x:Name="PasswordEntry" Margin="20, 0, 0, 0" FontSize="11" Grid.Row="4" Grid.Column="0" HeightRequest="40" WidthRequest="325" TextColor="#FFFFFF" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"></Entry>
+                <Entry x:Name="PasswordEntry" Margin="20, 0, 0, 0" IsPassword="True" FontSize="11" Grid.Row="4" Grid.Column="0" HeightRequest="40" WidthRequest="325" TextColor="#FFFFFF" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"></Entry>
                 <Button x:Name="LoginButton" Text="Login" BackgroundColor="#FFFFFF" Grid.Row="5" Grid.Column="0" HeightRequest="50"  WidthRequest="300" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Button>
                 <Grid Grid.Row="6" Grid.Column="0">
                     <Grid.RowDefinitions>

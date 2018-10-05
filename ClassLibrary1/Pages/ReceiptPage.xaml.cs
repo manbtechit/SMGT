@@ -76,6 +76,8 @@ namespace SalesApp
             ButtonCancel.Clicked += ButtonCancel_Clicked;
             ButtonAdd.Clicked += ButtonAdd_Clicked;
 
+            EntrySearch.TextChanged += EntrySearch_TextChanged;
+
             var _List = SessionData._OfflineDB.GetData<PurchaseOrder>();
             var _List1 = SessionData._OfflineDB.GetData<PurchaseOrder_Product>();
 
@@ -194,7 +196,7 @@ namespace SalesApp
             PickerSupplier.SelectedIndex = 0;
 
             List<string> _ProductItem = new List<string>();
-            var _ProdData = _stockLogic.GetAllStockItems();
+            var _ProdData = _stockLogic.GetActiveStockItems();
             _ProductItem.Add("Select Product");
             foreach (var _cat in _ProdData)
             {
@@ -474,6 +476,24 @@ namespace SalesApp
             else
             {
                 DisplayAlert("Error", "Product not found.", "OK");
+            }
+        }
+
+        private void EntrySearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var _Filter = _ReceiptLogic.GetSearchItems(EntrySearch.Text);
+            if (_Filter != null)
+            {
+                POList.Clear();
+
+                foreach (var _Items in _Filter)
+                    POList.Add(_Items);
+
+                ListProduct.ItemsSource = POList;
+            }
+            else
+            {
+                ListProduct.ItemsSource = null;
             }
         }
 

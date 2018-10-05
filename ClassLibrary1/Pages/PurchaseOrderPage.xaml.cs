@@ -82,7 +82,9 @@ namespace SalesApp
             var _List = SessionData._OfflineDB.GetData<PurchaseOrder>();
             var _List1 = SessionData._OfflineDB.GetData<PurchaseOrder_Product>();
 
-            EntryDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
+            PickerOrderDate.Date = DateTime.Now.Date;
+
+            EntrySearch.TextChanged += EntrySearch_TextChanged;
 
             EntrySubtotal.IsEnabled = false;
             EntryCGST.IsEnabled = false;
@@ -124,7 +126,7 @@ namespace SalesApp
         void AssignValues(PurchaseOrder _Item)
         {
             EntryOrderNumber.Text = _Item.OrderNumber;
-            EntryDate.Text = _Item.OrderDate;
+            PickerOrderDate.Date =Convert.ToDateTime(_Item.OrderDate);
             PickerSupplier.SelectedItem = _Item.Supplier;
             PickerProduct.SelectedIndex = 0;
             EntryQuantity.Text = "";
@@ -170,7 +172,7 @@ namespace SalesApp
         void ClearValues()
         {
             EntryOrderNumber.Text = "";
-            EntryDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
+            PickerOrderDate.Date = DateTime.Now.Date;
             PickerSupplier.SelectedIndex = 0;
             PickerProduct.SelectedIndex = 0;
             EntryQuantity.Text = "";
@@ -200,7 +202,7 @@ namespace SalesApp
             PickerSupplier.SelectedIndex = 0;
 
             List<string> _ProductItem = new List<string>();
-            var _ProdData = _stockLogic.GetAllStockItems();
+            var _ProdData = _stockLogic.GetActiveStockItems();
             _ProductItem.Add("Select Product");
             foreach (var _cat in _ProdData)
             {
@@ -297,7 +299,7 @@ namespace SalesApp
                     PurchaseOrder _Item = new PurchaseOrder()
                     {
                         OrderNumber = EntryOrderNumber.Text,
-                        OrderDate = EntryDate.Text,
+                        OrderDate = PickerOrderDate.Date.ToString(),
                         Supplier = PickerSupplier.SelectedItem.ToString(),
                         SubTotal = double.Parse(EntrySubtotal.Text),
                         SGST = double.Parse(EntrySGST.Text),
@@ -358,8 +360,6 @@ namespace SalesApp
 
             if (EntryOrderNumber.Text.Trim() == "")
                 ErrorMessage = "Order Number missing.\n";
-            if (EntryDate.Text.Trim() == "")
-                ErrorMessage += "Order Date missing.\n";
             if (PickerSupplier.SelectedIndex == 0)
                 ErrorMessage += "Supplier missing.\n";
 
@@ -479,6 +479,29 @@ namespace SalesApp
 
             Application.Current.MainPage = new MenuMaster();
             return true;
+        }
+
+        void OnDateSelected(object sender, DateChangedEventArgs args)
+        {
+            
+        }
+
+        private void EntrySearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var _Filter = _POLogic.GetSearchItems(EntrySearch.Text);
+            if (_Filter != null)
+            {
+                POList.Clear();
+
+                foreach (var _Items in _Filter)
+                    POList.Add(_Items);
+
+                ListProduct.ItemsSource = POList;
+            }
+            else
+            {
+                ListProduct.ItemsSource = null;
+            }
         }
 
     }

@@ -11,7 +11,7 @@ namespace SalesApp
         {
             try
             {
-                string _Query = "Select * from Stocks where IsActive='true' COLLATE NOCASE ORDER BY ProductName ASC";
+                string _Query = "Select * from Stocks ORDER BY ProductName ASC";
 
                 var _result = SessionData.SQLDataConnection.Query<Stocks>(_Query);
 
@@ -22,6 +22,25 @@ namespace SalesApp
             }
             catch (Exception Ex)
             {             
+            }
+            return null;
+        }
+
+        public List<Stocks> GetActiveStockItems()
+        {
+            try
+            {
+                string _Query = "Select * from Stocks where IsActive='true' COLLATE NOCASE ORDER BY ProductName ASC";
+
+                var _result = SessionData.SQLDataConnection.Query<Stocks>(_Query);
+
+                return _result;
+            }
+            catch (SQLiteException SQLex)
+            {
+            }
+            catch (Exception Ex)
+            {
             }
             return null;
         }
