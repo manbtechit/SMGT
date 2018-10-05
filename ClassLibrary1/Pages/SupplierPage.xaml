@@ -109,34 +109,34 @@
                             </ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Label x:Name="LblSupplierName" Text="Supplier Name" Grid.Row="0" Grid.Column="0" TextColor="#000000" />
-                        <controls:FormEntry x:Name="EntrySupplierName" Grid.Row="0" Grid.Column="1" Placeholder="Name" PlaceholderColor="#bddef9" FontSize="13" TextColor="#000000" />
+                        <controls:FormEntry x:Name="EntrySupplierName" Grid.Row="0" Grid.Column="1" MaxLength="50" Placeholder="Name" PlaceholderColor="#bddef9" FontSize="13" TextColor="#000000" />
 
                         <Label x:Name="LblCompanyNumber" Text="Company Name" Grid.Row="1" Grid.Column="0" TextColor="#000000" />
-                        <controls:FormEntry x:Name="EntryCompanyNumber" Grid.Row="1" Grid.Column="1" Placeholder="Name" PlaceholderColor="#bddef9" FontSize="13" TextColor="#000000"/>
+                        <controls:FormEntry x:Name="EntryCompanyNumber" Grid.Row="1" Grid.Column="1" MaxLength="100" Placeholder="Name" PlaceholderColor="#bddef9" FontSize="13" TextColor="#000000"/>
 
                         <Label x:Name="LblPhone" Text="LblPhone" Grid.Row="2" Grid.Column="0" TextColor="#000000" />
-                        <controls:FormEntry x:Name="EntryPhone" Grid.Row="2" Grid.Column="1" Placeholder="Phone" PlaceholderColor="#bddef9" Keyboard="Numeric" FontSize="13" TextColor="#000000"/>
+                        <controls:FormEntry x:Name="EntryPhone" Grid.Row="2" Grid.Column="1" MaxLength="15" Placeholder="Phone" PlaceholderColor="#bddef9" Keyboard="Numeric" FontSize="13" TextColor="#000000"/>
 
                         <Label x:Name="LblMobile" Text="Mobile" Grid.Row="3" Grid.Column="0" TextColor="#000000" />
-                        <controls:FormEntry x:Name="EntryMobile" Grid.Row="3" Grid.Column="1" Placeholder="Mobile" PlaceholderColor="#bddef9" Keyboard="Numeric" FontSize="13" TextColor="#000000"/>
+                        <controls:FormEntry x:Name="EntryMobile" Grid.Row="3" Grid.Column="1" MaxLength="13" Placeholder="Mobile" PlaceholderColor="#bddef9" Keyboard="Numeric" FontSize="13" TextColor="#000000"/>
 
                         <Label x:Name="LblEmail" Text="Email" Grid.Row="4" Grid.Column="0"   TextColor="#000000" />
-                        <controls:FormEntry x:Name="EntryEmail" Grid.Row="4" Grid.Column="1" Placeholder="Email" PlaceholderColor="#bddef9"  FontSize="13" TextColor="#000000"/>
+                        <controls:FormEntry x:Name="EntryEmail" Grid.Row="4" Grid.Column="1" MaxLength="150" Placeholder="Email" PlaceholderColor="#bddef9"  FontSize="13" TextColor="#000000"/>
 
                         <Label x:Name="LblBillingAddress" Text="Billing Address" Grid.Row="5" Grid.Column="0"   TextColor="#000000" />
-                        <controls:FormEntry x:Name="EntryBillingAddress" Grid.Row="5" Grid.Column="1" Placeholder="Address" PlaceholderColor="#bddef9"  FontSize="13" TextColor="#000000"/>
+                        <controls:FormEntry x:Name="EntryBillingAddress" Grid.Row="5" Grid.Column="1" MaxLength="50" Placeholder="Address" PlaceholderColor="#bddef9"  FontSize="13" TextColor="#000000"/>
 
                         <Label x:Name="LblBillingCity" Text="Billing City" Grid.Row="6" Grid.Column="0"   TextColor="#000000" />
-                        <controls:FormEntry x:Name="EntryBillingCity" Grid.Row="6" Grid.Column="1" Placeholder="City" PlaceholderColor="#bddef9"  FontSize="13" TextColor="#000000" />
+                        <controls:FormEntry x:Name="EntryBillingCity" Grid.Row="6" Grid.Column="1" MaxLength="30" Placeholder="City" PlaceholderColor="#bddef9"  FontSize="13" TextColor="#000000" />
 
                         <Label x:Name="LblBillingState" Text="Billing State" Grid.Row="7" Grid.Column="0"   TextColor="#000000" />
-                        <controls:FormEntry x:Name="EntryBillingState" Grid.Row="7" Grid.Column="1" Placeholder="State" PlaceholderColor="#bddef9"  FontSize="13" TextColor="#000000"/>
+                        <controls:FormEntry x:Name="EntryBillingState" Grid.Row="7" Grid.Column="1" MaxLength="20" Placeholder="State" PlaceholderColor="#bddef9"  FontSize="13" TextColor="#000000"/>
 
                         <Label x:Name="LblBillingZipcode" Text="Billing Zipcode" Grid.Row="8" Grid.Column="0"   TextColor="#000000" />
-                        <controls:FormEntry x:Name="EntryBillingZipcode" Grid.Row="8" Grid.Column="1" Placeholder="Zipcode" PlaceholderColor="#bddef9" Keyboard="Numeric" HorizontalOptions="Start"  FontSize="13" TextColor="#000000" WidthRequest="100"/>
+                        <controls:FormEntry x:Name="EntryBillingZipcode" Grid.Row="8" Grid.Column="1" MaxLength="6" Placeholder="Zipcode" PlaceholderColor="#bddef9" Keyboard="Numeric" HorizontalOptions="Start"  FontSize="13" TextColor="#000000" WidthRequest="100"/>
 
                         <Label x:Name="LblNotes" Text="Notes" Grid.Row="9" Grid.Column="0"   TextColor="#000000" />
-                        <controls:FormLargeEntry x:Name="EntryNotes" Grid.Row="9" Grid.Column="1" Placeholder="Description" PlaceholderColor="#bddef9" VerticalOptions="FillAndExpand"  HeightRequest="100"  FontSize="13" TextColor="#000000"/>
+                        <controls:FormLargeEntry x:Name="EntryNotes" Grid.Row="9" Grid.Column="1" MaxLength="250" Placeholder="Description" PlaceholderColor="#bddef9" VerticalOptions="FillAndExpand"  HeightRequest="100"  FontSize="13" TextColor="#000000"/>
 
                         <Label x:Name="LblActive" Text="Is Active" Grid.Row="10" Grid.Column="0"   TextColor="#000000" />
                         <Switch x:Name="SwitchActive" Grid.Row="10" Grid.Column="1" HorizontalOptions="Start" WidthRequest="50"/>

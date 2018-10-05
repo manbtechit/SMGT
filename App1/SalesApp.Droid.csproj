@@ -238,6 +238,7 @@
     <Compile Include="CommonClass\Helper.cs" />
     <Compile Include="CommonClass\SQLite_Android.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Renderer\CustomDatePickerRenderer.cs" />
     <Compile Include="Renderer\CustomEntryRenderer.cs" />
     <Compile Include="Renderer\CustomerButtonRenderer.cs" />
     <Compile Include="Renderer\CustomLabelRenderer.cs" />

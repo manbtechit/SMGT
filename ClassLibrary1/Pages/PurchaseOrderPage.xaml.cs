@@ -10,8 +10,8 @@ using ZXing.Net.Mobile.Forms;
 namespace SalesApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class PurchaseOrderPage : ContentPage
-	{
+    public partial class PurchaseOrderPage : ContentPage
+    {
         StockLogic _stockLogic = new StockLogic();
         SupplierLogic _supplierLogic = new SupplierLogic();
         List<PurchaseOrder_Product> _CurrentPOItems;
@@ -61,10 +61,21 @@ namespace SalesApp
             ListProductItem.IsRefreshing = IsBusy;
             POItemList.Clear();
 
-            if(_view=="Add")
+            if (_view == "Add")
                 ChangeLayout(false);
             else
                 ChangeLayout(true);
+
+            var _POItems = _POLogic.GetAllPurchaseOrderNoStatus();
+            if (_POItems != null && _POItems.Count != 0)
+            {
+                var _Number = _POItems.OrderBy(i => i.OrderNumber).LastOrDefault().OrderNumber;
+                int _Count = int.Parse(_Number)+1;
+
+                EntryOrderNumber.Text = _Count.ToString();
+            }
+            else
+                EntryOrderNumber.Text = "1001";
 
             POList.Clear();
             POItemList.Clear();
@@ -90,6 +101,7 @@ namespace SalesApp
             EntryCGST.IsEnabled = false;
             EntrySGST.IsEnabled = false;
             EntryTotal.IsEnabled = false;
+            EntryOrderNumber.IsEnabled = false;
 
             ListProduct.ItemSelected += (sender, args) =>
             {
@@ -126,7 +138,7 @@ namespace SalesApp
         void AssignValues(PurchaseOrder _Item)
         {
             EntryOrderNumber.Text = _Item.OrderNumber;
-            PickerOrderDate.Date =Convert.ToDateTime(_Item.OrderDate);
+            PickerOrderDate.Date = Convert.ToDateTime(_Item.OrderDate);
             PickerSupplier.SelectedItem = _Item.Supplier;
             PickerProduct.SelectedIndex = 0;
             EntryQuantity.Text = "";
@@ -137,7 +149,7 @@ namespace SalesApp
             EntryTotal.Text = _Item.Total.ToString();
 
             var _Prod = _POLogic.GetAllPurchaseProduct(_Item.OrderNumber);
-            if(_Prod!=null && _Prod.Count!=0)
+            if (_Prod != null && _Prod.Count != 0)
             {
                 POItemList.Clear();
 
@@ -180,7 +192,7 @@ namespace SalesApp
             EntryCGST.Text = "";
             EntrySGST.Text = "";
             EntryTotal.Text = "";
-            
+
             POItemList.Clear();
             ListProductItem.ItemsSource = null;
         }
@@ -256,7 +268,7 @@ namespace SalesApp
                 var POItem = POItemList.Where(i => i.UniqueID == _EditItemProduct.UniqueID);
                 if (POItem.Count() != 0)
                 {
-                    _EditItemProduct.Quantity =int.Parse(EntryQuantity.Text);
+                    _EditItemProduct.Quantity = int.Parse(EntryQuantity.Text);
 
                     POItemList.Remove(POItem.FirstOrDefault());
                     POItemList.Add(_EditItemProduct);
@@ -299,7 +311,7 @@ namespace SalesApp
                     PurchaseOrder _Item = new PurchaseOrder()
                     {
                         OrderNumber = EntryOrderNumber.Text,
-                        OrderDate = PickerOrderDate.Date.ToString(),
+                        OrderDate = PickerOrderDate.Date.ToString("dd/MM/yyyy"),
                         Supplier = PickerSupplier.SelectedItem.ToString(),
                         SubTotal = double.Parse(EntrySubtotal.Text),
                         SGST = double.Parse(EntrySGST.Text),
@@ -483,7 +495,11 @@ namespace SalesApp
 
         void OnDateSelected(object sender, DateChangedEventArgs args)
         {
-            
+            if (PickerOrderDate.Date > DateTime.Now.Date)
+            {
+                DisplayAlert("Error", "Date cannont be future date", "Ok");
+                PickerOrderDate.Date = DateTime.Now.Date;
+            }
         }
 
         private void EntrySearch_TextChanged(object sender, TextChangedEventArgs e)

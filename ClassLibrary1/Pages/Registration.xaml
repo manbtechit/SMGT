@@ -15,40 +15,40 @@
                     <RowDefinition Height="40" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="100" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <StackLayout x:Name="CenterBody" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" VerticalOptions="FillAndExpand" HorizontalOptions="CenterAndExpand">
-                    <Label Text="Register" Margin="20, 0, 0, 0" FontSize="15" TextColor="#FFFFFF"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Label>
+                    <Label Text="Register" Margin="20, 0, 0, 0" FontSize="20" TextColor="#FFFFFF"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Label>
                 </StackLayout>
                 <Label Text="NAME" Margin="20, 0, 0, 0" FontSize="10" Grid.Row="1" Grid.Column="0" TextColor="#FFFFFF"  HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"></Label>
-                <Entry x:Name="NameEntry" Margin="20, 0, 0, 0" FontSize="11" Grid.Row="1" Grid.Column="0" HeightRequest="40" WidthRequest="325" TextColor="#FFFFFF" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"></Entry>
+                <Entry x:Name="NameEntry" Margin="20, 0, 0, 0" FontSize="15" Grid.Row="1" Grid.Column="1" HeightRequest="40" WidthRequest="325" TextColor="#FFFFFF" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"></Entry>
                 
                 <Label Text="EMAIL" Margin="20, 0, 0, 0" FontSize="10" Grid.Row="2" Grid.Column="0" TextColor="#FFFFFF"  HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"></Label>
-                <Entry x:Name="EmailEntry" Margin="20, 0, 0, 0" FontSize="11" Grid.Row="2" Grid.Column="0" HeightRequest="40" WidthRequest="325" TextColor="#FFFFFF" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"></Entry>
+                <Entry x:Name="EmailEntry" Margin="20, 0, 0, 0" FontSize="15" Grid.Row="2" Grid.Column="1" HeightRequest="40" WidthRequest="325" TextColor="#FFFFFF" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"></Entry>
 
                 <Label Text="MOBILE" Margin="20, 0, 0, 0" FontSize="10" Grid.Row="3" Grid.Column="0" TextColor="#FFFFFF"  HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"></Label>
-                <Entry x:Name="MobileEntry" Margin="20, 0, 0, 0" FontSize="11" Grid.Row="3" Grid.Column="0" HeightRequest="40" WidthRequest="325" TextColor="#FFFFFF" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"></Entry>
+                <Entry x:Name="MobileEntry" Margin="20, 0, 0, 0" FontSize="15" Grid.Row="3" Grid.Column="1" HeightRequest="40" WidthRequest="325" TextColor="#FFFFFF" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"></Entry>
 
                 <Label Text="USERNAME" Margin="20, 0, 0, 0" FontSize="10" Grid.Row="4" Grid.Column="0" TextColor="#FFFFFF"  HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"></Label>
-                <Entry x:Name="UserNameEntry" Margin="20, 0, 0, 0" FontSize="11" Grid.Row="4" Grid.Column="0" HeightRequest="40" WidthRequest="325" TextColor="#FFFFFF" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"></Entry>
+                <Entry x:Name="UserNameEntry" Margin="20, 0, 0, 0" FontSize="15" Grid.Row="4" Grid.Column="1" HeightRequest="40" WidthRequest="325" TextColor="#FFFFFF" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"></Entry>
 
                 <Label Text="PASSWORD" Margin="20, 0, 0, 0" FontSize="10" Grid.Row="5" Grid.Column="0" TextColor="#FFFFFF"  HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"></Label>
-                <Entry x:Name="PasswordEntry" Margin="20, 0, 0, 0" IsPassword="True" FontSize="11" Grid.Row="5" Grid.Column="0" HeightRequest="40" WidthRequest="325" TextColor="#FFFFFF" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"></Entry>
+                <Entry x:Name="PasswordEntry" Margin="20, 0, 0, 0" IsPassword="True" FontSize="15" Grid.Row="5" Grid.Column="1" HeightRequest="40" WidthRequest="325" TextColor="#FFFFFF" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"></Entry>
 
                 <Label Text="CONFIRM PASSWORD" Margin="20, 0, 0, 0" FontSize="10" Grid.Row="6" Grid.Column="0" TextColor="#FFFFFF"  HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"></Label>
-                <Entry x:Name="ConfirmPasswordEntry" Margin="20, 0, 0, 0" IsPassword="True" FontSize="11" Grid.Row="6" Grid.Column="0" HeightRequest="40" WidthRequest="325" TextColor="#FFFFFF" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"></Entry>
-                
-                <Grid Grid.Row="7" Grid.Column="0">
+                <Entry x:Name="ConfirmPasswordEntry" Margin="20, 0, 0, 0" IsPassword="True" FontSize="15" Grid.Row="6" Grid.Column="1" HeightRequest="40" WidthRequest="325" TextColor="#FFFFFF" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"></Entry>
+
+                <Grid Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,10,0,0">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="20" />
+                        <RowDefinition Height="40" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="SaveButton" Text="Submit" BackgroundColor="#FFFFFF" Grid.Row="0" Grid.Column="0" HeightRequest="50"  WidthRequest="300" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Button>
-                    <Button x:Name="CancelButton" Text="Cancel" BackgroundColor="#FFFFFF" Grid.Row="0" Grid.Column="1" HeightRequest="50"  WidthRequest="300" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Button>
+                    <Button x:Name="SaveButton" Text="Submit" BackgroundColor="#FFFFFF" Grid.Row="0" Grid.Column="0" HeightRequest="35"  WidthRequest="100" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Button>
+                    <Button x:Name="CancelButton" Text="Cancel" BackgroundColor="#FFFFFF" Grid.Row="0" Grid.Column="1" HeightRequest="35"  WidthRequest="100" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Button>
                 </Grid>
             </Grid>
         </StackLayout>

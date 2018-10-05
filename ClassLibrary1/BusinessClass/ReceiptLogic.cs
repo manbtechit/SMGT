@@ -28,6 +28,25 @@ namespace SalesApp
             return null;
         }
 
+        public List<ReceiptOrder> GetAllReceiptOrder()
+        {
+            try
+            {
+                string _Query = "Select * from ReceiptOrder";
+
+                var _result = SessionData.SQLDataConnection.Query<ReceiptOrder>(_Query);
+
+                return _result;
+            }
+            catch (SQLiteException SQLex)
+            {
+            }
+            catch (Exception Ex)
+            {
+            }
+            return null;
+        }
+
         public List<PurchaseOrder_Product> GetAllPurchaseProduct(string OrderNumber)
         {
             try

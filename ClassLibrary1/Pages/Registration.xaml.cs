@@ -53,6 +53,7 @@ namespace SalesApp
                         };
 
                         _registerLogic.InsertUserItem(_User);
+                        DependencyService.Get<ISQLite>().CreateUser(_User);
 
                         await DisplayAlert("Message", "Registered Successfully", "Ok");
                         await Navigation.PopAsync();

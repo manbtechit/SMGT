@@ -28,6 +28,25 @@ namespace SalesApp
             return null;
         }
 
+        public List<PurchaseOrder> GetAllPurchaseOrderNoStatus()
+        {
+            try
+            {
+                string _Query = "Select * from PurchaseOrder";
+
+                var _result = SessionData.SQLDataConnection.Query<PurchaseOrder>(_Query);
+
+                return _result;
+            }
+            catch (SQLiteException SQLex)
+            {
+            }
+            catch (Exception Ex)
+            {
+            }
+            return null;
+        }
+
         public List<PurchaseOrder_Product> GetAllPurchaseProduct(string OrderNumber)
         {
             try
@@ -51,7 +70,7 @@ namespace SalesApp
         {
             try
             {
-                string _Query = "Select * from PurchaseOrder where ProductName = '" + SearchText + "'";
+                string _Query = "Select * from Stocks where ProductName = '" + SearchText + "'";
 
                 var _result = SessionData.SQLDataConnection.Query<Stocks>(_Query);
 

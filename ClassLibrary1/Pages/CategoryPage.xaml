@@ -83,7 +83,7 @@
                         </ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Label x:Name="LblProductName" Text="Category Name" Grid.Row="0" Grid.Column="0" TextColor="#000000" />
-                    <controls:FormEntry x:Name="EntryCategoryName" Grid.Row="0" Grid.Column="1" Placeholder="Name" PlaceholderColor="#bddef9" FontSize="13" TextColor="#000000" />
+                    <controls:FormEntry x:Name="EntryCategoryName" Grid.Row="0" Grid.Column="1" MaxLength="30" Placeholder="Name" PlaceholderColor="#bddef9" FontSize="13" TextColor="#000000" />
 
                     <Label x:Name="LblActive" Text="Is Active" Grid.Row="1" Grid.Column="0"   TextColor="#000000" />
                     <Switch x:Name="SwitchActive" Grid.Row="1" Grid.Column="1" HorizontalOptions="Start" WidthRequest="50"/>

@@ -88,9 +88,9 @@
                             </ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Label x:Name="LblOrderNumber" Text="Order Number" Grid.Row="0" Grid.Column="0" TextColor="#000000" />
-                        <controls:FormEntry x:Name="EntryOrderNumber" Grid.Row="0" Grid.Column="1" Placeholder="Order Number" PlaceholderColor="#bddef9" FontSize="13" TextColor="#000000" Keyboard="Numeric" HorizontalOptions="Start" WidthRequest="75" />
+                        <controls:FormEntry x:Name="EntryOrderNumber" Grid.Row="0" Grid.Column="1" Placeholder="Order Number" BackgroundColor="#FFFFFF" PlaceholderColor="#bddef9" FontSize="13" TextColor="#000000" Keyboard="Numeric" HorizontalOptions="Start" WidthRequest="75" />
                         <Label x:Name="LblOrderDate" Text="Date" Grid.Row="0" Grid.Column="2" TextColor="#000000" />
-                        <controls:FormEntry x:Name="EntryDate" Grid.Row="0" Grid.Column="3" Placeholder="Date" PlaceholderColor="#bddef9" FontSize="12" TextColor="#000000" HorizontalOptions="Start" WidthRequest="85" Margin="-10,0,0,0"/>
+                        <DatePicker x:Name="PickerOrderDate" Format="dd/MM/yyyy" HeightRequest="50" DateSelected="OnDateSelected" Grid.Row="0" Grid.Column="3" Margin="-5,0,0,0" TextColor="#000000" HorizontalOptions="Start" WidthRequest="85" />
 
                         <Label x:Name="LblProductName" Text="ProductName" Grid.Row="1" Grid.Column="0" TextColor="#000000" />
                         <controls:CustomPicker x:Name="PickerProduct" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" HorizontalOptions="FillAndExpand"

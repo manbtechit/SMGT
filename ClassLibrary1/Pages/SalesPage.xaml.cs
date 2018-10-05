@@ -67,6 +67,17 @@ namespace SalesApp
             else
                 ChangeLayout(true);
 
+            var _POItems = _SalesLogic.GetAllSalesOrder();
+            if (_POItems != null && _POItems.Count != 0)
+            {
+                var _Number = _POItems.OrderBy(i => i.OrderNumber).LastOrDefault().OrderNumber;
+                int _Count = int.Parse(_Number) + 1;
+
+                EntryOrderNumber.Text = _Count.ToString();
+            }
+            else
+                EntryOrderNumber.Text = "1001";
+
             SaleList.Clear();
             SaleItemList.Clear();
             ListProductItem.ItemsSource = null;
@@ -80,12 +91,13 @@ namespace SalesApp
             ButtonCancel.Clicked += ButtonCancel_Clicked;
             ButtonAdd.Clicked += ButtonAdd_Clicked;
 
-            EntryDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
+            PickerOrderDate.Date = DateTime.Now.Date;
 
             EntrySubtotal.IsEnabled = false;
             EntryCGST.IsEnabled = false;
             EntrySGST.IsEnabled = false;
             EntryTotal.IsEnabled = false;
+            EntryOrderNumber.IsEnabled = false;
 
             EntrySearch.TextChanged += EntrySearch_TextChanged;
 
@@ -124,7 +136,7 @@ namespace SalesApp
         void AssignValues(SalesOrder _Item)
         {
             EntryOrderNumber.Text = _Item.OrderNumber;
-            EntryDate.Text = _Item.OrderDate;
+            PickerOrderDate.Date =Convert.ToDateTime(_Item.OrderDate);
             PickerProduct.SelectedIndex = 0;
             EntryQuantity.Text = "";
 
@@ -169,7 +181,7 @@ namespace SalesApp
         void ClearValues()
         {
             EntryOrderNumber.Text = "";
-            EntryDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
+            PickerOrderDate.Date = DateTime.Now.Date;
             PickerProduct.SelectedIndex = 0;
             EntryQuantity.Text = "";
             EntrySubtotal.Text = "";
@@ -294,7 +306,7 @@ namespace SalesApp
                     SalesOrder _Item = new SalesOrder()
                     {
                         OrderNumber = EntryOrderNumber.Text,
-                        OrderDate = EntryDate.Text,
+                        OrderDate = PickerOrderDate.Date.ToString("dd/MM/yyyy"),
                         SubTotal = double.Parse(EntrySubtotal.Text),
                         SGST = double.Parse(EntrySGST.Text),
                         CGST = double.Parse(EntryCGST.Text),
@@ -363,8 +375,6 @@ namespace SalesApp
 
             if (EntryOrderNumber.Text.Trim() == "")
                 ErrorMessage = "Order Number missing.\n";
-            if (EntryDate.Text.Trim() == "")
-                ErrorMessage += "Order Date missing.\n";
 
             return ErrorMessage;
         }
@@ -508,5 +518,15 @@ namespace SalesApp
                 ListProduct.ItemsSource = null;
             }
         }
+
+        void OnDateSelected(object sender, DateChangedEventArgs args)
+        {
+            if (PickerOrderDate.Date > DateTime.Now.Date)
+            {
+                DisplayAlert("Error", "Date cannont be future date", "Ok");
+                PickerOrderDate.Date = DateTime.Now.Date;
+            }
+        }
+
     }
 }

@@ -34,8 +34,8 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Label x:Name="SiginLabel" Text="Sign In" FontSize="11" Grid.Row="0" Grid.Column="0" TextColor="#00456E"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Label>
-                    <Label x:Name="ForgotLabel" Text="Forgot Password?" FontSize="11" Grid.Row="0" Grid.Column="1" TextColor="#00456E"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Label>
+                    <Label x:Name="SiginLabel" Text="Register" FontSize="14" Grid.Row="0" Grid.Column="0" TextColor="#FFFFFF"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Label>
+                    <Label x:Name="ForgotLabel" Text="Forgot Password?" FontSize="14" Grid.Row="0" Grid.Column="1" TextColor="#FFFFFF"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Label>
                 </Grid>
             </Grid>
         </StackLayout>
