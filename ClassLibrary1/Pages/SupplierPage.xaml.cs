@@ -32,6 +32,9 @@ namespace SalesApp
             InitializeComponent();
 
             this.Title = "Supplier";
+            this.ClassId = "Supplier";
+            this.BackgroundColor = Color.White;
+            NavigationPage.SetHasNavigationBar(this, false);
 
             ButtonSave.Clicked += ButtonSave_Clicked;
             ButtonCancel.Clicked += ButtonCancel_Clicked;
@@ -61,6 +64,11 @@ namespace SalesApp
             LoadList();
 
             EntryKeyEvents();
+            if (Device.Idiom == TargetIdiom.Tablet)
+            {
+                ListContent.WidthRequest = Utilities.TabletWidth;
+                FormContent.WidthRequest = Utilities.TabletWidth;
+            }
         }
 
         void AssignValues(Supplier _Item)

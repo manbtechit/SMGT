@@ -25,7 +25,9 @@ namespace SalesApp
             InitializeComponent();
 
             this.Title = "Stock Details";
-            NavigationPage.SetHasBackButton(this, true);
+            this.ClassId = "Stock Details";
+            this.BackgroundColor = Color.White;
+            NavigationPage.SetHasNavigationBar(this, false);
 
             LoadPicker();
 
@@ -47,21 +49,20 @@ namespace SalesApp
             BarcodeInit();
 
             EntryKeyEvents();
+
+            if (Device.Idiom == TargetIdiom.Tablet)
+            {
+                OverallStack.WidthRequest = Utilities.TabletWidth;
+            }
         }
 
         void LoadPicker()
         {
-            List<string> _UnitItems = new List<string>();
-
-            _UnitItems.Add("Select Unit");
-            _UnitItems.Add("Kg");
-            _UnitItems.Add("Gms");
-            _UnitItems.Add("Ltr");
-            _UnitItems.Add("Piece");
-
+            List<string> _UnitItems = Utilities.Units;
+            
             PickerUnit.Items.Clear();
             PickerUnit.Title = "Select Unit";
-            PickerUnit.ItemsSource = Utilities.Units;
+            PickerUnit.ItemsSource = _UnitItems;
             PickerUnit.TextColor = Color.FromHex("#000000");
             PickerUnit.SelectedIndex = 0;
 
@@ -148,7 +149,7 @@ namespace SalesApp
                     else
                     {
                         LoadList();
-                        await Navigation.PopModalAsync();
+                        await Navigation.PopAsync();
                     }
                 }
                 else
@@ -169,7 +170,7 @@ namespace SalesApp
                     else
                     {
                         LoadList();
-                        await Navigation.PopModalAsync();
+                        await Navigation.PopAsync();
                     }
                 }
             }
@@ -181,7 +182,7 @@ namespace SalesApp
 
         private async void ButtonCancel_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PopModalAsync();
+            await Navigation.PopAsync();
         }
 
         string Validation()

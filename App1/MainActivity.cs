@@ -8,7 +8,7 @@ using Xamarin.Forms.Platform.Android;
 
 namespace SalesApp.Droid
 {
-    [Activity(Label = "A Sales App", Icon = "@drawable/InvLogo", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "A Sales App", Icon = "@drawable/InvLogo", Theme = "@style/MainTheme",ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle bundle)

@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<salesapp:OrientationContentPage
+    xmlns:salesapp="clr-namespace:SalesApp" xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SalesApp.Dashboard" xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms">
-    <ContentPage.Content>
-        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#FFFFFF" >
+    <salesapp:OrientationContentPage.Content>
+        <StackLayout x:Name="OverallStack" HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#FFFFFF" >
             <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,10,0,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="25"/>
@@ -12,10 +13,10 @@
                     <RowDefinition Height="25"/>
                     <RowDefinition Height="25"/>
                     <RowDefinition Height="25"/>
-                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="200" x:Name="RowChart"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*" x:Name="ColumnCenter"/>
                 </Grid.ColumnDefinitions>
 
                 <Label x:Name="LabelTotalStock" Grid.Row="0" Grid.Column="0" VerticalOptions="Start" HorizontalTextAlignment="Start" HorizontalOptions="CenterAndExpand" Text="Stock" FontSize="13" TextColor="#00456E"/>
@@ -27,7 +28,7 @@
                 <Label x:Name="LabelSalesOrder" Grid.Row="4" Grid.Column="0" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" Text="Stock" FontSize="13" TextColor="#00456E"/>
 
                 <Label Text="Last 7 days Sales Report" Grid.Row="5" Grid.Column="0" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" FontSize="13" TextColor="#00456E"/>
-                <microcharts:ChartView x:Name="chart1" Grid.Row="6" Grid.Column="0" HeightRequest="200" Margin="20" BackgroundColor="White" />
+                <microcharts:ChartView x:Name="SalesChart" Grid.Row="6" Grid.Column="0" Margin="20" BackgroundColor="White" />
             </Grid>
 
             <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" HeightRequest="125">
@@ -65,5 +66,5 @@
             </StackLayout>
 
         </StackLayout>
-    </ContentPage.Content>
-</ContentPage>
+    </salesapp:OrientationContentPage.Content>
+</salesapp:OrientationContentPage>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace SalesApp
@@ -11,6 +12,8 @@ namespace SalesApp
         public static string ThemeColorText = "#00456E";
         public static Color ThemeTextColor = Color.FromHex("#FFFFFF");
 
+        public static int TabletWidth = 500;
+
         // Light Blue : #4AAECF
         // Gray :  #999999
 
@@ -18,18 +21,19 @@ namespace SalesApp
             "Select Unit","Bag","Bags","Boxes","Gm","Jar","Kg","Ltr","Ml","Numbers","Packet","Pcs","Unit"
         };
 
-        public static void PushAsync(INavigation Navigation, Page _PageName)
+        public async static Task PushAsync(INavigation Navigation, Page _PageName,string Pagename)
         {
-            Navigation.PushAsync(new NavigationPage(_PageName)
+          await  Navigation.PushAsync(new NavigationPage(_PageName)
             {
                 BarTextColor = ThemeTextColor,
-                BarBackgroundColor = ThemeColor
-            });
+                BarBackgroundColor = ThemeColor,
+                ClassId = Pagename
+          });
         }
 
-        public static void PushModalAsync(INavigation Navigation, Page _PageName)
+        public async static void PushModalAsync(INavigation Navigation, Page _PageName)
         {
-            Navigation.PushModalAsync(new NavigationPage(_PageName)
+           await Navigation.PushModalAsync(new NavigationPage(_PageName)
             {
                 BarTextColor = ThemeTextColor,
                 BarBackgroundColor = ThemeColor
@@ -38,6 +42,11 @@ namespace SalesApp
 
         public static void InsertData()
         {
+            SessionData.SQLDataConnection.Execute("Delete from Category");
+            SessionData.SQLDataConnection.Execute("Delete from Supplier");
+            SessionData.SQLDataConnection.Execute("Delete from Customer");
+            SessionData.SQLDataConnection.Execute("Delete from Stocks");            
+
             //Category Table values
             SessionData.SQLDataConnection.Execute("Insert into Category(CategoryName,IsActive) values('Oil','True')");
             SessionData.SQLDataConnection.Execute("Insert into Category(CategoryName,IsActive) values('Rice','True')");

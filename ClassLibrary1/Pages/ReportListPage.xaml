@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SalesApp.ReportListPage">
     <ContentPage.Content>
-        <StackLayout x:Name="LoginStack" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Spacing="0" 
+        <StackLayout x:Name="LoginStack" VerticalOptions="FillAndExpand" HorizontalOptions="CenterAndExpand" Spacing="0" 
                      BackgroundColor="#FFFFFF" >
             <Grid Margin="0,10,0,0">
                 <Grid.RowDefinitions>

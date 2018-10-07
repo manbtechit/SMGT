@@ -19,7 +19,7 @@ namespace SalesApp
             SessionData.LoginUserName = "Manoj Kumar";
 
             //Below line used to insert Master data to the app
-            //Utilities.InsertData();
+           // Utilities.InsertData();
 
             MainPage = new MenuMaster();
         }

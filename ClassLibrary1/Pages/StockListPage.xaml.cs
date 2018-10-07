@@ -39,8 +39,9 @@ namespace SalesApp
         {
             InitializeComponent();
 
-            this.Title = "Stocks";
-
+            this.Title = "";
+            this.ClassId = "Stocks";
+            this.BackgroundColor = Color.White;
             ButtonEdit.Clicked += ButtonEdit_Clicked;
 
             ListStock.IsPullToRefreshEnabled = false;
@@ -60,10 +61,10 @@ namespace SalesApp
                 ChangeLayout(false);
             };
 
-            ToolbarItems.Add(new ToolbarItem("Add", "Add.png", () =>
+            ToolbarItems.Add(new ToolbarItem("Add", "Add.png", async () =>
             {
                 _EditItem = null;
-                Utilities.PushModalAsync(Navigation, new StockDetailsPage(null));
+                await Utilities.PushAsync(Navigation, new StockDetailsPage(null), "Stock Details");
             }));
 
             EntrySearch.TextChanged += EntrySearch_TextChanged;
@@ -71,6 +72,11 @@ namespace SalesApp
             LoadList();
 
             BarcodeInit();
+
+            if (Device.Idiom == TargetIdiom.Tablet)
+            {
+                OverallStack.WidthRequest = Utilities.TabletWidth;
+            }
         }
 
         void AssignValues(Stocks _Item)
@@ -102,9 +108,9 @@ namespace SalesApp
             FormContent.IsVisible = !_Value;
         }
 
-        private void ButtonEdit_Clicked(object sender, EventArgs e)
+        private async void ButtonEdit_Clicked(object sender, EventArgs e)
         {
-            Utilities.PushModalAsync(Navigation, new StockDetailsPage(_EditItem));
+            await Utilities.PushAsync(Navigation, new StockDetailsPage(_EditItem), "Stock Details");
         }
 
         void LoadList()

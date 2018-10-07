@@ -55,8 +55,9 @@ namespace SalesApp
         {
             InitializeComponent();
 
-            this.Title = "Receipts";
-
+            this.Title = "";
+            this.ClassId = "Receipts";
+            this.BackgroundColor = Color.White;
             _CurrentPOItems = new List<PurchaseOrder_Product>();
 
             ListProductItem.IsPullToRefreshEnabled = false;
@@ -67,17 +68,6 @@ namespace SalesApp
                 ChangeLayout(false);
             else
                 ChangeLayout(true);
-
-            var _POItems = _ReceiptLogic.GetAllReceiptOrder();
-            if (_POItems != null && _POItems.Count != 0)
-            {
-                var _Number = _POItems.OrderBy(i => i.OrderNumber).LastOrDefault().OrderNumber;
-                int _Count = int.Parse(_Number) + 1;
-
-                EntryOrderNumber.Text = _Count.ToString();
-            }
-            else
-                EntryOrderNumber.Text = "1001";
 
             LoadList();
 
@@ -131,6 +121,27 @@ namespace SalesApp
             _EditItemProduct = null;
 
             BarcodeInit();
+
+            GenerateID();
+
+            if (Device.Idiom == TargetIdiom.Tablet)
+            {
+                OverallStack.WidthRequest = Utilities.TabletWidth;
+            }
+        }
+
+        void GenerateID()
+        {
+            var _POItems = _ReceiptLogic.GetAllReceiptOrder();
+            if (_POItems != null && _POItems.Count != 0)
+            {
+                var _Number = _POItems.OrderBy(i => i.OrderNumber).LastOrDefault().OrderNumber;
+                int _Count = int.Parse(_Number) + 1;
+
+                EntryOrderNumber.Text = _Count.ToString();
+            }
+            else
+                EntryOrderNumber.Text = "1001";
         }
 
         void AssignValues(PurchaseOrder _Item)

@@ -4,7 +4,7 @@
              x:Class="SalesApp.CategoryPage" xmlns:controls="clr-namespace:SalesApp;assembly=SalesApp">
     <ContentPage.Content>
         <StackLayout>
-            <StackLayout x:Name="ListContent" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="#FFFFFF" IsVisible="True">
+            <StackLayout x:Name="ListContent" VerticalOptions="FillAndExpand" HorizontalOptions="CenterAndExpand" BackgroundColor="#FFFFFF" IsVisible="True">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40">
@@ -20,7 +20,7 @@
                     <Entry Grid.Row="0" Grid.Column="1" Margin="0,5,0,0" x:Name="EntrySearch" BackgroundColor="#FFFFFF" Placeholder="Search" PlaceholderColor="#535353" TextColor="#535353" HeightRequest="30" MinimumHeightRequest="30" FontSize="14">
                     </Entry>
                 </Grid>
-                <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="White">
+                <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="CenterAndExpand" BackgroundColor="White">
                     <ListView x:Name="ListCategory" CachingStrategy="RecycleElement" TranslationY="-5" HasUnevenRows="true" Header="Test" VerticalOptions="FillAndExpand" SeparatorVisibility="None" IsGroupingEnabled="false">
                         <ListView.ItemTemplate>
                             <DataTemplate>
@@ -70,7 +70,7 @@
                     </ListView>
                 </StackLayout>
             </StackLayout>
-            <StackLayout x:Name="FormContent" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#FFFFFF" IsVisible="False">
+            <StackLayout x:Name="FormContent" HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#FFFFFF" IsVisible="False">
                 <Grid x:Name="gridForm" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="10,0,10,10" Margin="10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30"></RowDefinition>
@@ -88,7 +88,7 @@
                     <Label x:Name="LblActive" Text="Is Active" Grid.Row="1" Grid.Column="0"   TextColor="#000000" />
                     <Switch x:Name="SwitchActive" Grid.Row="1" Grid.Column="1" HorizontalOptions="Start" WidthRequest="50"/>
                 </Grid>
-                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="End" BackgroundColor="#00456E" HeightRequest="50">
+                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand" BackgroundColor="#00456E" HeightRequest="50">
                     <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="5">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="40"></RowDefinition>

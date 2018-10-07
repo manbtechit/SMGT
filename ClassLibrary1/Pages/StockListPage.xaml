@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SalesApp.StockListPage" xmlns:controls="clr-namespace:SalesApp;assembly=SalesApp">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout x:Name="OverallStack" HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand">
             <StackLayout x:Name="ListContent" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="#FFFFFF">
                 <Grid>
                     <Grid.RowDefinitions>

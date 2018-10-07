@@ -2,6 +2,6 @@
 <MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SalesApp.MenuMaster"
-             xmlns:pages="clr-namespace:SalesApp">
+             xmlns:pages="clr-namespace:SalesApp" WidthRequest="100" >
     
 </MasterDetailPage>

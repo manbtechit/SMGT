@@ -128,8 +128,4 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Pages\Views\" />
-  </ItemGroup>
-
 </Project>

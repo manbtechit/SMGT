@@ -31,7 +31,10 @@ namespace SalesApp
         {
             InitializeComponent();
 
-            this.Title = "Category";
+            this.Title = "";
+            this.ClassId = "Category";
+            this.BackgroundColor = Color.White;
+            NavigationPage.SetHasNavigationBar(this, false);
 
             ListCategory.IsPullToRefreshEnabled = false;
             ListCategory.IsRefreshing = IsBusy;
@@ -59,6 +62,12 @@ namespace SalesApp
             LoadList();
 
             ChangeLayout(true);
+
+            if (Device.Idiom == TargetIdiom.Tablet)
+            {
+                ListContent.WidthRequest = Utilities.TabletWidth;
+                FormContent.WidthRequest = Utilities.TabletWidth;
+            }
         }
 
         private void EntrySearch_TextChanged(object sender, TextChangedEventArgs e)

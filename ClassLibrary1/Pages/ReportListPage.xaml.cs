@@ -17,39 +17,44 @@ namespace SalesApp
             InitializeComponent();
 
             this.Title = "Reports";
-
+            this.ClassId = "Reports";
+            this.BackgroundColor = Color.White;
             var TodayTransactionReport = new TapGestureRecognizer();
-            TodayTransactionReport.Tapped += (sender, eventergs) =>
+            TodayTransactionReport.Tapped += async (sender, eventergs) =>
             {
-                Utilities.PushModalAsync(Navigation, new ReportDataPage("TodayTransaction"));
+                await Utilities.PushAsync(Navigation, new ReportDataPage("TodayTransaction"), "Today Transaction");
             };
             Report1Image.GestureRecognizers.Add(TodayTransactionReport);
             Report1Text.GestureRecognizers.Add(TodayTransactionReport);
 
             var CurrentStockReport = new TapGestureRecognizer();
-            CurrentStockReport.Tapped += (sender, eventergs) =>
+            CurrentStockReport.Tapped += async (sender, eventergs) =>
             {
-                Utilities.PushModalAsync(Navigation, new ReportDataPage("CurrentStock"));
+                await Utilities.PushAsync(Navigation, new ReportDataPage("CurrentStock"), "Current Stock");
             };
             Report2Image.GestureRecognizers.Add(CurrentStockReport);
             Report2Text.GestureRecognizers.Add(CurrentStockReport);
 
             var PurchaseReport = new TapGestureRecognizer();
-            PurchaseReport.Tapped += (sender, eventergs) =>
+            PurchaseReport.Tapped += async (sender, eventergs) =>
             {
-
-                Utilities.PushModalAsync(Navigation, new ReportDataPage("Purchase"));
+                await Utilities.PushAsync(Navigation, new ReportDataPage("Purchase"), "Purchase Order Report");
             };
             Report3Image.GestureRecognizers.Add(PurchaseReport);
             Report3Text.GestureRecognizers.Add(PurchaseReport);
 
             var SalesReport = new TapGestureRecognizer();
-            SalesReport.Tapped += (sender, eventergs) =>
+            SalesReport.Tapped += async (sender, eventergs) =>
             {
-                Utilities.PushModalAsync(Navigation, new ReportDataPage("Sales"));
+                await Utilities.PushAsync(Navigation, new ReportDataPage("Sales"), "Sales Order Report");
             };
             Report4Image.GestureRecognizers.Add(SalesReport);
             Report4Text.GestureRecognizers.Add(SalesReport);
+
+            if (Device.Idiom == TargetIdiom.Tablet)
+            {
+                LoginStack.WidthRequest = Utilities.TabletWidth;
+            }
         }
 
         protected override bool OnBackButtonPressed()

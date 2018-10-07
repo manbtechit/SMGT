@@ -14,7 +14,7 @@ using Entry = Microcharts.Entry;
 namespace SalesApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Dashboard : ContentPage
+    public partial class Dashboard : OrientationContentPage
     {
         ReportLogic _reportLogic = new ReportLogic();
         StockLogic _stockLogic = new StockLogic();
@@ -24,9 +24,10 @@ namespace SalesApp
         public Dashboard()
         {
             InitializeComponent();
-
-            this.Title = "Dashboard";
             
+            this.ClassId = "Dashbord";
+            this.BackgroundColor = Color.White;
+
             var _Count = _stockLogic.GetAllStockPrice("Count");
             if (_Count != null)
                 LabelTotalStock.Text = "Total Stock in hand : " + _Count.FirstOrDefault().Quantity + " of " + _Count.FirstOrDefault().AlertQuantity + " item";
@@ -45,6 +46,37 @@ namespace SalesApp
             LoadClicks();
 
             LoadSalesReport();
+
+            if(Device.Idiom == TargetIdiom.Tablet)
+            {
+                OnOrientationChanged += DeviceRotated;
+                PageOrientationEventArgs _e = new PageOrientationEventArgs(PageOrientation.Vertical);
+                DeviceRotated(null, _e);
+            }
+            else
+            {
+                RowChart.Height = 200;
+                SalesChart.HeightRequest = 200;
+            }
+        }
+
+        private void DeviceRotated(object s, PageOrientationEventArgs e)
+        {
+            switch (e.Orientation)
+            {
+                case PageOrientation.Horizontal:
+                    OverallStack.WidthRequest = Utilities.TabletWidth;
+                    SalesChart.WidthRequest = 100;
+                    SalesChart.HeightRequest = 250;
+                    RowChart.Height = 250;
+                    break;
+                case PageOrientation.Vertical:
+                    OverallStack.WidthRequest = Utilities.TabletWidth;
+                    SalesChart.WidthRequest = 100;
+                    SalesChart.HeightRequest = 400;
+                    RowChart.Height = 400;
+                    break;             
+            }
         }
 
         void LoadClicks()
@@ -133,8 +165,8 @@ namespace SalesApp
                 return ChartData;
             }
 
-            var chart = new BarChart() { Entries = GetChartData() };
-            this.chart1.Chart = chart;
+            var chart = new DonutChart() { Entries = GetChartData() };
+            this.SalesChart.Chart = chart;
         }
 
         protected override bool OnBackButtonPressed()

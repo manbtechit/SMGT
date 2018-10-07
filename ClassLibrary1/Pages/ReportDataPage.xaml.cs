@@ -23,6 +23,8 @@ namespace SalesApp
         {
             InitializeComponent();
 
+            NavigationPage.SetHasNavigationBar(this, false);
+            this.BackgroundColor = Color.White;
             ListReportValue.IsPullToRefreshEnabled = false;
             ListReportValue.IsRefreshing = IsBusy;
 
@@ -51,11 +53,18 @@ namespace SalesApp
                 PurchaseReport();
             if (_ReportName == "Sales")
                 SalesReport();
+
+            if (Device.Idiom == TargetIdiom.Tablet)
+            {
+                LoginStack.WidthRequest = Utilities.TabletWidth;
+            }
         }
 
         void TodayTransaction()
         {
             this.Title = "Today Transaction";
+            this.ClassId = "Today Transaction";
+
             LabelTitle.Text = "Today Transaction Report";
 
             chart1.IsVisible = false;
@@ -97,6 +106,8 @@ namespace SalesApp
         void CurrentStock()
         {
             this.Title = "Current Stock";
+            this.ClassId = "Current Stock";
+
             LabelTitle.Text = "Current Stock Status";
 
             chart1.IsVisible = false;
@@ -126,6 +137,8 @@ namespace SalesApp
         void PurchaseReport()
         {
             this.Title = "Purchase Order Report";
+            this.ClassId = "Purchase Order Report";
+
             LabelTitle.Text = "Last 10 days Purchase Order Report";
 
             chart1.IsVisible = true;
@@ -181,6 +194,7 @@ namespace SalesApp
         void SalesReport()
         {
             this.Title = "Sales Order Report";
+            this.ClassId = "Sales Order Report";
             LabelTitle.Text = "Last 10 days Sales Order Report";
 
             chart1.IsVisible = true;

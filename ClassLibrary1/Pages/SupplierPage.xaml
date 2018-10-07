@@ -4,7 +4,7 @@
              x:Class="SalesApp.SupplierPage" xmlns:controls="clr-namespace:SalesApp;assembly=SalesApp">
     <ContentPage.Content>
         <StackLayout>
-            <StackLayout x:Name="ListContent" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="#FFFFFF">
+            <StackLayout x:Name="ListContent" VerticalOptions="FillAndExpand" HorizontalOptions="CenterAndExpand" BackgroundColor="#FFFFFF">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40">
@@ -86,7 +86,7 @@
                     </ListView>
                 </StackLayout>
             </StackLayout>
-            <StackLayout x:Name="FormContent" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#FFFFFF" IsVisible="False">
+            <StackLayout x:Name="FormContent" HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#FFFFFF" IsVisible="False">
                 <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#FFFFFF">
                     <Grid x:Name="gridProvideFeedbackProblem" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="10,0,10,10" Margin="10">
                         <Grid.RowDefinitions>
@@ -142,7 +142,7 @@
                         <Switch x:Name="SwitchActive" Grid.Row="10" Grid.Column="1" HorizontalOptions="Start" WidthRequest="50"/>
                     </Grid>
                 </ScrollView>
-                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#00456E" HeightRequest="50">
+                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand" BackgroundColor="#00456E" HeightRequest="50">
                     <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="5">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="40"></RowDefinition>

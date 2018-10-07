@@ -4,7 +4,7 @@
              x:Class="SalesApp.CustomerPage"  xmlns:controls="clr-namespace:SalesApp;assembly=SalesApp">
     <ContentPage.Content>
         <StackLayout>
-            <StackLayout x:Name="ListContent" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="#FFFFFF">
+            <StackLayout x:Name="ListContent" VerticalOptions="FillAndExpand" HorizontalOptions="CenterAndExpand" BackgroundColor="#FFFFFF">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40">
@@ -86,49 +86,51 @@
                     </ListView>
                 </StackLayout>
             </StackLayout>
-            <StackLayout x:Name="FormContent" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#FFFFFF" IsVisible="False">
-                <Grid x:Name="gridProvideFeedbackProblem" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="10,0,10,10" Margin="10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="30"></RowDefinition>
-                        <RowDefinition Height="30"></RowDefinition>
-                        <RowDefinition Height="30"></RowDefinition>
-                        <RowDefinition Height="30"></RowDefinition>
-                        <RowDefinition Height="30"></RowDefinition>
-                        <RowDefinition Height="30"></RowDefinition>
-                        <RowDefinition Height="30"></RowDefinition>
-                        <RowDefinition Height="40"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="125">
-                        </ColumnDefinition>
-                        <ColumnDefinition Width="*">
-                        </ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Label x:Name="LblCustomerName" Text="Customer Name" Grid.Row="0" Grid.Column="0" TextColor="#000000" />
-                    <controls:FormEntry x:Name="EntryCustomerName" Grid.Row="0" Grid.Column="1" MaxLength="50" Placeholder="Name" PlaceholderColor="#bddef9" FontSize="13" TextColor="#000000" />
+            <StackLayout x:Name="FormContent" HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#FFFFFF" IsVisible="False">
+                <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#FFFFFF">
+                    <Grid x:Name="gridProvideFeedbackProblem" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="10,0,10,10" Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="40"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="125">
+                            </ColumnDefinition>
+                            <ColumnDefinition Width="*">
+                            </ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label x:Name="LblCustomerName" Text="Customer Name" Grid.Row="0" Grid.Column="0" TextColor="#000000" />
+                        <controls:FormEntry x:Name="EntryCustomerName" Grid.Row="0" Grid.Column="1" MaxLength="50" Placeholder="Name" PlaceholderColor="#bddef9" FontSize="13" TextColor="#000000" />
 
-                    <Label x:Name="LblMobile" Text="Mobile" Grid.Row="1" Grid.Column="0" TextColor="#000000" />
-                    <controls:FormEntry x:Name="EntryMobile" Grid.Row="1" Grid.Column="1" MaxLength="13" Placeholder="Mobile" PlaceholderColor="#bddef9" Keyboard="Numeric" FontSize="13" TextColor="#000000"/>
+                        <Label x:Name="LblMobile" Text="Mobile" Grid.Row="1" Grid.Column="0" TextColor="#000000" />
+                        <controls:FormEntry x:Name="EntryMobile" Grid.Row="1" Grid.Column="1" MaxLength="13" Placeholder="Mobile" PlaceholderColor="#bddef9" Keyboard="Numeric" FontSize="13" TextColor="#000000"/>
 
-                    <Label x:Name="LblEmail" Text="Email" Grid.Row="2" Grid.Column="0"   TextColor="#000000" />
-                    <controls:FormEntry x:Name="EntryEmail" Grid.Row="2" Grid.Column="1" MaxLength="150" Placeholder="Email" PlaceholderColor="#bddef9"  FontSize="13" TextColor="#000000"/>
+                        <Label x:Name="LblEmail" Text="Email" Grid.Row="2" Grid.Column="0"   TextColor="#000000" />
+                        <controls:FormEntry x:Name="EntryEmail" Grid.Row="2" Grid.Column="1" MaxLength="150" Placeholder="Email" PlaceholderColor="#bddef9"  FontSize="13" TextColor="#000000"/>
 
-                    <Label x:Name="LblBillingAddress" Text="Billing Address" Grid.Row="3" Grid.Column="0"   TextColor="#000000" />
-                    <controls:FormEntry x:Name="EntryBillingAddress" Grid.Row="3" Grid.Column="1" MaxLength="50" Placeholder="Address" PlaceholderColor="#bddef9"  FontSize="13" TextColor="#000000"/>
+                        <Label x:Name="LblBillingAddress" Text="Billing Address" Grid.Row="3" Grid.Column="0"   TextColor="#000000" />
+                        <controls:FormEntry x:Name="EntryBillingAddress" Grid.Row="3" Grid.Column="1" MaxLength="50" Placeholder="Address" PlaceholderColor="#bddef9"  FontSize="13" TextColor="#000000"/>
 
-                    <Label x:Name="LblBillingCity" Text="Billing City" Grid.Row="4" Grid.Column="0"   TextColor="#000000" />
-                    <controls:FormEntry x:Name="EntryBillingCity" Grid.Row="4" Grid.Column="1" MaxLength="50" Placeholder="City" PlaceholderColor="#bddef9"  FontSize="13" TextColor="#000000" />
+                        <Label x:Name="LblBillingCity" Text="Billing City" Grid.Row="4" Grid.Column="0"   TextColor="#000000" />
+                        <controls:FormEntry x:Name="EntryBillingCity" Grid.Row="4" Grid.Column="1" MaxLength="50" Placeholder="City" PlaceholderColor="#bddef9"  FontSize="13" TextColor="#000000" />
 
-                    <Label x:Name="LblBillingState" Text="Billing State" Grid.Row="5" Grid.Column="0"   TextColor="#000000" />
-                    <controls:FormEntry x:Name="EntryBillingState" Grid.Row="5" Grid.Column="1" MaxLength="20" Placeholder="State" PlaceholderColor="#bddef9"  FontSize="13" TextColor="#000000"/>
+                        <Label x:Name="LblBillingState" Text="Billing State" Grid.Row="5" Grid.Column="0"   TextColor="#000000" />
+                        <controls:FormEntry x:Name="EntryBillingState" Grid.Row="5" Grid.Column="1" MaxLength="20" Placeholder="State" PlaceholderColor="#bddef9"  FontSize="13" TextColor="#000000"/>
 
-                    <Label x:Name="LblBillingZipcode" Text="Billing Zipcode" Grid.Row="6" Grid.Column="0"   TextColor="#000000" />
-                    <controls:FormEntry x:Name="EntryBillingZipcode" Grid.Row="6" Grid.Column="1" MaxLength="6" Placeholder="Zipcode" PlaceholderColor="#bddef9" Keyboard="Numeric" HorizontalOptions="Start"  FontSize="13" TextColor="#000000" WidthRequest="100"/>
+                        <Label x:Name="LblBillingZipcode" Text="Billing Zipcode" Grid.Row="6" Grid.Column="0"   TextColor="#000000" />
+                        <controls:FormEntry x:Name="EntryBillingZipcode" Grid.Row="6" Grid.Column="1" MaxLength="6" Placeholder="Zipcode" PlaceholderColor="#bddef9" Keyboard="Numeric" HorizontalOptions="Start"  FontSize="13" TextColor="#000000" WidthRequest="100"/>
 
-                    <Label x:Name="LblActive" Text="Is Active" Grid.Row="7" Grid.Column="0"   TextColor="#000000" />
-                    <Switch x:Name="SwitchActive" Grid.Row="7" Grid.Column="1" HorizontalOptions="Start" WidthRequest="50"/>
-                </Grid>
-                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="End" BackgroundColor="#00456E" HeightRequest="50">
+                        <Label x:Name="LblActive" Text="Is Active" Grid.Row="7" Grid.Column="0"   TextColor="#000000" />
+                        <Switch x:Name="SwitchActive" Grid.Row="7" Grid.Column="1" HorizontalOptions="Start" WidthRequest="50"/>
+                    </Grid>
+                </ScrollView>
+                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand" BackgroundColor="#00456E" HeightRequest="50">
                     <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="5">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="40"></RowDefinition>
